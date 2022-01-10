@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-import './App.css';
 import Page from './Page.js'
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Router } from 'react-router-dom';
@@ -15,7 +14,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="font-bold underline text-[19px] App-header">
+        Fetching
         {data}
       </header>
     </div>
