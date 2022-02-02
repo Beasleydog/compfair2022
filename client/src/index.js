@@ -7,9 +7,6 @@ import List from './pages/List';
 
 render((
     <div>
-        <div className="underline text-ellipsis">
-            test
-        </div>
         <BrowserRouter>
             <Switch>
                 <Route exact path='/' component={Home} />
