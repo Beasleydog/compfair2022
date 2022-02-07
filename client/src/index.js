@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import List from './pages/List';
-// import './styles/input.css';
+import './styles/output.css';
 
 render(
     <BrowserRouter>
