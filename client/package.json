@@ -9,7 +9,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "node ../index.js | react-scripts start | npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch",
+    "start": "react-scripts start | npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch | node ../index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
