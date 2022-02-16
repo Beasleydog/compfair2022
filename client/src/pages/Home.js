@@ -16,12 +16,13 @@ function Home() {
         </div>
       </div>
 
-      <div className="top-0 left-0 w-screen overflow-auto">
+      <div className="top-0 left-0 w-screen flex flex-col">
         {/* content */}
 
         <Section
           glows={[
-            { x: "25%", y: "10%" },
+            { x: "25%", y: "20%" },
+            { x: "-10%", y: "-20%" }
           ]}
           content={
             <div className="flex flex-col gap-6 items-center">
@@ -63,23 +64,23 @@ function Home() {
 function Section(props) {
   let classString;
   if (props.height) {
-    classString = `w-screen ${props.height} font-bold flex justify-center items-center origin-center`;
+    classString = `w-screen ${props.height} overflow-x-clip`;
   } else {
     classString =
-      "w-screen h-screen font-bold flex justify-center items-center origin-center";
+      "w-screen h-screen overflow-x-clip";
   }
   return (
-    <div>
-      <div className={classString}>
-        <div className="z-10">{props.content}</div>
+    <div className={classString}>
+      <div className="z-10 relative left-0 top-0 h-full w-screen">{props.content}</div>
+      <div className="blur-2xl top-[-100%] relative w-screen h-full">
         {props.glows
           ? props.glows.map((glow, i) => (
             <div
               key={i}
-              className="w-[80vh] h-[80vh] absolute  blur-2xl"
+              className="w-[500px] h-[500px] absolute"
               style={{
                 backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                transform: `scale(4) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
+                transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
                   })`,
                 backgroundSize: "75% 75%",
                 backgroundPosition: "center",

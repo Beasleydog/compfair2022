@@ -466,8 +466,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .absolute {
   position: absolute;
+}
+
+.relative {
+  position: relative;
 }
 
 .sticky {
@@ -493,6 +501,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .right-40 {
   right: 10rem;
+}
+
+.left-\[-100\%\] {
+  left: -100%;
+}
+
+.top-\[-100\%\] {
+  top: -100%;
 }
 
 .z-50 {
@@ -529,6 +545,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-\[80vh\] {
   height: 80vh;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .w-full {
@@ -588,6 +608,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .overflow-auto {
   overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.overflow-x-clip {
+  overflow-x: clip;
 }
 
 .break-normal {
