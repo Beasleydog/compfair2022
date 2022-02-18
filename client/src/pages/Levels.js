@@ -17,7 +17,7 @@ function Levels() {
       </div>
 
       <div className="top-0 left-0 w-full flex flex-col">
-        {/* content */}
+        {/* contents */}
 
         <Section
           glows={[
