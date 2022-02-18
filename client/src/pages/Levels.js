@@ -28,9 +28,9 @@ function Levels() {
             <div className="flex items-center justify-center w-full h-full">
               <div className="flex flex-col gap-6 items-center justify-center">
                 <div className="break-normal text-white text-[40px] text-center font-bold">
-                  The Free, Fun, And Effective Way To Learn Web Design
+                  Test this boi
                 </div>
-                <GetStartedButton />
+                <LevelDisplay />
               </div>
             </div>
           }
@@ -133,6 +133,9 @@ function GetStartedButton(props) {
   >
     Get started
   </button>)
+}
+function LevelDisplay(props){
+    return(<div className="text-white text-[25px] rounded-[10px] font-bold py-3 px-6 rounded-boxed border-white border-2 w-max"></div>)
 }
 const CursorBlur = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });

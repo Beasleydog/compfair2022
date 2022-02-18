@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import Levels from './pages/Levels';
 import List from './pages/List';
 import './styles/output.css';
 
