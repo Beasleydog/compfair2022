@@ -478,11 +478,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: relative;
 }
 
-.sticky {
-  position: -webkit-sticky;
-  position: sticky;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -515,36 +510,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 10;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .flex {
   display: flex;
-}
-
-.h-\[100px\] {
-  height: 100px;
-}
-
-.h-\[calc\(100vh-100px\)\] {
-  height: calc(100vh - 100px);
-}
-
-.h-screen {
-  height: 100vh;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-\[500px\] {
-  height: 500px;
 }
 
 .h-\[80px\] {
   height: 80px;
 }
 
-.h-\[50px\] {
-  height: 50px;
+.h-full {
+  height: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-\[500px\] {
+  height: 500px;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .w-full {
@@ -555,17 +550,37 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50vw;
 }
 
-.w-screen {
-  width: 100vw;
-}
-
 .w-max {
   width: -webkit-max-content;
   width: max-content;
 }
 
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
+.w-\[200px\] {
+  width: 200px;
+}
+
 .w-\[500px\] {
   width: 500px;
+}
+
+.w-\[calc\(100vw-100px\)\] {
+  width: calc(100vw - 100px);
+}
+
+.w-\[400px\] {
+  width: 400px;
+}
+
+.max-w-\[300px\] {
+  max-width: 300px;
 }
 
 .transform {
@@ -585,16 +600,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .gap-6 {
   gap: 1.5rem;
 }
 
-.overflow-hidden {
-  overflow: hidden;
+.gap-10 {
+  gap: 2.5rem;
 }
 
-.overflow-x-clip {
-  overflow-x: clip;
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .break-normal {
@@ -604,6 +623,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-\[10px\] {
   border-radius: 10px;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .border-2 {
@@ -620,6 +643,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(1 11 19 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 248 248 / var(--tw-bg-opacity));
+}
+
+.bg-red {
+  --tw-bg-opacity: 1;
+  background-color: rgb(247 23 53 / var(--tw-bg-opacity));
+}
+
 .p-6 {
   padding: 1.5rem;
 }
@@ -634,8 +667,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
-.pt-\[100px\] {
-  padding-top: 100px;
+.px-\[200px\] {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.pt-5 {
+  padding-top: 1.25rem;
 }
 
 .text-center {
@@ -646,25 +684,29 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: "Share Tech Mono", cursive;
 }
 
-.text-\[40px\] {
-  font-size: 40px;
+.text-\[30px\] {
+  font-size: 30px;
 }
 
 .text-\[20px\] {
   font-size: 20px;
 }
 
+.text-\[40px\] {
+  font-size: 40px;
+}
+
 .text-\[25px\] {
   font-size: 25px;
+}
+
+.text-\[50px\] {
+  font-size: 50px;
 }
 
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-\[30px\] {
-  font-size: 30px;
 }
 
 .font-bold {
