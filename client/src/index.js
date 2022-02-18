@@ -9,6 +9,7 @@ render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="levels" element={<Levels />} />
             <Route path="list" element={<List />} />
         </Routes>
     </BrowserRouter>
