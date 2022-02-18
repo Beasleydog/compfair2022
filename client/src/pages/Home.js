@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -36,7 +36,7 @@ function Home() {
           }
         />
         <Section
-          glows={[{ x: "0", y: "0" }]}
+          glows={[{ x: "90%", y: "30%" }]}
           content={
             <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
               <div className="text-[50px] font-bold">
@@ -50,7 +50,7 @@ function Home() {
           }
         />
         <Section
-          glows={[{ x: "0", y: "0" }]}
+          glows={[{ x: "0", y: "5%" }]}
           content={
             <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
               <div className="text-[50px] font-bold">
@@ -64,7 +64,7 @@ function Home() {
           }
         />
         <Section
-          glows={[{ x: "0", y: "0" }]}
+          glows={[{ x: "70%", y: "-30%" }, { x: "80%", y: "0" }]}
           content={
             <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
               <div className="text-[50px] font-bold">
@@ -78,7 +78,7 @@ function Home() {
           }
         />
         <Section
-          glows={[{ x: "0", y: "0" }]}
+          glows={[{ x: "0", y: "0" }, { x: "50%", y: "90%" }]}
           content={
             <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
               <div className="text-[50px] font-bold">
@@ -93,12 +93,14 @@ function Home() {
         />
 
       </div>
+
+      <CursorBlur />
     </div >
   );
 }
 function Section(props) {
   let classString = "w-full ";
-  classString += (props.height ? props.height : "h-screen");
+  classString = (props.height ? props.height : "h-screen");
 
   return (
     <div className={classString}>
@@ -131,5 +133,35 @@ function GetStartedButton(props) {
   >
     Get started
   </button>)
+}
+const CursorBlur = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    addEventListeners();
+    return () => removeEventListeners();
+  }, []);
+
+  const addEventListeners = () => {
+    document.addEventListener("mousemove", onMouseMove);
+  };
+
+  const removeEventListeners = () => {
+    document.removeEventListener("mousemove", onMouseMove);
+  };
+
+  const onMouseMove = (e) => {
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  return <div className="w-[200px] h-[200px] fixed blur scale-[6] bg-center bg-no-repeat bg-[length:75%_75%]"
+    style={
+      {
+        backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.4786064767703957) 0%, rgba(1,11,19,0) 70%)`,
+        left: `${position.x - 95}px`,
+        top: `${position.y - 95}px`,
+        transition: "left .2s, top .2s"
+      }
+    } />
 }
 export default Home;
