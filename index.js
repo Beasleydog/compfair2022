@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const encryptString = require('./helpers/encryptString.js').encryptString;
-
+const getLevelData = require('./client/src/levels/index.js').getLevelData;
 
 const app = express();
 const { MongoClient } = require('mongodb');
@@ -77,7 +77,8 @@ dbClient.connect().then(function () {
 			await collection.insertOne({
 				username: username,
 				password: encryptString(password),
-				data: ""
+				data: "",
+				levels: {}
 			});
 			res.status(200).json({
 				message: "Account created"
@@ -93,6 +94,14 @@ dbClient.connect().then(function () {
 		await collection.updateOne({ username: req.session.user.username }, { $set: { data: req.body.data } });
 		return res.status(200);
 	});
+	app.post("/api/levelData", (req, res) => {
+		let data = getLevelData(req.body.id);
+		if (data) {
+			res.json(data)
+		} else {
+			res.status(404);
+		}
+	})
 	app.get("/api/userData", requireAuth, async (req, res) => {
 		let { data } = await collection.findOne({ username: req.session.user.username });
 		return res.status(200).json(data);
