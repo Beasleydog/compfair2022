@@ -6,7 +6,8 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "6.2.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-syntax-highlighter": "^15.4.5"
   },
   "scripts": {
     "start": "react-scripts start | npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch | node ../index.js",
