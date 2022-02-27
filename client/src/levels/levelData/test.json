@@ -2,7 +2,7 @@
   "id": "test",
   "title": "Test level",
   "unlockNext": "testtwo",
-  "info": "Some coding info",
+  "info": "Headings elements can be defined by tags <h1> to <h6>, in the order of importance. With each heading, the content will reduce is size. \nTags will start and end like so: <h1>content goes here</h1>. The tags must start and end with the same type, and end with a slash (/). Though each heading has default settings, they can be overwritten using with the style attribute using the CSS properties. An example of this would be <h1 style=\"fontsize:50px;\">content goes here</h1>. The CSS attribute must be specified (in this case, fontsize), followed by a colon and the desired value for said CSS attribute. Ensure that it's also wrapped in quotation marks.",
   "openQuestions": [
     {
       "id": 0,
@@ -26,21 +26,21 @@
   "mcQuestions": [
     {
       "id": 0,
-      "question": "Test example?",
-      "explanation": "You instert an img with <img> lol </img> You instert an img with <img> lol </img>",
+      "question": "What is the correct way to start and end a heading tag?",
+      "explanation": "The heading tag must start and end with the same heading type (h1) and must end with a slash (/)",
       "answers": [
         {
-          "text": "<div>\n wrong answer 1\n</div>",
+          "text": "<h1>\n The first usable prototype of the internet came in the late 1960s\n</h2>",
           "correct": false,
           "id": 0
         },
         {
-          "text": "<span>\n wrong answer 2\n</span>",
+          "text": "<h1>\n HTML stands for HyperText Markup Language\n<h1>",
           "correct": false,
           "id": 1
         },
         {
-          "text": "<div>\n good answer :)\n</div>",
+          "text": "<h1>\n HTML was first written in 1993\n</h1>",
           "correct": true,
           "id": 2
         }
@@ -48,43 +48,43 @@
     },
     {
       "id": 1,
-      "question": "Test example numba 2?",
-      "explanation": "Yotwou instert an img with <img> lol </img> You instert an img with <img> lol </img>",
+      "question": "What is the correct order for headings?",
+      "explanation": "The heading order must go from 1-6. They must go in order from least to greatest.",
       "answers": [
         {
-          "text": "<div>\n wrong a2nswer 1\n</div>",
+          "text": "<h3>a</h3>\n<h2>b</h2>\n<h1>c</h1>",
           "correct": false,
           "id": 0
         },
         {
-          "text": "<span>\n wrong 2answer 2\n</span>",
-          "correct": false,
+          "text": "<h1>a</h1>\n<h3>b</h3>\n<h4>c</h4>",
+          "correct": true,
           "id": 1
         },
         {
-          "text": "<div>\n good 2answer :)\n</div>",
-          "correct": true,
+          "text": "<h1>a</h1>\n<h3>a</h3>\n<h2>a</h2>",
+          "correct": false,
           "id": 2
         }
       ]
     },
     {
-      "id": 1,
-      "question": "Test example numba 2?",
-      "explanation": "Yotwou instert an img with <img> lol </img> You instert an img with <img> lol </img>",
+      "id": 2,
+      "question": "What is the correct way to style a heading tag?",
+      "explanation": "The CSS atribute must be wrapped in quotation marks. The attribute and desired value must be seperated by a colon.",
       "answers": [
         {
-          "text": "<div>\n wrong a2nswer 1\n</div>",
+          "text": "<h1 style=fontsize:25px>\nHello World!\n</h1>",
           "correct": false,
           "id": 0
         },
         {
-          "text": "<span>\n wrong 2answer 2\n</span>",
+          "text": "<h2 style=\"font-family verdana;\">\nHello World!\n</h2>",
           "correct": false,
           "id": 1
         },
         {
-          "text": "<div>\n good 2answer :)\n</div>",
+          "text": "<h3 style=\"color:blue;\">\nHello World!\n</h3>",
           "correct": true,
           "id": 2
         }
