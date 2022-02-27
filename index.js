@@ -3,6 +3,8 @@ const path = require('path');
 const session = require('express-session');
 const encryptString = require('./helpers/encryptString.js').encryptString;
 const getLevelData = require('./client/src/levels/index.js').getLevelData;
+const firstLevelName = require('./client/src/levels/index.js').firstLevelName;
+const firstLevelId = require('./client/src/levels/index.js').firstLevelId;
 
 const app = express();
 const { MongoClient } = require('mongodb');
@@ -71,12 +73,19 @@ dbClient.connect().then(function () {
 
 		if (!user) {
 			//Create an insert a new user into the database
+			let levelData = {};
+			levelData[firstLevelId()] = {
+				name: firstLevelName(),
+				stars: 0,
+				infoRead: 0,
+				mcQuestions: { failed: false, finished: false },
+				openQuestions: { failed: false, finished: false }
+			}
+
 			await collection.insertOne({
 				username: username,
 				password: encryptString(password),
-				levels: {
-
-				},
+				levels: levelData,
 				stars: 0
 			});
 			res.status(200).json({
@@ -97,14 +106,49 @@ dbClient.connect().then(function () {
 			name: level.title,
 			stars: 0,
 			infoRead: 0,
-			mcQuestions: { started: false, finished: false },
-			openQuestions: { started: false, finished: false }
+			mcQuestions: { failed: false, finished: false },
+			openQuestions: { failed: false, finished: false }
 		}
 		userObject.levels[req.body.id] = newLevelValue;
 
-		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject } });
+		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
 		return res.status(200);
-	})
+	});
+	app.post("/api/finishSection", requireAuth, async (req, res) => {
+		let userObject = await collection.findOne({ username: req.session.user.username });
+		if (req.body.mode == "info") {
+			userObject.levels[req.body.id].infoRead = true;
+		} else if (req.body.mode == "multi") {
+			let failedMulti = userObject.levels[req.body.id].mcQuestions.failed;
+			console.log(failedMulti, req.body.attemptNumber, req.body.id, req.body.mode);
+			if (failedMulti && failedMulti == req.body.attemptNumber) {
+				return res.status(420);
+			};
+			userObject.levels[req.body.id].mcQuestions.finished = true;
+			userObject.levels[req.body.id].mcQuestions.failed = false;
+		} else if (req.body.mode == "open") {
+			let failedOpen = userObject.levels[req.body.id].openQuestions.failed;
+			if (failedOpen && failedOpen == req.body.attemptNumber) {
+				return res.status(420);
+			};
+			userObject.levels[req.body.id].openQuestions.finished = true;
+			userObject.levels[req.body.id].openQuestions.failed = false;
+		}
+
+		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
+		return res.status(200);
+	});
+	app.post("/api/failSection", requireAuth, async (req, res) => {
+		let userObject = await collection.findOne({ username: req.session.user.username });
+		if (req.body.mode == "multi") {
+			userObject.levels[req.body.id].mcQuestions.failed = req.body.attemptNumber;
+		} else if (req.body.mode == "open") {
+			userObject.levels[req.body.id].openQuestions.failed = req.body.attemptNumber;
+		}
+
+		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
+		return res.status(200);
+	});
 
 	app.post("/api/levelData", requireAuth, async (req, res) => {
 		let userObject = await collection.findOne({ username: req.session.user.username });

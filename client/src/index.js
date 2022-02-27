@@ -13,7 +13,7 @@ render(
             <Route path="/" element={<Home />} />
             <Route path="levels" element={<Levels />} />
             <Route path="list" element={<List />} />
-            <Route path="play/:id/:mode" element={<Play />} />
+            <Route path="play/:attemptNumber/:id/:mode/:number" element={<Play />} />
         </Routes>
     </BrowserRouter>
     , document.getElementById('root'));

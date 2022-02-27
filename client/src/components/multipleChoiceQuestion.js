@@ -6,23 +6,25 @@ import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 const theme = vs2015;
 console.log(theme)
 function MultipleChoiceQuestion(props) {
+    const [selected, setSelected] = useState(undefined);
+
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div className="text-[50px] text-white text-center">
                 {props.question}
             </div>
             <div className="flex-grow flex justify-around items-center w-full">
-                {props.answers.map((x) => <MultipleChoiceOption codeText={x.codeText} />)}
+                {props.answers.map((x, i) => <MultipleChoiceOption selected={i == selected} key={i} onClick={() => { if (selected == i) { setSelected(undefined) } else { setSelected(i); } }} codeText={x.text} />)}
             </div>
-            <div className="w-min pb-6">
-                <Button text="Ok" />
+            <div className={`w-min pb-6`}>
+                <Button text="Ok" onClick={() => { if (selected == undefined) return; props.onAnswer(selected); }} className={selected == undefined ? "opacity-50 cursor-not-allowed" : ""} />
             </div>
         </div>
     )
 }
 function MultipleChoiceOption(props) {
     return (
-        <div className={`hover:scale-110 hover:shadow-2lx transition-transform cursor-pointer flex items-center justify-center rounded-lg shadow w-[300px] h-[200px] bg-[#1E1E1E]`} >
+        <div onClick={props.onClick} className={`${props.selected ? "" : "hover:"}scale-110 ${props.selected ? "" : "hover:"}shadow-lg transition-transform cursor-pointer flex items-center justify-center rounded-lg w-[300px] h-[200px] bg-[#1E1E1E]`} >
             <SyntaxHighlighter customStyle={{
                 lineHeight: "1",
                 fontSize: "2em"

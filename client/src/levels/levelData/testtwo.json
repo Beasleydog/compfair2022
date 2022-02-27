@@ -1,8 +1,12 @@
 {
+    "id":"testtwo",
     "title":"Test two",
+    "unlockNext":null,
+    "info":"Some coding info two",
 "mcQuestions":[{
     "id":0,
     "question":"Test two?",
+    "explanation":"You instert an img with <img> lol </img> You instert an img with <img> lol </img>",
     "answers":[
         {
             "text":"<div>\n 2nd wrong answer 1\n</div>",
@@ -11,7 +15,7 @@
         },
         {
             "text":"<span>\n 2nd wrong answer 2\n</span>",
-            "correct":true,
+            "correct":false,
             "id":1
         },
         {

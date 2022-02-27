@@ -1,18 +1,32 @@
-const fs = require('fs')
+const fs = require('fs');
 const path = require('path');
 
+let levelList = ["test", "testtwo"];
+levelList = levelList.map((x) => {
+    return require(`./levelData/${x}.json`);
+})
 function getLevelData(id) {
     try {
-        const data = fs.readFileSync(path.join(__dirname, `/levelData/${id}.json`), 'utf8');
-        console.log(data);
-        return JSON.parse(data);
+        return levelList.filter((x) => x.id == id)[0];
     }
     catch (e) {
         console.log(e);
         return undefined
     }
 }
-
+function getAllLevels() {
+    return levelList
+}
+function firstLevelName() {
+    let data = getLevelData(firstLevelId());
+    return data.title;
+}
+function firstLevelId() {
+    return levelList[0].id
+}
 module.exports = {
-    getLevelData
+    getLevelData,
+    firstLevelName,
+    firstLevelId,
+    getAllLevels
 }

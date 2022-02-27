@@ -1,7 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BlurBackground from '../components/blurBackground.js';
+import { getAllLevels } from "../levels/index.js";
 function Levels() {
+  const [levelInfo, setLevelInfo] = useState([]);
+  const allLevels = getAllLevels();
+  console.log(allLevels);
+  useEffect(() => {
+    async function fetchData() {
+      let levelFetch = await fetch("http://localhost:3000/api/levelData", {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          id: "tefst"
+        })
+      });
+      levelFetch = await levelFetch.json();
+      setLevelInfo(levelFetch);
+      console.log(levelFetch);
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="font-main bg-black w-screen h-screen overflow-hidden">
       <UserDisplay name="test" stars="0" />
@@ -10,10 +32,23 @@ function Levels() {
           Levels
         </div>
         <div className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
-          <LevelDisplay name="Div" stars="0" />
-          <LevelDisplay name="Hey" stars="2" />
-          <LevelDisplay name="Did" stars="3" />
-          <LevelDisplay name="Thing" stars="1" />
+          {allLevels.map((x, i) => {
+            if (levelInfo[x.id]) {
+              let finished = {
+                info: levelInfo[x.id].infoRead,
+                mcQuestions: levelInfo[x.id].mcQuestions.finished,
+                openQuestions: levelInfo[x.id].openQuestions.finished,
+              };
+              let failed = {
+                info: false,
+                mcQuestions: levelInfo[x.id].mcQuestions.failed,
+                openQuestions: levelInfo[x.id].openQuestions.failed,
+              };
+              return (<LevelDisplay id={x.id} key={i} name={x.title} stars={levelInfo[x.id].stars} finished={finished} failed={failed} />)
+            } else {
+              return (<LevelDisplay id={x.id} locked key={i} name={x.title} stars="0" />)
+            }
+          })}
         </div>
       </div>
       <div className="z-0">
@@ -56,23 +91,39 @@ function UserDisplay({ name, stars }) {
     </div>
   );
 }
-function LevelDisplay({ name, stars }) {
+function LevelDisplay({ name, stars, locked, finished, failed, id }) {
+  let failedClass = "border-4 border-red rounded-[50%]";
+  let finishClass = "border-4 border-green rounded-[50%]";
+
+  if (!finished) {
+    var finished = {};
+  }
+  if (!failed) {
+    var failed = {};
+  }
+
   return (
-    <div className="flex flex-col justify-center items-center border-white border-4 rounded-lg p-2">
+    <div className={`${(locked ? "opacity-60 cursor-not-allowed" : "")} flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}>
       <div className="z-10 text-white text-[45px] font-bold">
         {name}
       </div>
-      <div className="grid grid-cols-4 gap-12 my-10">
-        <button type="button" className="w-20 h-20">
+      <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
+        <button onClick={() => {
+          if (locked) return
+          window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
+        }} type="button" className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
           <img src="/images/MenuButton.png" />
         </button>
-        <button type="button" className="w-20 h-20">
+        <button onClick={() => {
+          if (locked) return
+          window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
+        }} type="button" className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
           <img src="/images/MenuButton.png" />
         </button>
-        <button type="button" className="w-20 h-20">
-          <img src="/images/MenuButton.png" />
-        </button>
-        <button type="button" className="w-20 h-20">
+        <button onClick={() => {
+          if (locked) return
+          window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
+        }} type="button" className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
           <img src="/images/MenuButton.png" />
         </button>
       </div>
@@ -80,5 +131,7 @@ function LevelDisplay({ name, stars }) {
     </div>
   );
 }
-
+function randomNumber() {
+  return Math.round(Math.random() * 100000);
+}
 export default Levels;
