@@ -15,74 +15,28 @@ function Levels() {
           </button>
         </div>
       </div>
-
+      <UserDisplay name="test" stars="0" />
       <div className="top-0 left-0 w-full flex flex-col">
         {/* contents */}
-
         <Section
           glows={[
             { x: "25%", y: "20%" },
             { x: "-10%", y: "-20%" },
           ]}
           content={
-            <div className="flex items-center justify-center w-full h-full">
-              <div className="flex flex-col gap-6 items-center justify-center">
-                <div className="break-normal text-white text-[40px] text-center font-bold">
-                  Test this boi
+            <div>
+              <div className="relative break-normal text-white text-[40px] text-center font-bold top-32">
+                Levels
+              </div>
+              <div className="flex items-center justify-center w-full h-full">
+                <div className="flex flex-col gap-6 items-center justify-center">
+                  <div className="pb-[12rem]" />
+                  <LevelDisplay name="Div" stars="0" />
+                  <LevelDisplay name="Hey" stars="2" />
+                  <LevelDisplay name="Did" stars="3" />
+                  <LevelDisplay name="Thing" stars="1" />
                 </div>
-                <LevelDisplay data="Div" />
-                <LevelDisplay data="Hey" />
-                <LevelDisplay data="Did" />
-                <LevelDisplay data="Thing" />
               </div>
-            </div>
-          }
-        />
-        <Section
-          glows={[{ x: "90%", y: "30%" }]}
-          content={
-            <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
-              <div className="text-[50px] font-bold">Learn</div>
-              <div className="text-[30px]">
-                Learn simple HTML and CSS concepts.
-              </div>
-              <img
-                src="/images/MenuButton.png"
-                className="rounded w-[50%] h-auto mt-5"
-              />
-            </div>
-          }
-        />
-        <Section
-          glows={[{ x: "0", y: "5%" }]}
-          content={
-            <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
-              <div className="text-[50px] font-bold">Review</div>
-              <div className="text-[30px]">
-                Review concepts with multiple choice and open ended questions.
-              </div>
-              <img
-                src="/images/reviewDisplay.jpg"
-                className="bg-white rounded w-[50%] h-auto mt-5"
-              />
-            </div>
-          }
-        />
-        <Section
-          glows={[
-            { x: "70%", y: "-30%" },
-            { x: "80%", y: "0" },
-          ]}
-          content={
-            <div className="w-full h-full flex flex-col justify-center items-center text-white pt-5">
-              <div className="text-[50px] font-bold">Apply</div>
-              <div className="text-[30px]">
-                Complete design challenges to check for understanding.
-              </div>
-              <img
-                src="/images/applyDisplay.jpg"
-                className="bg-white rounded w-[50%] h-auto mt-5"
-              />
             </div>
           }
         />
@@ -151,12 +105,37 @@ function GetStartedButton(props) {
     </button>
   );
 }
-function LevelDisplay(props) {
+function UserDisplay({ name, stars }) {
+  if (parseInt(stars) <= 9) {
+    var test = "00" + stars;
+  } else if (parseInt(stars) <= 99) {
+    var test = "0" + stars;
+  } else {
+    var test = stars;
+  }
+  return (
+    <div className="fixed justify-center top-80 left-0 backdrop-blur shadow-lg font-bold w-[200px] content-center h-80 flex z-50">
+      <div className="bg-white px-[150px] py-[200px]">
+        <div className="absolute font-main text-black text-[30px] top-0 z-0">
+          {name}
+        </div>
+        <div className="absolute bg-black rounded-full px-[100px] py-[100px] left-[25px] top-12" />
+        <div className="absolute font-main text-black text-[30px] top-[260px]">
+          Stars
+        </div>
+        <div className="absolute font-main text-black text-[20px] top-[300px]">
+          {test}
+        </div>
+      </div>
+    </div>
+  );
+}
+function LevelDisplay({ name, stars }) {
   return (
     <div>
       <div className="flex justify-center">
         <div className="z-10 text-white text-[45px] rounded-[10px] font-bold px-6 rounded-boxed border-white border-4 w-max bg-blue">
-          {props.data}
+          {name}
         </div>
         <div className="absolute rounded-[10px] font-bold -mx-6 py-20 px-64 my-6 rounded-boxed border-white border-4 w-max"></div>
         <div className="absolute grid grid-cols-4 gap-12 my-24">
@@ -174,7 +153,11 @@ function LevelDisplay(props) {
           </button>
         </div>
       </div>
-      <div className="pb-32"></div>
+      <div className="pb-24"></div>
+      <div className="z-10 text-white text-[45px] rounded-[10px] font-bold px-6 rounded-boxed border-white border-4 w-max bg-blue">
+        {stars}/3
+      </div>
+      <div className="pb-12"></div>
     </div>
   );
 }
