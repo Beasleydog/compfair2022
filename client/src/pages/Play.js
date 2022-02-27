@@ -5,7 +5,8 @@ import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.js";
 import BlurBackground from "../components/blurBackground.js";
 function Play() {
     const { id, mode } = useParams();
-    alert(id, mode);
+
+
     return (
         <div>
             <div className="font-main bg-black overflow-hidden w-screen h-screen flex items-center justify-center">

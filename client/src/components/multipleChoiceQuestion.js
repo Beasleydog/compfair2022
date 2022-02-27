@@ -22,9 +22,7 @@ function MultipleChoiceQuestion(props) {
 }
 function MultipleChoiceOption(props) {
     return (
-        <div className={`hover:scale-110 hover:shadow-2lx transition-transform
-        cursor-pointer flex items-center justify-center rounded-lg 
-        shadow w-[300px] h-[200px] bg-[${theme.hljs.background}]`} >
+        <div className={`hover:scale-110 hover:shadow-2lx transition-transform cursor-pointer flex items-center justify-center rounded-lg shadow w-[300px] h-[200px] bg-[#1E1E1E]`} >
             <SyntaxHighlighter customStyle={{
                 lineHeight: "1",
                 fontSize: "2em"

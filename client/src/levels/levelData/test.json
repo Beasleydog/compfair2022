@@ -1,1 +1,25 @@
-{"a":1}
+{
+    "title":"Test level",
+    "unlockNext":"testtwo",
+"mcQuestions":[{
+    "id":0,
+    "question":"Test example?",
+    "answers":[
+        {
+            "text":"<div>\n wrong answer 1\n</div>",
+            "correct":false,
+            "id":0
+        },
+        {
+            "text":"<span>\n wrong answer 2\n</span>",
+            "correct":true,
+            "id":1
+        },
+        {
+            "text":"<div>\n good answer :)\n</div>",
+            "correct":true,
+            "id":2
+        }
+    ]
+}]
+}

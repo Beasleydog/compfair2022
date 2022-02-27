@@ -37,13 +37,6 @@ app.use((req, res, next) => {
 dbClient.connect().then(function () {
 	const collection = dbClient.db("Dev").collection("Dev");
 
-	// An api endpoint that returns a short list of items
-	app.get('/api/getList', (req, res) => {
-		var list = ["item1", "item2", "item3"];
-		res.json(list);
-		console.log('Sent list of items');
-	});
-
 	app.post("/api/auth", async (req, res) => {
 		const { username, password } = req.body;
 
@@ -67,18 +60,24 @@ dbClient.connect().then(function () {
 		req.session.user = userInfo;
 		res.status(200).json({ message: "Signin successful" })
 	});
+	app.get("/api/authed", requireAuth, () => { res.status(200); });
+
+
 	app.post("/api/createUser", async (req, res) => {
 		const { username, password } = req.body;
 		const user = await collection.findOne({
 			username: username
 		});
-		console.log(user);
+
 		if (!user) {
+			//Create an insert a new user into the database
 			await collection.insertOne({
 				username: username,
 				password: encryptString(password),
-				data: "",
-				levels: {}
+				levels: {
+
+				},
+				stars: 0
 			});
 			res.status(200).json({
 				message: "Account created"
@@ -89,25 +88,42 @@ dbClient.connect().then(function () {
 			}
 			)
 		}
-	})
-	app.post("/api/updateData", requireAuth, async (req, res) => {
-		await collection.updateOne({ username: req.session.user.username }, { $set: { data: req.body.data } });
-		return res.status(200);
 	});
-	app.post("/api/levelData", (req, res) => {
-		let data = getLevelData(req.body.id);
-		if (data) {
-			res.json(data)
-		} else {
-			res.status(404);
+	app.post("/api/unlockLevel", requireAuth, async (req, res) => {
+		let userObject = await collection.findOne({ username: req.session.user.username });
+		let level = getLevelData(req.body.id);
+
+		let newLevelValue = {
+			name: level.title,
+			stars: 0,
+			infoRead: 0,
+			mcQuestions: { started: false, finished: false },
+			openQuestions: { started: false, finished: false }
 		}
+		userObject.levels[req.body.id] = newLevelValue;
+
+		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject } });
+		return res.status(200);
 	})
+
+	app.post("/api/levelData", requireAuth, async (req, res) => {
+		let userObject = await collection.findOne({ username: req.session.user.username });
+		res.json(userObject.levels)
+	});
+
+
 	app.get("/api/userData", requireAuth, async (req, res) => {
 		let { data } = await collection.findOne({ username: req.session.user.username });
 		return res.status(200).json(data);
 	});
+
 	// Handles any requests that don't match the ones above
 	app.get('*', (req, res) => {
+		if (req.url == "/") {
+			console.log('home')
+		} else {
+			console.log(req.url);
+		}
 		res.sendFile(path.join(__dirname + '/client/build/index.html'));
 	});
 
