@@ -560,6 +560,76 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 150px;
 }
 
+.my-\[1rem\] {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mx-\[9rem\] {
+  margin-left: 9rem;
+  margin-right: 9rem;
+}
+
+.mx-\[7\.5rem\] {
+  margin-left: 7.5rem;
+  margin-right: 7.5rem;
+}
+
+.my-24 {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.my-\[11rem\] {
+  margin-top: 11rem;
+  margin-bottom: 11rem;
+}
+
+.-mx-\[18rem\] {
+  margin-left: -18rem;
+  margin-right: -18rem;
+}
+
+.my-\[13rem\] {
+  margin-top: 13rem;
+  margin-bottom: 13rem;
+}
+
+.mx-\[11\.5rem\] {
+  margin-left: 11.5rem;
+  margin-right: 11.5rem;
+}
+
+.my-\[18rem\] {
+  margin-top: 18rem;
+  margin-bottom: 18rem;
+}
+
+.-mx-\[25rem\] {
+  margin-left: -25rem;
+  margin-right: -25rem;
+}
+
+.mx-\[18\.5rem\] {
+  margin-left: 18.5rem;
+  margin-right: 18.5rem;
+}
+
+.my-\[20rem\] {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+
+.mx-\[7rem\] {
+  margin-left: 7rem;
+  margin-right: 7rem;
+}
+
+.mx-\[5\.5rem\] {
+  margin-left: 5.5rem;
+  margin-right: 5.5rem;
+}
+
 .mt-10 {
   margin-top: 2.5rem;
 }
@@ -574,6 +644,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mb-\[20px\] {
   margin-bottom: 20px;
+}
+
+.mt-64 {
+  margin-top: 16rem;
+}
+
+.mt-\[23\.5rem\] {
+  margin-top: 23.5rem;
 }
 
 .flex {
@@ -640,6 +718,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 120px;
 }
 
+.h-\[450px\] {
+  height: 450px;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -704,6 +794,22 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[calc\(100vw-160px\)\] {
   width: calc(100vw - 160px);
+}
+
+.w-\[350px\] {
+  width: 350px;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.w-\[65rem\] {
+  width: 65rem;
+}
+
+.w-32 {
+  width: 8rem;
 }
 
 .flex-grow {
@@ -878,6 +984,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(43 49 49 / var(--tw-bg-opacity));
 }
 
+.bg-blue {
+  --tw-bg-opacity: 1;
+  background-color: rgb(3 33 58 / var(--tw-bg-opacity));
+}
+
 .bg-\[length\:75\%_75\%\] {
   background-size: 75% 75%;
 }
@@ -938,6 +1049,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pt-\[150px\] {
   padding-top: 150px;
+}
+
+.pb-32 {
+  padding-bottom: 8rem;
 }
 
 .text-left {
@@ -1045,6 +1160,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
