@@ -52,15 +52,15 @@ function Levels() {
         </div>
       </div>
       <div className="z-0">
-        <BlurBackground glows={
-          [
-            { x: '5%', y: '5%' },
-            { x: '35%', y: '25%' },
-            { x: '95%', y: '50%' }
-          ]
-        } />
+        <BlurBackground
+          glows={[
+            { x: "5%", y: "5%" },
+            { x: "35%", y: "25%" },
+            { x: "95%", y: "50%" },
+          ]}
+        />
       </div>
-    </div >
+    </div>
   );
 }
 
@@ -75,18 +75,15 @@ function UserDisplay({ name, stars }) {
   return (
     <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
       <div className="flex flex-col items-center">
-        <img src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg" className="w-[180px] h-[180px] bg-black rounded-full" />
-        <div className="font-main text-[30px] z-0">
-          {name}
-        </div>
+        <img
+          src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg"
+          className="w-[180px] h-[180px] bg-black rounded-full"
+        />
+        <div className="font-main text-[30px] z-0">{name}</div>
       </div>
       <div className="flex flex-col items-center">
-        <div className="font-main text-[30px] top-[260px]">
-          Stars
-        </div>
-        <div className="font-main text-[20px] top-[300px]">
-          {test}
-        </div>
+        <div className="font-main text-[30px] top-[260px]">Stars</div>
+        <div className="font-main text-[20px] top-[300px]">{test}</div>
       </div>
     </div>
   );
