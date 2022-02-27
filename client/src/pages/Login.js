@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 function Login() {
+  if (window.localStorage.getItem("username")) {
+    window.location.replace("/levels");
+  }
   return (
     <div className="font-main bg-black w-full overflow-hidden">
       <div className="fixed top-0 left-0 backdrop-blur shadow-lg font-bold w-full h-[80px] flex items-center z-50">
@@ -39,6 +42,7 @@ function Login() {
                     className="flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-[13rem] mx-[11.5rem] w-[65rem] h-10"
                     type="text"
                     placeholder="Username"
+                    id="user"
                   />
                   <div className="flex text-white text-[25px] text-center my-[18rem] -mx-[25rem]">
                     Password
@@ -47,9 +51,11 @@ function Login() {
                     className="flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mx-[18.5rem] w-[65rem] my-[20rem] h-10"
                     type="text"
                     placeholder="Password"
+                    id="pass"
                   />
                   <button
                     type="button"
+                    onClick={login}
                     className="absolute text-white text-[25px] rounded-[10px] font-bold py-3 px-6 rounded-boxed border-white border-2 w-32 h-16 mt-64 mx-[7rem] mt-[23.5rem]"
                   >
                     Login
@@ -65,6 +71,24 @@ function Login() {
     </div>
   );
 }
+async function login() {
+  let response = await fetch("/api/auth", {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      username: document.getElementById("user").value,
+      password: document.getElementById("pass").value
+    })
+  });
+  if (response.status != 200) {
+    window.alert("An error has occured");
+  } else {
+    localStorage.setItem("username", document.getElementById("user").value);
+    window.location.replace("/levels");
+  }
+}
 function Section(props) {
   let classString = "w-full ";
   classString = props.height ? props.height : "h-screen";
@@ -77,20 +101,19 @@ function Section(props) {
       <div className="blur-2xl top-[-100%] relative w-full h-full">
         {props.glows
           ? props.glows.map((glow, i) => (
-              <div
-                key={i}
-                className="w-[500px] h-[500px] absolute"
-                style={{
-                  backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                  transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${
-                    glow.y ? glow.y : "0px"
+            <div
+              key={i}
+              className="w-[500px] h-[500px] absolute"
+              style={{
+                backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
+                transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
                   })`,
-                  backgroundSize: "75% 75%",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div>
-            ))
+                backgroundSize: "75% 75%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            ></div>
+          ))
           : ""}
       </div>
     </div>

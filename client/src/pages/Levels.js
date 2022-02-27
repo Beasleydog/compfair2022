@@ -23,10 +23,12 @@ function Levels() {
     }
     fetchData();
   }, []);
-
+  if (!localStorage.getItem("username")) {
+    window.location.replace("/login")
+  }
   return (
     <div className="font-main bg-black w-screen h-screen overflow-hidden">
-      <UserDisplay name="test" stars="0" />
+      <UserDisplay name={localStorage.getItem("username")} stars="0" />
       <div className="absolute left-[200px] items-center w-[calc(100vw-200px)]">
         <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
           Levels
