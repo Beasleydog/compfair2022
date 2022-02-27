@@ -141,8 +141,10 @@ dbClient.connect().then(function () {
 	app.post("/api/failSection", requireAuth, async (req, res) => {
 		let userObject = await collection.findOne({ username: req.session.user.username });
 		if (req.body.mode == "multi") {
+			if (userObject.levels[req.body.id].mcQuestions.finished) return
 			userObject.levels[req.body.id].mcQuestions.failed = req.body.attemptNumber;
 		} else if (req.body.mode == "open") {
+			if (userObject.levels[req.body.id].openQuestions.finished) return
 			userObject.levels[req.body.id].openQuestions.failed = req.body.attemptNumber;
 		}
 
