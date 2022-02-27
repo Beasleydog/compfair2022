@@ -15,7 +15,12 @@ function Levels() {
           <LevelDisplay name="Hey" stars="2" />
           <LevelDisplay name="Did" stars="3" />
           <LevelDisplay name="Thing" stars="1" />
-          <FillInBlank question="Example question?" />
+          <FillInBlank
+            question="Example question?"
+            question2="We testin"
+            before="<img>"
+            after="<img>"
+          />
         </div>
       </div>
       <div className="z-0">
