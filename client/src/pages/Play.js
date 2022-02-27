@@ -86,8 +86,10 @@ function Play() {
                             }
                         } else if (mode == "open") {
                             if (number == levelData.openQuestions.length - 1) {
-                                finishSection(id, mode, attemptNumber);
-                                finishLevel(levelData);
+                                let didFail = finishSection(id, mode, attemptNumber);
+                                if (didFail != "failed") {
+                                    finishLevel(levelData);
+                                }
                                 window.location.replace("/levels");
                             } else {
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
@@ -120,9 +122,8 @@ function finishLevel(levelData) {
         })
     })
 }
-function finishSection(id, mode, attemptNumber) {
-    console.log(id, mode, attemptNumber);
-    fetch("/api/finishSection", {
+async function finishSection(id, mode, attemptNumber) {
+    let finish = await fetch("/api/finishSection", {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -132,7 +133,9 @@ function finishSection(id, mode, attemptNumber) {
             mode: mode,
             attemptNumber: attemptNumber
         })
-    })
+    });
+    finish = await finish.text();
+    return finish;
 }
 function gotWrong(id, mode, attemptNumber) {
     console.log(id, mode, attemptNumber);
