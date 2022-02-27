@@ -46,7 +46,7 @@ function Home() {
                 Learn simple HTML and CSS concepts.
               </div>
               <img
-                src="/images/learnDisplay.jpg"
+                src="/images/learnDisplay.png"
                 className="bg-white rounded w-[50%] h-auto mt-5"
               />
             </div>
@@ -61,7 +61,7 @@ function Home() {
                 Review concepts with multiple choice and open ended questions.
               </div>
               <img
-                src="/images/reviewDisplay.jpg"
+                src="/images/reviewDisplay.png"
                 className="bg-white rounded w-[50%] h-auto mt-5"
               />
             </div>
@@ -79,7 +79,7 @@ function Home() {
                 Complete design challenges to check for understanding.
               </div>
               <img
-                src="/images/applyDisplay.jpg"
+                src="/images/notReady.png"
                 className="bg-white rounded w-[50%] h-auto mt-5"
               />
             </div>
@@ -97,7 +97,7 @@ function Home() {
                 Earn stars and unlock cosmetics.
               </div>
               <img
-                src="/images/applyDisplay.jpg"
+                src="/images/notReady.png"
                 className="bg-white rounded w-[50%] h-auto mt-5"
               />
             </div>
@@ -121,20 +121,19 @@ function Section(props) {
       <div className="blur-2xl top-[-100%] relative w-full h-full">
         {props.glows
           ? props.glows.map((glow, i) => (
-              <div
-                key={i}
-                className="w-[500px] h-[500px] absolute"
-                style={{
-                  backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                  transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${
-                    glow.y ? glow.y : "0px"
+            <div
+              key={i}
+              className="w-[500px] h-[500px] absolute"
+              style={{
+                backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
+                transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
                   })`,
-                  backgroundSize: "75% 75%",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div>
-            ))
+                backgroundSize: "75% 75%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            ></div>
+          ))
           : ""}
       </div>
     </div>
