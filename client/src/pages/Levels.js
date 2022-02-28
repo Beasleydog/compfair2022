@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BlurBackground from '../components/blurBackground.js';
+import BlurBackground from "../components/blurBackground.js";
 import { getAllLevels } from "../levels/index.js";
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
@@ -10,12 +10,12 @@ function Levels() {
     async function fetchData() {
       let levelFetch = await fetch("/api/levelData", {
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify({
-          id: "tefst"
-        })
+          id: "tefst",
+        }),
       });
       levelFetch = await levelFetch.json();
       setLevelInfo(levelFetch);
@@ -46,9 +46,26 @@ function Levels() {
                 mcQuestions: levelInfo[x.id].mcQuestions.failed,
                 openQuestions: levelInfo[x.id].openQuestions.failed,
               };
-              return (<LevelDisplay id={x.id} key={i} name={x.title} stars={levelInfo[x.id].stars} finished={finished} failed={failed} />)
+              return (
+                <LevelDisplay
+                  id={x.id}
+                  key={i}
+                  name={x.title}
+                  stars={levelInfo[x.id].stars}
+                  finished={finished}
+                  failed={failed}
+                />
+              );
             } else {
-              return (<LevelDisplay id={x.id} locked key={i} name={x.title} stars="0" />)
+              return (
+                <LevelDisplay
+                  id={x.id}
+                  locked
+                  key={i}
+                  name={x.title}
+                  stars="0"
+                />
+              );
             }
           })}
         </div>
@@ -113,27 +130,47 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
   }
 
   return (
-    <div className={`${(locked ? "opacity-60 cursor-not-allowed" : "")} flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}>
-      <div className="z-10 text-white text-[45px] font-bold">
-        {name}
-      </div>
+    <div
+      className={`${
+        locked ? "opacity-60 cursor-not-allowed" : ""
+      } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
+    >
+      <div className="z-10 text-white text-[45px] font-bold">{name}</div>
       <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
-        <button onClick={() => {
-          if (locked) return
-          window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
-        }} type="button" className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
+        <button
+          onClick={() => {
+            if (locked) return;
+            window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
+          }}
+          type="button"
+          className={`${finished.info ? finishClass : ""}${
+            failed.info ? failedClass : ""
+          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+        >
           <img src="/images/MenuButton.png" />
         </button>
-        <button onClick={() => {
-          if (locked) return
-          window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
-        }} type="button" className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
+        <button
+          onClick={() => {
+            if (locked) return;
+            window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
+          }}
+          type="button"
+          className={`${finished.mcQuestions ? finishClass : ""}${
+            failed.mcQuestions ? failedClass : ""
+          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+        >
           <img src="/images/MenuButton.png" />
         </button>
-        <button onClick={() => {
-          if (locked) return
-          window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
-        }} type="button" className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""} w-20 h-20 ${(locked ? " cursor-not-allowed" : "")}`}>
+        <button
+          onClick={() => {
+            if (locked) return;
+            window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
+          }}
+          type="button"
+          className={`${finished.openQuestions ? finishClass : ""}${
+            failed.openQuestions ? failedClass : ""
+          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+        >
           <img src="/images/MenuButton.png" />
         </button>
       </div>
