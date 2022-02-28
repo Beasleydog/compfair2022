@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd client & npm start",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "start": "cd client & npm start"
   },
   "keywords": [],
   "license": "ISC",
