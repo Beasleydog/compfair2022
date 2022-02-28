@@ -21,7 +21,7 @@ function Play() {
         } else if (mode == "multi") {
             setText(levelData.mcQuestions[number].explanation);
         } else if (mode == "open") {
-            setText(levelData.mcQuestions[number].explanation);
+            setText(levelData.openQuestions[number].explanation);
         }
     }, []);
     console.log(levelData);

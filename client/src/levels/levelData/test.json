@@ -9,6 +9,7 @@
       "question": "test open q",
       "instructions":"replace x and test",
       "answer":"answer",
+      "explanation":"",
       "codeText": ["before", "❌", "after"]
     },
     {
@@ -16,6 +17,7 @@
       "question": "test open q",
       "instructions":"replace x and test",
       "answer":"answer",
+      "explanation":"",
       "codeText": ["before", "❌", "after"]
     },
     {
@@ -23,6 +25,7 @@
       "question": "test open q",
       "instructions":"replace x and test",
       "answer":"answer",
+      "explanation":"",
       "codeText": ["before", "❌", "after"]
     }
   ],
