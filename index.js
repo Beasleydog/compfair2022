@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config()
 const session = require('express-session');
 const encryptString = require('./helpers/encryptString.js').encryptString;
 const getLevelData = require('./client/src/levels/index.js').getLevelData;
