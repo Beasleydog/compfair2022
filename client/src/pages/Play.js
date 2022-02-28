@@ -70,7 +70,6 @@ function Play() {
                         {mode == "info" ? "❔" : (correct ? "✅" : "❌")}
                     </div>
                     <div className="flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
-                        attemptNumber: attemptNumber
                         {popupText.split("\n").map((x) => { return (<div>{x}</div>) })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {
