@@ -10,7 +10,7 @@ function MultipleChoiceQuestion(props) {
 
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <div className="text-[50px] text-white text-center">
+      <div className="text-[50px] text-white text-center pt-4">
         {props.question}
       </div>
       <div className="flex-grow flex justify-around items-center w-full">
@@ -24,7 +24,7 @@ function MultipleChoiceQuestion(props) {
 }
 function MultipleChoiceOption(props) {
   return (
-    <div onClick={props.onClick} className={`${props.selected ? "" : "hover:"}scale-110 ${props.selected ? "" : "hover:"}shadow-lg transition-transform cursor-pointer flex items-center justify-center rounded-lg w-[300px] h-[200px] bg-[#1E1E1E]`} >
+    <div onClick={props.onClick} className={`${props.selected ? "" : "hover:"}scale-110 ${props.selected ? "" : "hover:"}shadow-lg transition-transform cursor-pointer flex items-center justify-center rounded-lg w-[350px] h-[200px] bg-[#1E1E1E]`} >
       <SyntaxHighlighter customStyle={{
         lineHeight: "1",
         fontSize: "2em"

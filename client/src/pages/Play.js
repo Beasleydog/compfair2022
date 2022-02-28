@@ -69,8 +69,8 @@ function Play() {
                     <div className="w-full h-[120px] text-[87px] text-center">
                         {mode == "info" ? "❔" : (correct ? "✅" : "❌")}
                     </div>
-                    <div className="flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
-                        {popupText.split("\n").map((x) => { return (<div>{x}</div>) })}
+                    <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
+                        {popupText.split("\n").map((x) => { return (<div><div>{x}</div><br /></div>) })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {
                         if (mode == "info") {

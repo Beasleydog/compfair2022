@@ -4,7 +4,8 @@ const path = require('path');
 let levelList = ["a", "b"];
 levelList = levelList.map((x) => {
     return require(`./levelData/${x}.json`);
-})
+});
+console.log(levelList)
 function getLevelData(id) {
     try {
         return levelList.filter((x) => x.id == id)[0];
