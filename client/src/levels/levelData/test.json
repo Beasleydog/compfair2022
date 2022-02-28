@@ -1,32 +1,31 @@
 {
   "id": "test",
-  "title": "Test level",
+  "title": "Headings",
   "unlockNext": "testtwo",
   "info": "Headings elements can be defined by tags <h1> to <h6>, in the order of importance. With each heading, the content will reduce is size. \nTags will start and end like so: <h1>content goes here</h1>. The tags must start and end with the same type, and end with a slash (/). Though each heading has default settings, they can be overwritten using with the style attribute using the CSS properties. An example of this would be <h1 style=\"fontsize:50px;\">content goes here</h1>. The CSS attribute must be specified (in this case, fontsize), followed by a colon and the desired value for said CSS attribute. Ensure that it's also wrapped in quotation marks.",
   "openQuestions": [
     {
-      "id": 0,
-      "question": "test open q",
-      "instructions":"replace x and test",
-      "answer":"answer",
-      "explanation":"",
-      "codeText": ["before", "❌", "after"]
+      "question": "Look at the heading tag below",
+      "instructions":"What is the correct way to end the heading tag?",
+      "answer":"</h3>",
+      "explanation":"The tag must end with the heading tag that started it and must include a slash (/)",
+      "codeText": ["<h3>Hello World!", "❌", ""]
     },
     {
       "id": 1,
-      "question": "test open q",
-      "instructions":"replace x and test",
-      "answer":"answer",
-      "explanation":"",
-      "codeText": ["before", "❌", "after"]
+      "question": "Look at the code below",
+      "instructions":"What is the correct way to style the code?",
+      "answer":"style=",
+      "explanation":"The CSS attributes must have \"style=\" before it",
+      "codeText": ["<h2 ", "❌", "\"font-size:20px;\"></h2>"]
     },
     {
       "id": 2,
-      "question": "test open q",
-      "instructions":"replace x and test",
-      "answer":"answer",
-      "explanation":"",
-      "codeText": ["before", "❌", "after"]
+      "question": "Look at the code below",
+      "instructions":"What should the next line be? (make the content \"c\")",
+      "answer":"<h3>c</h3>",
+      "explanation":"The heading tags should follow a numbered order, from greatest to least",
+      "codeText": ["<h1>a</h1>\n<h2>b</h2>\n", "❌", ""]
     }
   ],
   "mcQuestions": [
