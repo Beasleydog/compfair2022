@@ -64,7 +64,9 @@ dbClient.connect().then(function () {
 		res.status(200).json({ message: "Signin successful" })
 	});
 	app.get("/api/authed", requireAuth, () => { res.status(200); });
-
+	app.get("/api/logout", requireAuth, (req, res) => {
+		req.session.destory();
+	})
 
 	app.post("/api/createUser", async (req, res) => {
 		const { username, password } = req.body;

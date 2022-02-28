@@ -87,6 +87,17 @@ function UserDisplay({ name, stars }) {
         <div className="font-main text-[30px] top-[260px]">Stars</div>
         <div className="font-main text-[20px] top-[300px]">{test}</div>
       </div>
+      <div className="absolute left-0 bottom-0 p-2 text-white" onClick={() => {
+        fetch("/api/logout", {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+        window.localStorage.clear();
+        window.location.replace("/");
+      }}>
+        Logout
+      </div>
     </div>
   );
 }
