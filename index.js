@@ -122,14 +122,14 @@ dbClient.connect().then(function () {
 			let failedMulti = userObject.levels[req.body.id].mcQuestions.failed;
 			console.log(failedMulti, req.body.attemptNumber, req.body.id, req.body.mode);
 			if (failedMulti && failedMulti == req.body.attemptNumber) {
-				return res.status(420);
+				return res.send("failed");
 			};
 			userObject.levels[req.body.id].mcQuestions.finished = true;
 			userObject.levels[req.body.id].mcQuestions.failed = false;
 		} else if (req.body.mode == "open") {
 			let failedOpen = userObject.levels[req.body.id].openQuestions.failed;
 			if (failedOpen && failedOpen == req.body.attemptNumber) {
-				return res.status(420);
+				return res.send("failed");
 			};
 			userObject.levels[req.body.id].openQuestions.finished = true;
 			userObject.levels[req.body.id].openQuestions.failed = false;
@@ -141,8 +141,14 @@ dbClient.connect().then(function () {
 	app.post("/api/failSection", requireAuth, async (req, res) => {
 		let userObject = await collection.findOne({ username: req.session.user.username });
 		if (req.body.mode == "multi") {
+			if (userObject.levels[req.body.id].mcQuestions.finished) {
+				return res.status(420)
+			}
 			userObject.levels[req.body.id].mcQuestions.failed = req.body.attemptNumber;
 		} else if (req.body.mode == "open") {
+			if (userObject.levels[req.body.id].openQuestions.finished) {
+				return res.status(420)
+			}
 			userObject.levels[req.body.id].openQuestions.failed = req.body.attemptNumber;
 		}
 

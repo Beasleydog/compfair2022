@@ -2,9 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js"
 import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.js";
+import fillInBlank from "../components/fillInBlank";
 import BlurBackground from "../components/blurBackground.js";
 import { getLevelData } from "../levels/index.js";
 import Button from "../components/button.js";
+import FillInBlank from "../components/fillInBlank";
 function Play() {
     const { attemptNumber, id, mode, number } = useParams();
     const [popupOpen, setPopup] = useState(false);
@@ -17,6 +19,8 @@ function Play() {
             setText(levelData.info);
             setPopup(true);
         } else if (mode == "multi") {
+            setText(levelData.mcQuestions[number].explanation);
+        } else if (mode == "open") {
             setText(levelData.mcQuestions[number].explanation);
         }
     }, []);
@@ -39,6 +43,20 @@ function Play() {
                         }}
                         question={levelData.mcQuestions[number].question}
                         answers={levelData.mcQuestions[number].answers} />)}
+
+                    {mode == "open" && <FillInBlank
+                        onAnswer={(answer) => {
+                            let gotRight = levelData.openQuestions[number].answer == answer;
+                            setCorrect(gotRight);
+                            setPopup(true);
+                            if (!gotRight) {
+                                gotWrong(id, mode, attemptNumber);
+                            }
+                        }}
+                        instructions={levelData.openQuestions[number].instructions}
+                        codeText={levelData.openQuestions[number].codeText}
+                        question={levelData.openQuestions[number].question}
+                    />}
                 </div>
                 <div onClick={() => window.location.replace("/levels")} className="text-white absolute top-[24px] left-[24px] z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer">
                     ×
@@ -52,7 +70,8 @@ function Play() {
                         {mode == "info" ? "❔" : (correct ? "✅" : "❌")}
                     </div>
                     <div className="flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
-                        {popupText}
+                        attemptNumber: attemptNumber
+                        {popupText.split("\n").map((x) => { return (<div>{x}</div>) })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {
                         if (mode == "info") {
@@ -61,6 +80,16 @@ function Play() {
                         } else if (mode == "multi") {
                             if (number == levelData.mcQuestions.length - 1) {
                                 finishSection(id, mode, attemptNumber);
+                                window.location.replace("/levels");
+                            } else {
+                                window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
+                            }
+                        } else if (mode == "open") {
+                            if (number == levelData.openQuestions.length - 1) {
+                                let didFail = finishSection(id, mode, attemptNumber);
+                                if (didFail != "failed") {
+                                    finishLevel(levelData);
+                                }
                                 window.location.replace("/levels");
                             } else {
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
@@ -82,9 +111,19 @@ function Play() {
         </div>
     );
 }
-function finishSection(id, mode, attemptNumber) {
-    console.log(id, mode, attemptNumber);
-    fetch("/api/finishSection", {
+function finishLevel(levelData) {
+    fetch("/api/unlockLevel", {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+            id: levelData.unlockNext,
+        })
+    })
+}
+async function finishSection(id, mode, attemptNumber) {
+    let finish = await fetch("/api/finishSection", {
         headers: {
             'Content-Type': 'application/json'
         },
@@ -94,7 +133,9 @@ function finishSection(id, mode, attemptNumber) {
             mode: mode,
             attemptNumber: attemptNumber
         })
-    })
+    });
+    finish = await finish.text();
+    return finish;
 }
 function gotWrong(id, mode, attemptNumber) {
     console.log(id, mode, attemptNumber);

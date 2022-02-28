@@ -8,18 +8,21 @@
       "id": 0,
       "question": "test open q",
       "instructions":"replace x and test",
+      "answer":"answer",
       "codeText": ["before", "❌", "after"]
     },
     {
       "id": 1,
       "question": "test open q",
       "instructions":"replace x and test",
+      "answer":"answer",
       "codeText": ["before", "❌", "after"]
     },
     {
       "id": 2,
       "question": "test open q",
       "instructions":"replace x and test",
+      "answer":"answer",
       "codeText": ["before", "❌", "after"]
     }
   ],
