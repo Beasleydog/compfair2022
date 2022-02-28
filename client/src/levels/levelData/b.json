@@ -1,0 +1,99 @@
+{
+    "id":"Example",
+    "title":"Example",
+"info":"Example",
+    "openQuestions": [
+      {
+        "question":"Example",
+        "instructions":"Example",
+        "answer":"Example",
+        "explanation":"Example",
+        "codeText": ["<div>", "❌", "</div>"]
+      },
+      {
+        "id": 1,
+        "question":"Example",
+        "instructions":"Example",
+        "answer":"Example",
+        "explanation":"Example",
+        "codeText": ["<div>", "❌", "</div>"]
+      },
+      {
+        "id": 2,
+        "question":"Example",
+        "instructions":"Example",
+        "answer":"Example",
+        "explanation":"Example",
+        "codeText": ["<div>", "❌", "</div>"]
+      }
+    ],
+    "mcQuestions": [
+      {
+        "id": 0,
+        "question":"Example",
+        "explanation":"Example",
+        "answers": [
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"Example",
+            "correct": true,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "question":"Example",
+        "explanation":"Example",
+        "answers": [
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"Example",
+            "correct": true,
+            "id": 1
+          },
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "question":"Example",
+        "explanation":"Example",
+        "answers": [
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"Example",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"Example",
+            "correct": true,
+            "id": 2
+          }
+        ]
+      }
+    ]
+  }
+  
