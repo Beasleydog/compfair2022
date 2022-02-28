@@ -24,7 +24,7 @@ function Levels() {
     fetchData();
   }, []);
   if (!localStorage.getItem("username")) {
-    window.location.replace("/login")
+    window.location.replace("/login");
   }
   return (
     <div className="font-main bg-black w-screen h-screen overflow-hidden">
@@ -104,15 +104,18 @@ function UserDisplay({ name, stars }) {
         <div className="font-main text-[30px] top-[260px]">Stars</div>
         <div className="font-main text-[20px] top-[300px]">{test}</div>
       </div>
-      <div className="absolute left-0 bottom-0 p-2 text-white" onClick={() => {
-        fetch("/api/logout", {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
-        window.localStorage.clear();
-        window.location.replace("/");
-      }}>
+      <div
+        className="absolute left-0 bottom-0 p-2 text-white"
+        onClick={() => {
+          fetch("/api/logout", {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          window.localStorage.clear();
+          window.location.replace("/");
+        }}
+      >
         Logout
       </div>
     </div>
@@ -147,7 +150,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             failed.info ? failedClass : ""
           } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
-          <img src="/images/MenuButton.png" />
+          <img src="/images/Info.png" />
         </button>
         <button
           onClick={() => {
@@ -171,7 +174,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             failed.openQuestions ? failedClass : ""
           } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
-          <img src="/images/MenuButton.png" />
+          <img src="/images/Keyboard.png" />
         </button>
       </div>
       {stars}/3
