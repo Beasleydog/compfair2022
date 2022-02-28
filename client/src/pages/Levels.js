@@ -95,8 +95,8 @@ function UserDisplay({ name, stars }) {
     <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
       <div className="flex flex-col items-center">
         <img
-          src="https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg"
-          className="w-[180px] h-[180px] bg-black rounded-full"
+          src="/images/logo.png"
+          className="object-contain w-[180px] h-[180px] bg-[#0c2439] rounded-full shadow-inner"
         />
         <div className="font-main text-[30px] z-0">{name}</div>
       </div>
@@ -131,9 +131,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
 
   return (
     <div
-      className={`${
-        locked ? "opacity-60 cursor-not-allowed" : ""
-      } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
+      className={`${locked ? "opacity-60 cursor-not-allowed" : ""
+        } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
     >
       <div className="z-10 text-white text-[45px] font-bold">{name}</div>
       <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
@@ -143,9 +142,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
           }}
           type="button"
-          className={`${finished.info ? finishClass : ""}${
-            failed.info ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/MenuButton.png" />
         </button>
@@ -155,9 +153,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
           }}
           type="button"
-          className={`${finished.mcQuestions ? finishClass : ""}${
-            failed.mcQuestions ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/MenuButton.png" />
         </button>
@@ -167,9 +164,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
           }}
           type="button"
-          className={`${finished.openQuestions ? finishClass : ""}${
-            failed.openQuestions ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/MenuButton.png" />
         </button>
