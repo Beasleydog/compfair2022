@@ -7,7 +7,7 @@ function Home() {
       <div className="fixed top-0 left-0 backdrop-blur shadow-lg font-bold w-full h-[80px] flex items-center z-50">
         <div className="flex items-center -left-px p-6 w-[50vw]">
           <div className="font-main text-white text-[30px]">Debuggers</div>
-          <a href="http://localhost:3000/login">
+          <a href="/login">
             <button className="absolute right-12 text-white text-[20px] hover:underline">
               Sign In
             </button>
@@ -141,7 +141,7 @@ function Section(props) {
 }
 function GetStartedButton(props) {
   return (
-    <a href="http://localhost:3000/register">
+    <a href="/register">
       <button
         type="button"
         className="text-white text-[25px] rounded-[10px] font-bold py-3 px-6 rounded-boxed border-white border-2 w-max"

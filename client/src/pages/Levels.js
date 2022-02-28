@@ -8,7 +8,7 @@ function Levels() {
   console.log(allLevels);
   useEffect(() => {
     async function fetchData() {
-      let levelFetch = await fetch("http://localhost:3000/api/levelData", {
+      let levelFetch = await fetch("/api/levelData", {
         headers: {
           'Content-Type': 'application/json'
         },
