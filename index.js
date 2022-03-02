@@ -32,37 +32,40 @@ app.use((req, res, next) => {
 	next();
 })
 
-
-
-
-
-
 dbClient.connect().then(function () {
 	const collection = dbClient.db("Dev").collection("Dev");
 
 	app.post("/api/auth", async (req, res) => {
 		const { username, password } = req.body;
+		//Get credentials from request
 
 		const user = await collection.findOne({
 			username: username
-		})
+		});
+		//Find user from database
+
 		if (!user) {
+			//If user doesnt exist, error
 			return res.status(403).json({
 				message: 'Wrong email or password.'
 			}
 			)
 		}
 
+		//If passwords dont match...
 		if (encryptString(password) != user.password) {
+			//Error
 			return res.status(403).json({ message: "Incorrect password" });
 		}
 
+		//Set session for user to keep logged in
 		let userInfo = Object.assign({}, { ...user });
 		userInfo.password = undefined;
 
 		req.session.user = userInfo;
 		res.status(200).json({ message: "Signin successful" })
 	});
+
 	app.get("/api/authed", requireAuth, () => { res.status(200); });
 	app.get("/api/logout", requireAuth, (req, res) => {
 		req.session.destory();

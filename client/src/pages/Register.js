@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
+import Button from '../components/button.js';
 async function login() {
   let response = await fetch("/api/auth", {
     headers: {
@@ -54,37 +55,32 @@ function Register() {
             { x: "-10%", y: "-20%" },
           ]}
           content={
-            <div className="flex items-center justify-center w-full h-full">
-              <div className="flex flex-col gap-6 items-center justify-center">
-                <div className="flex bg-blue shadow-xl w-[350px] h-[450px] pb-32">
-                  <div className="absolute bg-white rounded-full w-16 h-16 my-[1rem] mx-[9rem]"></div>
-                  <div className="flex text-white text-[30px] text-center font-bold mx-[7.5rem] my-24">
-                    Signup
-                  </div>
-                  <div className="flex text-white text-[25px] text-center my-[11rem] -mx-[18rem]">
-                    Username
-                  </div>
-                  <input id="user"
-                    className="flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-[13rem] mx-[11.5rem] w-[65rem] h-10"
-                    type="text"
-                    placeholder="Username"
-                  />
-                  <div className="flex text-white text-[25px] text-center my-[18rem] -mx-[25rem]">
-                    Password
-                  </div>
-                  <input id="pass"
-                    className="flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mx-[18.5rem] w-[65rem] my-[20rem] h-10"
-                    type="text"
-                    placeholder="Password"
-                  />
-                  <button
-                    type="button"
-                    onClick={signup}
-                    className="absolute text-white text-[25px] rounded-[10px] font-bold py-3 px-6 rounded-boxed border-white border-2 w-38 h-16 mt-64 mx-[5.5rem] mt-[23.5rem]"
-                  >
-                    Register
-                  </button>
+            <div className="flex items-center justify-center w-full h-full ">
+              <div className="rounded-lg flex flex-col gap-6 items-center justify-center w-[350px] h-[450px] backdrop-blur-[20px] shadow bg-[#1e1e1e40]">
+                <div className=" text-white text-[40px] text-center font-bold">
+                  Get Started!
                 </div>
+                <div className="text-white text-[25px] text-left w-[80%]">
+                  Username
+                </div>
+                <input id="user"
+                  className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
+                  type="text"
+                  placeholder="Username"
+                />
+                <div className="text-white text-[25px] text-left w-[80%]">
+                  Password
+                </div>
+                <input id="pass"
+                  className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
+                  type="password"
+                  placeholder="Password"
+                />
+                <Button
+                  onClick={signup}
+                  text="Register"
+                  className="px-2 py-1"
+                />
               </div>
             </div>
           }

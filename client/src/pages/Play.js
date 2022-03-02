@@ -87,9 +87,10 @@ function Play() {
                             if (number == levelData.openQuestions.length - 1) {
                                 let didFail = finishSection(id, mode, attemptNumber);
                                 if (didFail != "failed") {
-                                    finishLevel(levelData);
+                                    finishLevel(levelData, () => {
+                                        window.location.replace("/levels");
+                                    });
                                 }
-                                window.location.replace("/levels");
                             } else {
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
                             }
@@ -110,7 +111,8 @@ function Play() {
         </div>
     );
 }
-function finishLevel(levelData) {
+async function finishLevel(levelData, callback) {
+    console.log(levelData);
     fetch("/api/unlockLevel", {
         headers: {
             'Content-Type': 'application/json'
@@ -120,6 +122,10 @@ function finishLevel(levelData) {
             id: levelData.unlockNext,
         })
     })
+    console.log('af');
+    if (callback) {
+        callback();
+    }
 }
 async function finishSection(id, mode, attemptNumber) {
     let finish = await fetch("/api/finishSection", {
