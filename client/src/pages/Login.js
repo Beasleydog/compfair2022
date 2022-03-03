@@ -75,6 +75,7 @@ async function login() {
   if (response.status != 200) {
     window.alert("An error has occured");
   } else {
+    //User logged in, redirect to levels
     localStorage.setItem("username", document.getElementById("user").value);
     window.location.replace("/levels");
   }
