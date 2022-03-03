@@ -4,6 +4,7 @@ import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from "../components/button.js";
 function Login() {
   if (window.localStorage.getItem("username")) {
+    //If user is logged in, redirect to levels
     window.location.replace("/levels");
   }
   return (
@@ -60,6 +61,7 @@ function Login() {
   );
 }
 async function login() {
+  //Login user
   let response = await fetch("/api/auth", {
     headers: {
       'Content-Type': 'application/json'

@@ -11,9 +11,11 @@ function MultipleChoiceQuestion(props) {
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="text-[50px] text-white text-center pt-4">
+        {/* display question */}
         {props.question}
       </div>
       <div className="flex-grow flex justify-around items-center w-full">
+        {/* render answers */}
         {props.answers.map((x, i) => <MultipleChoiceOption selected={i == selected} key={i} onClick={() => { if (selected == i) { setSelected(undefined) } else { setSelected(i); } }} codeText={x.text} />)}
       </div>
       <div className={`w-min pb-6`}>

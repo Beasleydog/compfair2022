@@ -3,6 +3,7 @@ import React from 'react';
 function BlurBackground(props) {
     return (
         <div className="blur-2xl top-[-100%] relative w-full h-full">
+            {/* Create glow element for each input */}
             {props.glows
                 ? props.glows.map((glow, i) => (
                     <div

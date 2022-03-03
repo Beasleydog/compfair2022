@@ -10,7 +10,7 @@ const firstLevelId = require('./client/src/levels/index.js').firstLevelId;
 const app = express();
 const { MongoClient } = require('mongodb');
 
-
+//Connect to database
 var dbClient = new MongoClient(
 	`mongodb+srv://Admin:GFZ4pTNUbF6g3Ut1@cluster0.cf0lh.mongodb.net/cluster0?retryWrites=true&w=majority`
 	, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -19,7 +19,7 @@ var dbClient = new MongoClient(
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.json());
 app.use(session({
-	secret: 'secretlol'
+	secret: 'mUCHDFMShcuoifmhcsdpmcMDPismpicds'
 	, saveUninitialized: true,
 	resave: false,
 	cookie: {
@@ -68,6 +68,7 @@ dbClient.connect().then(function () {
 
 	app.get("/api/authed", requireAuth, () => { res.status(200); });
 	app.get("/api/logout", requireAuth, (req, res) => {
+		//Logout user
 		req.session.destory();
 	})
 
@@ -98,6 +99,7 @@ dbClient.connect().then(function () {
 				message: "Account created"
 			})
 		} else {
+			//Account already exists
 			return res.status(409).json({
 				message: 'Account with that email already exists'
 			}
@@ -105,6 +107,8 @@ dbClient.connect().then(function () {
 		}
 	});
 	app.post("/api/unlockLevel", requireAuth, async (req, res) => {
+
+		//Get user from db
 		let userObject = await collection.findOne({ username: req.session.user.username });
 		let level = getLevelData(req.body.id);
 
@@ -116,12 +120,15 @@ dbClient.connect().then(function () {
 			openQuestions: { failed: false, finished: false }
 		}
 		userObject.levels[req.body.id] = newLevelValue;
-
+		//Unlock level for user
 		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
 		return res.status(200);
 	});
+
 	app.post("/api/finishSection", requireAuth, async (req, res) => {
 		let userObject = await collection.findOne({ username: req.session.user.username });
+
+		//Check that user hasnt failed section
 		if (req.body.mode == "info") {
 			userObject.levels[req.body.id].infoRead = true;
 		} else if (req.body.mode == "multi") {
@@ -140,36 +147,44 @@ dbClient.connect().then(function () {
 			userObject.levels[req.body.id].openQuestions.finished = true;
 			userObject.levels[req.body.id].openQuestions.failed = false;
 		}
-
+		//Update user object
 		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
 		return res.status(200);
 	});
+
 	app.post("/api/failSection", requireAuth, async (req, res) => {
+
+		//Fail user section
 		let userObject = await collection.findOne({ username: req.session.user.username });
 		if (req.body.mode == "multi") {
 			if (userObject.levels[req.body.id].mcQuestions.finished) {
+				//Dont let user fail a section they already finished
 				return res.status(420)
 			}
 			userObject.levels[req.body.id].mcQuestions.failed = req.body.attemptNumber;
 		} else if (req.body.mode == "open") {
 			if (userObject.levels[req.body.id].openQuestions.finished) {
+				//Dont let user fail a section they already finished
 				return res.status(420)
 			}
 			userObject.levels[req.body.id].openQuestions.failed = req.body.attemptNumber;
 		}
 
+		//Update user object
 		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
 		return res.status(200);
 	});
 
 	app.post("/api/levelData", requireAuth, async (req, res) => {
 		let userObject = await collection.findOne({ username: req.session.user.username });
+		//Return level data
 		res.json(userObject.levels)
 	});
 
 
 	app.get("/api/userData", requireAuth, async (req, res) => {
 		let { data } = await collection.findOne({ username: req.session.user.username });
+		//Return user data
 		return res.status(200).json(data);
 	});
 

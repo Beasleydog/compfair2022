@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from '../components/button.js';
 async function login() {
+  //login user
   let response = await fetch("/api/auth", {
     headers: {
       'Content-Type': 'application/json'
@@ -21,6 +22,7 @@ async function login() {
   }
 }
 async function signup() {
+  //signup user
   let response = await fetch("/api/createUser", {
     headers: {
       'Content-Type': 'application/json'
@@ -119,16 +121,6 @@ function Section(props) {
           : ""}
       </div>
     </div>
-  );
-}
-function GetStartedButton(props) {
-  return (
-    <button
-      type="button"
-      className="text-white text-[25px] rounded-[10px] font-bold py-3 px-6 rounded-boxed border-white border-2 w-max"
-    >
-      Login
-    </button>
   );
 }
 

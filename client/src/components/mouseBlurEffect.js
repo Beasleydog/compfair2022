@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 
 const MouseBlurEffect = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
-
+    //Story mouse pos
     useEffect(() => {
+        //init event listeners
         addEventListeners();
         return () => removeEventListeners();
     }, []);
@@ -17,6 +18,7 @@ const MouseBlurEffect = () => {
     };
 
     const onMouseMove = (e) => {
+        //update mouse pos
         setPosition({ x: e.clientX, y: e.clientY });
     };
 

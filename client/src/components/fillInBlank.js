@@ -6,15 +6,18 @@ import { vs2015 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 const theme = vs2015;
 console.log(theme);
 function FillInBlank(props) {
+  // Store user typed text
   const [typedText, setText] = useState("");
   const questionCodeText = props.codeText;
   return (
     <div className="w-full h-full flex flex-col items-center">
       <div className="text-[50px] text-white text-center mt-10">
+        {/* Display question prop */}
         {props.question}
       </div>
       <div className="flex-grow flex w-full justify-around items-center">
         <div className="bg-[#1E1E1E] h-[75%] w-[40%] justify-center items-center shadow">
+          {/* Display code */}
           <SyntaxHighlighter
             id="syntax"
             customStyle={{
@@ -49,6 +52,7 @@ function FillInBlank(props) {
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-64 -mt-2"
             onChange={() => {
+              // update text state
               setText(document.getElementById("test").value);
             }}
             id="test"
@@ -58,6 +62,7 @@ function FillInBlank(props) {
           <Button text="Submit" onClick={() => {
             if (typedText == "") return;
             props.onAnswer(typedText);
+            //submit
           }} className={typedText == "" ? "opacity-50 cursor-not-allowed" : ""} />
         </div>
 

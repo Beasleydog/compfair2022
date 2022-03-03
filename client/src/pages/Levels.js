@@ -8,6 +8,7 @@ function Levels() {
   console.log(allLevels);
   useEffect(() => {
     async function fetchData() {
+      //Get users level data
       let levelFetch = await fetch("/api/levelData", {
         headers: {
           "Content-Type": "application/json",
@@ -24,6 +25,7 @@ function Levels() {
     fetchData();
   }, []);
   if (!localStorage.getItem("username")) {
+    //If user is not logged in, redirect to /login
     window.location.replace("/login");
   }
   return (
@@ -107,6 +109,7 @@ function UserDisplay({ name, stars }) {
       <div
         className="absolute left-0 bottom-0 p-2 text-white"
         onClick={() => {
+          //logout user
           fetch("/api/logout", {
             headers: {
               "Content-Type": "application/json",

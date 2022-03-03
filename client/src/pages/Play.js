@@ -15,6 +15,7 @@ function Play() {
     let levelData = getLevelData(id);
 
     useEffect(() => {
+        //set popup text based off of mode
         if (mode == "info") {
             setText(levelData.info);
             setPopup(true);
@@ -73,18 +74,23 @@ function Play() {
                         {popupText.split("\n").map((x) => { return (<div><div>{x}</div><br /></div>) })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {
+                        //Set "Ok" button logic
                         if (mode == "info") {
+                            //User finished info, redirect back
                             finishSection(id, mode, attemptNumber);
                             window.location.replace("/levels");
                         } else if (mode == "multi") {
                             if (number == levelData.mcQuestions.length - 1) {
+                                //User finished multi, redirect back
                                 finishSection(id, mode, attemptNumber);
                                 window.location.replace("/levels");
                             } else {
+                                //Direct to next question
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
                             }
                         } else if (mode == "open") {
                             if (number == levelData.openQuestions.length - 1) {
+                                //User finished open ended, try to finish the level
                                 let didFail = finishSection(id, mode, attemptNumber);
                                 if (didFail != "failed") {
                                     finishLevel(levelData, () => {
@@ -92,6 +98,7 @@ function Play() {
                                     });
                                 }
                             } else {
+                                //Next opne ended
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
                             }
                         }
@@ -112,6 +119,7 @@ function Play() {
     );
 }
 async function finishLevel(levelData, callback) {
+    //Finish a level
     console.log(levelData);
     fetch("/api/unlockLevel", {
         headers: {
@@ -128,6 +136,7 @@ async function finishLevel(levelData, callback) {
     }
 }
 async function finishSection(id, mode, attemptNumber) {
+    //Set a section as finished
     let finish = await fetch("/api/finishSection", {
         headers: {
             'Content-Type': 'application/json'
@@ -143,6 +152,7 @@ async function finishSection(id, mode, attemptNumber) {
     return finish;
 }
 function gotWrong(id, mode, attemptNumber) {
+    //Fail the level for the user
     console.log(id, mode, attemptNumber);
     fetch("/api/failSection", {
         headers: {
