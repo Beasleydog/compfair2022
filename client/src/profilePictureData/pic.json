@@ -1,0 +1,34 @@
+{
+    "pictures" : [
+        {
+            "id": 2,
+            "src": "/images/notReady.png",
+            "name": "hat",
+            "starReq": 0
+        },
+        {
+            "id": 1,
+            "src": "/images/logo.png",
+            "name": "bod",
+            "starReq": 0
+        },
+        {
+            "id": 1,
+            "src": "/images/leBody.png",
+            "name": "bod",
+            "starReq": 0
+        },
+        {
+            "id": 0,
+            "src": "/images/leFeet.png",
+            "name": "feet",
+            "starReq": 0
+        },
+        {
+            "id": 2,
+            "src": "/images/logo.png",
+            "name": "hat",
+            "starReq": 0
+        }
+    ]
+}

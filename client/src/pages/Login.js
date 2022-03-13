@@ -32,7 +32,8 @@ function Login() {
                 <div className="text-white text-[25px] text-left w-[80%]">
                   Username
                 </div>
-                <input id="user"
+                <input
+                  id="user"
                   className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
                   type="text"
                   placeholder="Username"
@@ -40,16 +41,13 @@ function Login() {
                 <div className="text-white text-[25px] text-left w-[80%]">
                   Password
                 </div>
-                <input id="pass"
+                <input
+                  id="pass"
                   className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
                   type="password"
                   placeholder="Password"
                 />
-                <Button
-                  onClick={login}
-                  text="Log In"
-                  className="px-2 py-1"
-                />
+                <Button onClick={login} text="Log In" className="px-2 py-1" />
               </div>
             </div>
           }
@@ -64,19 +62,22 @@ async function login() {
   //Login user
   let response = await fetch("/api/auth", {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     method: "POST",
     body: JSON.stringify({
       username: document.getElementById("user").value,
-      password: document.getElementById("pass").value
-    })
+      password: document.getElementById("pass").value,
+    }),
   });
   if (response.status != 200) {
     window.alert("An error has occured");
   } else {
     //User logged in, redirect to levels
     localStorage.setItem("username", document.getElementById("user").value);
+    localStorage.setItem("picture-mid", "/images/logo.png");
+    localStorage.setItem("picture-bottom", "/images/leFeet.png");
+    localStorage.setItem("picture-top", "/images/leHat.png");
     window.location.replace("/levels");
   }
 }
@@ -92,19 +93,20 @@ function Section(props) {
       <div className="blur-2xl top-[-100%] relative w-full h-full">
         {props.glows
           ? props.glows.map((glow, i) => (
-            <div
-              key={i}
-              className="w-[500px] h-[500px] absolute"
-              style={{
-                backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
+              <div
+                key={i}
+                className="w-[500px] h-[500px] absolute"
+                style={{
+                  backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
+                  transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${
+                    glow.y ? glow.y : "0px"
                   })`,
-                backgroundSize: "75% 75%",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div>
-          ))
+                  backgroundSize: "75% 75%",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+              ></div>
+            ))
           : ""}
       </div>
     </div>
