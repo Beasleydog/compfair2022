@@ -4,6 +4,7 @@ import BlurBackground from "../components/blurBackground.js";
 import { getAllLevels } from "../levels/index.js";
 import { useParams } from "react-router-dom";
 import { getPicData, getAllPic } from "../profilePictureData/index.js";
+import DisplayProfilePic from "../components/profilePicture.js";
 
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
@@ -171,22 +172,11 @@ function UserDisplay({ name, stars }) {
             mode: "change";
             window.location.replace(`/levels/change`);
           }}
-          className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px]"
+          className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px] z-10"
         >
           test
         </button>
-        <img
-          src={localStorage.getItem("picture-mid")}
-          className="object-contain w-[225px] h-[225px] bg-[#0c2439] rounded-full shadow-inner"
-        />
-        <img
-          src={localStorage.getItem("picture-bottom")}
-          className="absolute w-[150px] h-[150px] top-[275px]"
-        />
-        <img
-          src={localStorage.getItem("picture-top")}
-          className="absolute w-[150px] h-[150px] top-[115px]"
-        />
+        <DisplayProfilePic />
         <div className="font-main text-[30px] z-0">{name}</div>
       </div>
       <div className="flex flex-col items-center">
