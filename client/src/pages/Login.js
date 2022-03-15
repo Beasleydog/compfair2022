@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from "../components/button.js";
+import { getPicData } from "../profilePictureData/index.js";
 function Login() {
   if (window.localStorage.getItem("username")) {
     //If user is logged in, redirect to levels
@@ -73,11 +74,26 @@ async function login() {
   if (response.status != 200) {
     window.alert("An error has occured");
   } else {
+    let picFetch = await fetch("/api/profileData", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        id: "",
+      }),
+    });
+    picFetch = await picFetch.json();
+    console.log(getPicData(picFetch.bottom));
+    localStorage.setItem("picture-bottom", getPicData(picFetch.bottom));
+    localStorage.setItem("picture-mid", getPicData(picFetch.mid));
+    localStorage.setItem("picture-top", getPicData(picFetch.top));
+    if (getPicData(picFetch.bottom) == "/images/notReady.png") {
+      alert("test");
+    }
+    console.log(getPicData(picFetch.bottom));
     //User logged in, redirect to levels
     localStorage.setItem("username", document.getElementById("user").value);
-    localStorage.setItem("picture-mid", "/images/logo.png");
-    localStorage.setItem("picture-bottom", "/images/leFeet.png");
-    localStorage.setItem("picture-top", "/images/leHat.png");
     window.location.replace("/levels");
   }
 }

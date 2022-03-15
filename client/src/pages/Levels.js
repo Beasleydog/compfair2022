@@ -3,16 +3,29 @@ import { Link } from "react-router-dom";
 import BlurBackground from "../components/blurBackground.js";
 import { getAllLevels } from "../levels/index.js";
 import { useParams } from "react-router-dom";
-import { getPicData, getAllPic } from "../profilePictureData/index.js";
+import {
+  getPicData,
+  getAllBottomPic,
+  getAllMidPic,
+  getAllTopPic,
+  getPicIDFromSRC,
+} from "../profilePictureData/index.js";
 import DisplayProfilePic from "../components/profilePicture.js";
 
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
   const allLevels = getAllLevels();
-  const allPic = getAllPic();
+  const allBottomPic = getAllBottomPic();
+  const allMidPic = getAllMidPic();
+  const allTopPic = getAllTopPic();
+  const [bottomPic, setBottomPic] = useState("");
+  const [midPic, setMidPic] = useState("");
+  const [topPic, setTopPic] = useState("");
   const { mode } = useParams();
+  console.log(allBottomPic);
+  console.log(allMidPic);
+  console.log(allTopPic);
   console.log(allLevels);
-  console.log(allPic);
   console.log(mode);
   useEffect(() => {
     if (mode == null) {
@@ -97,31 +110,66 @@ function Levels() {
       )}
       {mode == "change" && (
         <div>
-          <div className="flex items-center justify-center font-main bg-black w-screen h-screen overflow-hidden">
-            <div className="grid grid-cols-5 gap-3 h-[600px] w-[1000px] border-white border-4 rounded-lg p-2">
-              <button
-                onClick={() => window.location.replace("/levels")}
-                className="absolute text-white text-[100px] text-center font-bold top-[100px] left-[435px]"
-              >
-                X
-              </button>
-              {allPic.map((x) => {
-                return (
-                  <ProfilePic
-                    src={x.src}
-                    req={x.starReq}
-                    text={x.name}
-                    id={x.id}
-                  />
-                );
-              })}
+          <div className="flex items-center justify-center font-main bg-black w-screen h-full overflow-hidden z-[100]">
+            <button
+              onClick={() => window.location.replace("/levels")}
+              className="absolute text-white text-[100px] text-center font-bold top-0 left-0"
+            >
+              X
+            </button>
+            <div className="absolute top-0 mt-6">
+              <DisplayProfilePic />
+            </div>
+            <div className="grid grid-cols-1 gap-2 items-center justify-center h-[1000px] w-[1025px] border-white border-4 rounded-lg p-2 mt-[300px]">
+              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
+                {allBottomPic.map((x) => {
+                  return (
+                    <ProfilePic
+                      id={x.id}
+                      src={x.src}
+                      req={x.starReq}
+                      text={x.name}
+                      type={x.type}
+                      setBottomPic={setBottomPic}
+                    />
+                  );
+                })}
+              </div>
+              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
+                {allMidPic.map((x) => {
+                  return (
+                    <ProfilePic
+                      id={x.id}
+                      src={x.src}
+                      req={x.starReq}
+                      text={x.name}
+                      type={x.type}
+                      setMidPic={setMidPic}
+                    />
+                  );
+                })}
+              </div>
+              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
+                {allTopPic.map((x) => {
+                  return (
+                    <ProfilePic
+                      id={x.id}
+                      src={x.src}
+                      req={x.starReq}
+                      text={x.name}
+                      type={x.type}
+                      setTopPic={setTopPic}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
-          <div className="z-0">
+          <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden">
             <BlurBackground
               glows={[
-                { x: "0", y: "0" },
-                { x: "50%", y: "90%" },
+                { x: "15%", y: "55%" },
+                { x: "75%", y: "105%" },
               ]}
             />
           </div>
@@ -131,20 +179,79 @@ function Levels() {
   );
 }
 
-function ProfilePic({ src, req, text, id }) {
+function ProfilePic({
+  id,
+  src,
+  req,
+  text,
+  type,
+  setBottomPic,
+  setMidPic,
+  setTopPic,
+}) {
   return (
     <div className="mt-4 ml-4">
       <button
         onClick={() => {
-          if (id == 0) {
+          if (type == 0) {
             localStorage.setItem("picture-bottom", src);
-            window.location.replace("/levels");
-          } else if (id == 1) {
+            setBottomPic(src);
+            async function setProf() {
+              let finish = await fetch("/api/setProfile", {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  bottom: 2,
+                  mid: 0,
+                  top: 0,
+                }),
+              });
+            }
+            console.log(id);
+            setProf();
+            //window.location.replace("/levels");
+          } else if (type == 1) {
             localStorage.setItem("picture-mid", src);
-            window.location.replace("/levels");
-          } else if (id == 2) {
+            setMidPic(src);
+            async function setProf() {
+              let finish = await fetch("/api/setProfile", {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  bottom: getPicIDFromSRC(
+                    localStorage.getItem("picture-bottom")
+                  ),
+                  mid: id,
+                  top: getPicIDFromSRC(localStorage.getItem("picture-top")),
+                }),
+              });
+            }
+            setProf();
+            //window.location.replace("/levels");
+          } else if (type == 2) {
             localStorage.setItem("picture-top", src);
-            window.location.replace("/levels");
+            setTopPic(src);
+            async function setProf() {
+              let finish = await fetch("/api/setProfile", {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                  bottom: getPicIDFromSRC(
+                    localStorage.getItem("picture-bottom")
+                  ),
+                  mid: getPicIDFromSRC(localStorage.getItem("picture-mid")),
+                  top: id,
+                }),
+              });
+            }
+            setProf();
+            //window.location.replace("/levels");
           }
         }}
         className={`${req >= 3 ? "cursor-not-allowed opacity-60" : ""}`}
