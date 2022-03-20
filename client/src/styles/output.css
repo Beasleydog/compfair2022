@@ -558,6 +558,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 0;
 }
 
+.z-\[100\] {
+  z-index: 100;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -568,10 +572,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .z-30 {
   z-index: 30;
-}
-
-.z-\[100\] {
-  z-index: 100;
 }
 
 .my-10 {
@@ -592,10 +592,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: -0.5rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -610,6 +606,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .-mt-4 {
@@ -652,6 +652,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 150px;
 }
 
+.h-\[1000px\] {
+  height: 1000px;
+}
+
+.h-\[250px\] {
+  height: 250px;
+}
+
 .h-\[80px\] {
   height: 80px;
 }
@@ -662,14 +670,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[1000px\] {
-  height: 1000px;
-}
-
-.h-\[250px\] {
-  height: 250px;
 }
 
 .h-20 {
@@ -738,20 +738,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 150px;
 }
 
-.w-\[50vw\] {
-  width: 50vw;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
 .w-screen {
   width: 100vw;
-}
-
-.w-\[calc\(100vw-200px\)\] {
-  width: calc(100vw - 200px);
 }
 
 .w-\[1025px\] {
@@ -760,6 +748,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[1000px\] {
   width: 1000px;
+}
+
+.w-\[50vw\] {
+  width: 50vw;
+}
+
+.w-\[50\%\] {
+  width: 50%;
+}
+
+.w-\[calc\(100vw-200px\)\] {
+  width: calc(100vw - 200px);
 }
 
 .w-\[250px\] {
@@ -991,12 +991,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   object-fit: contain;
 }
 
-.p-6 {
-  padding: 1.5rem;
-}
-
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .py-3 {
@@ -1085,6 +1085,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 50px;
 }
 
+.text-\[100px\] {
+  font-size: 100px;
+}
+
 .text-\[30px\] {
   font-size: 30px;
 }
@@ -1095,10 +1099,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-\[40px\] {
   font-size: 40px;
-}
-
-.text-\[100px\] {
-  font-size: 100px;
 }
 
 .text-\[45px\] {

@@ -85,10 +85,10 @@ async function login() {
     });
     picFetch = await picFetch.json();
     console.log(getPicData(picFetch.bottom));
-    localStorage.setItem("picture-bottom", getPicData(picFetch.bottom));
-    localStorage.setItem("picture-mid", getPicData(picFetch.mid));
-    localStorage.setItem("picture-top", getPicData(picFetch.top));
-    if (getPicData(picFetch.bottom) == "/images/notReady.png") {
+    localStorage.setItem("picture-bottom", getPicData(picFetch.bottom).src);
+    localStorage.setItem("picture-mid", getPicData(picFetch.mid).src);
+    localStorage.setItem("picture-top", getPicData(picFetch.top).src);
+    if (getPicData(picFetch.bottom) == "/images/leFeet.png") {
       alert("test");
     }
     console.log(getPicData(picFetch.bottom));

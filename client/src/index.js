@@ -6,6 +6,7 @@ import Levels from "./pages/Levels";
 import Play from "./pages/Play";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Change from "./pages/Change";
 import "./styles/output.css";
 
 render(
@@ -13,7 +14,7 @@ render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="levels" element={<Levels />} />
-      <Route path="levels/:mode" element={<Levels />} />
+      <Route path="change" element={<Change />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       <Route path="play/:attemptNumber/:id/:mode/:number" element={<Play />} />

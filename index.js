@@ -10,6 +10,8 @@ const firstLevelId = require("./client/src/levels/index.js").firstLevelId;
 const app = express();
 const { MongoClient } = require("mongodb");
 
+console.log("test");
+
 //Connect to database
 var dbClient = new MongoClient(
   `mongodb+srv://Admin:GFZ4pTNUbF6g3Ut1@cluster0.cf0lh.mongodb.net/cluster0?retryWrites=true&w=majority`,
@@ -103,8 +105,9 @@ dbClient.connect().then(function () {
         username: username,
         password: encryptString(password),
         levels: levelData,
-        stars: 0,
+        stars: 3,
         profilePic: picData,
+        unlockData: "a",
       });
       res.status(200).json({
         message: "Account created",
@@ -119,22 +122,41 @@ dbClient.connect().then(function () {
 
   app.post("/api/setProfile", requireAuth, async (req, res) => {
     console.log(1);
-    /*
+
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
-    let picture = req.body.picData;
+    let picture = {
+      bottom: req.body.bottom,
+      mid: req.body.mid,
+      top: req.body.top,
+    };
+    if (req.body.bottom != undefined) {
+      picture = {
+        bottom: req.body.bottom,
+        mid: userObject.profilePic.mid,
+        top: userObject.profilePic.top,
+      };
+    } else if (req.body.mid != undefined) {
+      picture = {
+        bottom: userObject.profilePic.bottom,
+        mid: req.body.mid,
+        top: userObject.profilePic.top,
+      };
+    } else if (req.body.top != undefined) {
+      picture = {
+        bottom: userObject.profilePic.bottom,
+        mid: userObject.profilePic.mid,
+        top: req.body.top,
+      };
+    }
     userObject.profilePic = picture;
-	*/
 
-    //console.log(userObject);
-    /*
     await collection.updateOne(
       { username: req.session.user.username },
       { $set: { profilePic: userObject.profilePic } }
     );
     return res.status(200);
-	*/
   });
 
   app.post("/api/profileData", requireAuth, async (req, res) => {
@@ -143,6 +165,53 @@ dbClient.connect().then(function () {
     });
     //Return level data
     res.json(userObject.profilePic);
+  });
+
+  app.post("/api/addStars", requireAuth, async (req, res) => {
+    console.log(1);
+    let userObject = await collection.findOne({
+      username: req.session.user.username,
+    });
+
+    userObject.stars = req.body.stars;
+
+    await collection.updateOne(
+      { username: req.session.user.username },
+      { $set: { stars: userObject.stars } }
+    );
+    return res.status(200);
+  });
+
+  app.post("/api/stars", requireAuth, async (req, res) => {
+    let userObject = await collection.findOne({
+      username: req.session.user.username,
+    });
+    //Return level data
+    res.json(userObject.stars);
+  });
+
+  app.post("/api/addUnlock", requireAuth, async (req, res) => {
+    console.log(1);
+    let userObject = await collection.findOne({
+      username: req.session.user.username,
+    });
+
+    userObject.unlockData += "-" + req.body.unlockData;
+
+    await collection.updateOne(
+      { username: req.session.user.username },
+      { $set: { unlockData: userObject.unlockData } }
+    );
+    return res.status(200);
+  });
+
+  app.post("/api/unlockData", requireAuth, async (req, res) => {
+    let userObject = await collection.findOne({
+      username: req.session.user.username,
+    });
+    console.log(userObject.unlockData);
+    //Return level data
+    res.json(userObject.unlockData);
   });
 
   app.post("/api/unlockLevel", requireAuth, async (req, res) => {

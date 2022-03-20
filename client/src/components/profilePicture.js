@@ -1,6 +1,7 @@
 import React from "react";
 
 function DisplayProfilePic({ bottom, mid, top }) {
+  console.log(localStorage.getItem("picture-mid").src);
   return (
     <div className="flex items-center justify-center z-0">
       <div className="relative">

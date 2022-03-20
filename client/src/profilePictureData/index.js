@@ -16,24 +16,12 @@ function getPicData(id) {
     return undefined;
   }
 }
-function getPicIDFromSRC(src) {
-  const pictures = picList.pictures;
-  try {
-    for (let i = 0; i < pictures.length; i++) {
-      if (pictures[i].src == src) {
-        return pictures[i].id;
-      }
-    }
-  } catch (e) {
-    console.log(e);
-    return undefined;
-  }
-}
+
 function getAllBottomPic() {
   const arr1 = picList.pictures;
   let arr2 = [];
   for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i].type == 0) {
+    if (arr1[i].type == "bottom") {
       arr2.push(arr1[i]);
     }
   }
@@ -43,7 +31,7 @@ function getAllMidPic() {
   const arr1 = picList.pictures;
   let arr2 = [];
   for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i].type == 1) {
+    if (arr1[i].type == "mid") {
       arr2.push(arr1[i]);
     }
   }
@@ -53,7 +41,7 @@ function getAllTopPic() {
   const arr1 = picList.pictures;
   let arr2 = [];
   for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i].type == 2) {
+    if (arr1[i].type == "top") {
       arr2.push(arr1[i]);
     }
   }
@@ -65,5 +53,4 @@ module.exports = {
   getAllBottomPic,
   getAllMidPic,
   getAllTopPic,
-  getPicIDFromSRC,
 };

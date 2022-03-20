@@ -3,49 +3,29 @@ import { Link } from "react-router-dom";
 import BlurBackground from "../components/blurBackground.js";
 import { getAllLevels } from "../levels/index.js";
 import { useParams } from "react-router-dom";
-import {
-  getPicData,
-  getAllBottomPic,
-  getAllMidPic,
-  getAllTopPic,
-  getPicIDFromSRC,
-} from "../profilePictureData/index.js";
 import DisplayProfilePic from "../components/profilePicture.js";
 
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
   const allLevels = getAllLevels();
-  const allBottomPic = getAllBottomPic();
-  const allMidPic = getAllMidPic();
-  const allTopPic = getAllTopPic();
-  const [bottomPic, setBottomPic] = useState("");
-  const [midPic, setMidPic] = useState("");
-  const [topPic, setTopPic] = useState("");
-  const { mode } = useParams();
-  console.log(allBottomPic);
-  console.log(allMidPic);
-  console.log(allTopPic);
   console.log(allLevels);
-  console.log(mode);
   useEffect(() => {
-    if (mode == null) {
-      async function fetchData() {
-        //Get users level data
-        let levelFetch = await fetch("/api/levelData", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify({
-            id: "tefst",
-          }),
-        });
-        levelFetch = await levelFetch.json();
-        setLevelInfo(levelFetch);
-        console.log(levelFetch);
-      }
-      fetchData();
+    async function fetchData() {
+      //Get users level data
+      let levelFetch = await fetch("/api/levelData", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          id: "tefst",
+        }),
+      });
+      levelFetch = await levelFetch.json();
+      setLevelInfo(levelFetch);
+      console.log(levelFetch);
     }
+    fetchData();
   }, []);
   if (!localStorage.getItem("username")) {
     //If user is not logged in, redirect to /login
@@ -53,212 +33,59 @@ function Levels() {
   }
   return (
     <div>
-      {mode == null && (
-        <div className="font-main bg-black w-screen h-screen overflow-hidden">
-          <UserDisplay name={localStorage.getItem("username")} stars="0" />
-          <div className="absolute left-[200px] items-center w-[calc(100vw-200px)]">
-            <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
-              Levels
-            </div>
-            <div className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
-              {allLevels.map((x, i) => {
-                if (levelInfo[x.id]) {
-                  let finished = {
-                    info: levelInfo[x.id].infoRead,
-                    mcQuestions: levelInfo[x.id].mcQuestions.finished,
-                    openQuestions: levelInfo[x.id].openQuestions.finished,
-                  };
-                  let failed = {
-                    info: false,
-                    mcQuestions: levelInfo[x.id].mcQuestions.failed,
-                    openQuestions: levelInfo[x.id].openQuestions.failed,
-                  };
-                  return (
-                    <LevelDisplay
-                      id={x.id}
-                      key={i}
-                      name={x.title}
-                      stars={levelInfo[x.id].stars}
-                      finished={finished}
-                      failed={failed}
-                    />
-                  );
-                } else {
-                  return (
-                    <LevelDisplay
-                      id={x.id}
-                      locked
-                      key={i}
-                      name={x.title}
-                      stars="0"
-                    />
-                  );
-                }
-              })}
-            </div>
+      <div className="font-main bg-black w-screen h-screen overflow-hidden">
+        <UserDisplay name={localStorage.getItem("username")} stars="0" />
+        <div className="absolute left-[200px] items-center w-[calc(100vw-200px)]">
+          <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
+            Levels
           </div>
-          <div className="z-0">
-            <BlurBackground
-              glows={[
-                { x: "5%", y: "5%" },
-                { x: "35%", y: "25%" },
-                { x: "95%", y: "50%" },
-              ]}
-            />
+          <div className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
+            {allLevels.map((x, i) => {
+              if (levelInfo[x.id]) {
+                let finished = {
+                  info: levelInfo[x.id].infoRead,
+                  mcQuestions: levelInfo[x.id].mcQuestions.finished,
+                  openQuestions: levelInfo[x.id].openQuestions.finished,
+                };
+                let failed = {
+                  info: false,
+                  mcQuestions: levelInfo[x.id].mcQuestions.failed,
+                  openQuestions: levelInfo[x.id].openQuestions.failed,
+                };
+                return (
+                  <LevelDisplay
+                    id={x.id}
+                    key={i}
+                    name={x.title}
+                    stars={levelInfo[x.id].stars}
+                    finished={finished}
+                    failed={failed}
+                  />
+                );
+              } else {
+                return (
+                  <LevelDisplay
+                    id={x.id}
+                    locked
+                    key={i}
+                    name={x.title}
+                    stars="0"
+                  />
+                );
+              }
+            })}
           </div>
         </div>
-      )}
-      {mode == "change" && (
-        <div>
-          <div className="flex items-center justify-center font-main bg-black w-screen h-full overflow-hidden z-[100]">
-            <button
-              onClick={() => window.location.replace("/levels")}
-              className="absolute text-white text-[100px] text-center font-bold top-0 left-0"
-            >
-              X
-            </button>
-            <div className="absolute top-0 mt-6">
-              <DisplayProfilePic />
-            </div>
-            <div className="grid grid-cols-1 gap-2 items-center justify-center h-[1000px] w-[1025px] border-white border-4 rounded-lg p-2 mt-[300px]">
-              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
-                {allBottomPic.map((x) => {
-                  return (
-                    <ProfilePic
-                      id={x.id}
-                      src={x.src}
-                      req={x.starReq}
-                      text={x.name}
-                      type={x.type}
-                      setBottomPic={setBottomPic}
-                    />
-                  );
-                })}
-              </div>
-              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
-                {allMidPic.map((x) => {
-                  return (
-                    <ProfilePic
-                      id={x.id}
-                      src={x.src}
-                      req={x.starReq}
-                      text={x.name}
-                      type={x.type}
-                      setMidPic={setMidPic}
-                    />
-                  );
-                })}
-              </div>
-              <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
-                {allTopPic.map((x) => {
-                  return (
-                    <ProfilePic
-                      id={x.id}
-                      src={x.src}
-                      req={x.starReq}
-                      text={x.name}
-                      type={x.type}
-                      setTopPic={setTopPic}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden">
-            <BlurBackground
-              glows={[
-                { x: "15%", y: "55%" },
-                { x: "75%", y: "105%" },
-              ]}
-            />
-          </div>
+        <div className="z-0">
+          <BlurBackground
+            glows={[
+              { x: "5%", y: "5%" },
+              { x: "35%", y: "25%" },
+              { x: "95%", y: "50%" },
+            ]}
+          />
         </div>
-      )}
-    </div>
-  );
-}
-
-function ProfilePic({
-  id,
-  src,
-  req,
-  text,
-  type,
-  setBottomPic,
-  setMidPic,
-  setTopPic,
-}) {
-  return (
-    <div className="mt-4 ml-4">
-      <button
-        onClick={() => {
-          if (type == 0) {
-            localStorage.setItem("picture-bottom", src);
-            setBottomPic(src);
-            async function setProf() {
-              let finish = await fetch("/api/setProfile", {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  bottom: 2,
-                  mid: 0,
-                  top: 0,
-                }),
-              });
-            }
-            console.log(id);
-            setProf();
-            //window.location.replace("/levels");
-          } else if (type == 1) {
-            localStorage.setItem("picture-mid", src);
-            setMidPic(src);
-            async function setProf() {
-              let finish = await fetch("/api/setProfile", {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  bottom: getPicIDFromSRC(
-                    localStorage.getItem("picture-bottom")
-                  ),
-                  mid: id,
-                  top: getPicIDFromSRC(localStorage.getItem("picture-top")),
-                }),
-              });
-            }
-            setProf();
-            //window.location.replace("/levels");
-          } else if (type == 2) {
-            localStorage.setItem("picture-top", src);
-            setTopPic(src);
-            async function setProf() {
-              let finish = await fetch("/api/setProfile", {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                body: JSON.stringify({
-                  bottom: getPicIDFromSRC(
-                    localStorage.getItem("picture-bottom")
-                  ),
-                  mid: getPicIDFromSRC(localStorage.getItem("picture-mid")),
-                  top: id,
-                }),
-              });
-            }
-            setProf();
-            //window.location.replace("/levels");
-          }
-        }}
-        className={`${req >= 3 ? "cursor-not-allowed opacity-60" : ""}`}
-      >
-        <img src={src} className="h-[150px] w-[150px]" />
-        <div className="text-white text-[50px]">{text}</div>
-      </button>
+      </div>
     </div>
   );
 }
@@ -277,7 +104,7 @@ function UserDisplay({ name, stars }) {
         <button
           onClick={() => {
             mode: "change";
-            window.location.replace(`/levels/change`);
+            window.location.replace(`/change`);
           }}
           className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px] z-10"
         >
