@@ -19,11 +19,16 @@ function Levels() {
         }),
       });
       levelFetch = await levelFetch.json();
+      console.log(levelFetch)
+      if (levelFetch.message == "Unauthorized") {
+        localStorage.setItem("username", "");
+        window.location.replace("/login");
+      }
       setLevelInfo(levelFetch);
-      console.log(levelFetch);
     }
     fetchData();
   }, []);
+
   if (!localStorage.getItem("username")) {
     //If user is not logged in, redirect to /login
     window.location.replace("/login");

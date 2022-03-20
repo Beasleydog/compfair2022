@@ -7,6 +7,7 @@ import BlurBackground from "../components/blurBackground.js";
 import { getLevelData } from "../levels/index.js";
 import Button from "../components/button.js";
 import FillInBlank from "../components/fillInBlank";
+import ChallengeQuestion from "../components/challengeQuestion.js";
 function Play() {
     const { attemptNumber, id, mode, number } = useParams();
     const [popupOpen, setPopup] = useState(false);
@@ -23,13 +24,15 @@ function Play() {
             setText(levelData.mcQuestions[number].explanation);
         } else if (mode == "open") {
             setText(levelData.openQuestions[number].explanation);
+        } else if (mode == "challenge") {
+            setText("Gj lol you got it 100%");
         }
     }, []);
     console.log(levelData);
     return (
         <div>
             <div className="font-main bg-black overflow-hidden w-screen h-screen flex items-center justify-center">
-                <div className="w-[calc(100vw-160px)] h-[calc(100vh-160px)] rounded-lg backdrop-blur-2xl shadow-lg bg-[#00000075] z-10">
+                <div className={`${mode == "challenge" ? "w-[calc(100vw-100px)] h-[calc(100vh-100px)]" : "w-[calc(100vw-160px)] h-[calc(100vh-160px)]"} rounded-lg backdrop-blur-2xl shadow-lg bg-[#00000075] z-10`}>
 
                     {mode == "info"}
 
@@ -58,8 +61,14 @@ function Play() {
                         codeText={levelData.openQuestions[number].codeText}
                         question={levelData.openQuestions[number].question}
                     />}
+                    {mode == "challenge" && <ChallengeQuestion
+                        onComplete={() => {
+                            setCorrect(true);
+                            setPopup(true);
+                        }}
+                    />}
                 </div>
-                <div onClick={() => window.location.replace("/levels")} className="text-white absolute top-[24px] left-[24px] z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer">
+                <div onClick={() => window.location.replace("/levels")} className={`text-white absolute ${mode == "challenge" ? "top-[8px] left-[8px]" : "top-[24px] left-[24px]"} z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer`}>
                     ×
                 </div>
             </div >
