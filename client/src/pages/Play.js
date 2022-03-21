@@ -25,7 +25,7 @@ function Play() {
         } else if (mode == "open") {
             setText(levelData.openQuestions[number].explanation);
         } else if (mode == "challenge") {
-            setText("Gj lol you got it 100%");
+            setText(levelData.challenge.explanation);
         }
     }, []);
     console.log(levelData);
@@ -62,15 +62,9 @@ function Play() {
                         question={levelData.openQuestions[number].question}
                     />}
                     {mode == "challenge" && <ChallengeQuestion
-                        correctCode={`
-                        <div style="width:100%;height:100%;">
-                            <h1>Test</h1>
-                            <h2>Ok</h2>
-                            <h3>Yay!</h3>
-                        </div>
-                        `}
+                        correctCode={levelData.challenge.correctCode}
                         defaultBackground={
-                            `<div style="width:100%;height:100%;"></div>`
+                            levelData.challenge.defaultBackground
                         }
                         onComplete={() => {
                             setCorrect(true);

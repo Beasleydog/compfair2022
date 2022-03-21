@@ -25,6 +25,10 @@ function Levels() {
         window.location.replace("/login");
       }
       setLevelInfo(levelFetch);
+      setTimeout(() => {
+        //Focus on users current level
+        document.getElementById("levelContainer").children[Object.values(levelFetch).length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 10);
     }
     fetchData();
   }, []);
@@ -40,7 +44,7 @@ function Levels() {
         <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
           Levels
         </div>
-        <div className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
+        <div id="levelContainer" className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
           {allLevels.map((x, i) => {
             if (levelInfo[x.id]) {
               let finished = {
@@ -108,7 +112,7 @@ function UserDisplay({ name, stars }) {
     var test = stars;
   }
   return (
-    <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[350px] content-center h-screen z-50">
+    <div className="text-white bg-[#1A1C1F70] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[350px] content-center h-screen z-50">
       <div className="flex flex-col items-center">
         <img
           src="/images/logo.png"

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-let levelList = ["a", "b"];
+let levelList = ["a", "b", "c", "d"];
 levelList = levelList.map((x) => {
     return require(`./levelData/${x}.json`);
 });
