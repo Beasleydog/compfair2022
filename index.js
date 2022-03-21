@@ -86,7 +86,8 @@ dbClient.connect().then(function () {
 				stars: 0,
 				infoRead: 0,
 				mcQuestions: { failed: false, finished: false },
-				openQuestions: { failed: false, finished: false }
+				openQuestions: { failed: false, finished: false },
+				challenge: { finished: false },
 			}
 
 			await collection.insertOne({
@@ -117,7 +118,8 @@ dbClient.connect().then(function () {
 			stars: 0,
 			infoRead: 0,
 			mcQuestions: { failed: false, finished: false },
-			openQuestions: { failed: false, finished: false }
+			openQuestions: { failed: false, finished: false },
+			challenge: { finished: false }
 		}
 		userObject.levels[req.body.id] = newLevelValue;
 		//Unlock level for user
@@ -146,10 +148,12 @@ dbClient.connect().then(function () {
 			};
 			userObject.levels[req.body.id].openQuestions.finished = true;
 			userObject.levels[req.body.id].openQuestions.failed = false;
+		} else if (req.body.mode == "challenge") {
+			userObject.levels[req.body.id].challenge.finished = true;
 		}
 		//Update user object
 		await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels } });
-		return res.status(200);
+		return res.send("ok");
 	});
 
 	app.post("/api/failSection", requireAuth, async (req, res) => {

@@ -36,9 +36,9 @@ function ChallengeQuestion(props) {
     const [isExploding, setIsExploding] = React.useState(false);
 
     function compareDesigns() {
-        html2canvas(document.getElementById("codeResult")).then((resultCanvas) => {
-            html2canvas(document.getElementById("hiddenCorrect")).then((correctCanvas) => {
-                html2canvas(document.getElementById("correctBackground")).then((startCanvas) => {
+        html2canvas(document.getElementById("codeResult").contentDocument.documentElement).then((resultCanvas) => {
+            html2canvas(document.getElementById("hiddenCorrect").contentDocument.documentElement).then((correctCanvas) => {
+                html2canvas(document.getElementById("correctBackground").contentDocument.documentElement).then((startCanvas) => {
                     // document.body.appendChild(resultCanvas);
                     // document.body.appendChild(correctCanvas);
                     // document.body.appendChild(startCanvas);
@@ -48,7 +48,7 @@ function ChallengeQuestion(props) {
         })
     }
 
-    function compareCanvasAccuracy(correctCanvas, userCanvas, startCanvas) {
+    function compareCanvasAccuracy(userCanvas, correctCanvas, startCanvas) {
         let correctData = correctCanvas
             .getContext("2d")
             .getImageData(0, 0, correctCanvas.width, correctCanvas.height);
@@ -113,13 +113,12 @@ function ChallengeQuestion(props) {
 
     return (
         <div className=" w-full h-full flex flex-col items-center">
-            <iframe srcdoc="<p id='test'>Hello world!</p>" src="demo_iframe_srcdoc.htm"></iframe>
             <div className=" text-[50px] text-white text-center mt-2">
                 {/* Display question prop */}
                 Recreate the design!
             </div>
             <div className="flex w-full justify-center">
-                <div className="p-[10px] rounded-l-lg bg-[#282C34]">
+                <div className="p-[10px] rounded-l-lg bg-[#282C34] text-[20px]">
                     <CodeMirror
                         width='calc(50vw - 85px)'
                         height="calc(100vh - 220px)"
@@ -140,13 +139,10 @@ function ChallengeQuestion(props) {
                 <div id="resultContainer" className="rounded-r-lg bg-[#282C34] w-[calc(50vw-65px)] h-[calc(100vh-200px)] flex justify-center items-center" >
                     <div className="flex flex-col">
                         <div className="rounded relative item-center justify-center p-[10px] bg-[#2C313A] flex-grow w-[calc(50vw-145px)] h-[calc(100vh-310px)]">
-                            <div id="codeResult" className="absolute rounded-lg shadow-inner-lg w-[calc(50vw-165px)] h-[calc(100vh-310px)]">
-                                {parse(code)}
-                            </div>
-                            <div id="correctCode" className="absolute w-[calc(50vw-165px)] h-[calc(100vh-310px)] opacity-50">
-                                <h1>Test</h1>
-                                <h2>Ok</h2>
-                            </div>
+                            <iframe srcdoc={`<div style="width:100%;height:100%;">${code}</div>`} id="codeResult" className="absolute rounded-lg shadow-inner-lg w-[calc(50vw-165px)] h-[calc(100vh-310px)]">
+                            </iframe>
+                            <iframe srcdoc={`<div  style="width:100%;height:100%">${props.correctCode}</div>`} id="correctCode" className="absolute w-[calc(50vw-165px)] h-[calc(100vh-310px)] opacity-50">
+                            </iframe>
                         </div>
                         <div className="text-white self-center text-[30px] h-[90px] pt-[20px]">
                             {/* {accuracy} */}
@@ -157,13 +153,10 @@ function ChallengeQuestion(props) {
                         </div>
                     </div>
                 </div>
-                <div className={"absolute left-[100vw] w-[calc(50vw-165px)] h-[calc(100vh-290px)]"}>
+                <div className={"absolute left-[100vw] w-[calc(50vw-165px)] h-[calc(100vh-310px)]"}>
                     {/* Hidden elements for accuracy calculating */}
-                    < div id="correctBackground" className="w-full h-full"></div>
-                    <div id="hiddenCorrect" className="w-full h-full">
-                        <h1>Test</h1>
-                        <h2>Ok</h2>
-                    </div>
+                    <iframe srcdoc={`<div style="width:calc(50vw - 165px);height:calc(100vh - 310px);">${props.defaultBackground}</div>`} id="correctBackground" className="absolute w-full h-full" />
+                    <iframe srcdoc={`<div style="width:calc(50vw - 165px);height:calc(100vh - 310px);">${props.correctCode}</div>`} id="hiddenCorrect" className="absolute w-full h-full" />
                 </div>
             </div>
 

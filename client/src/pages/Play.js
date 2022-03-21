@@ -62,6 +62,16 @@ function Play() {
                         question={levelData.openQuestions[number].question}
                     />}
                     {mode == "challenge" && <ChallengeQuestion
+                        correctCode={`
+                        <div style="width:100%;height:100%;">
+                            <h1>Test</h1>
+                            <h2>Ok</h2>
+                            <h3>Yay!</h3>
+                        </div>
+                        `}
+                        defaultBackground={
+                            `<div style="width:100%;height:100%;"></div>`
+                        }
                         onComplete={() => {
                             setCorrect(true);
                             setPopup(true);
@@ -86,30 +96,36 @@ function Play() {
                         //Set "Ok" button logic
                         if (mode == "info") {
                             //User finished info, redirect back
-                            finishSection(id, mode, attemptNumber);
-                            window.location.replace("/levels");
+                            finishSection(id, mode, attemptNumber, () => {
+                                window.location.replace("/levels");
+                            });
                         } else if (mode == "multi") {
                             if (number == levelData.mcQuestions.length - 1) {
                                 //User finished multi, redirect back
-                                finishSection(id, mode, attemptNumber);
-                                window.location.replace("/levels");
+                                finishSection(id, mode, attemptNumber, () => {
+                                    window.location.replace("/levels");
+                                });
                             } else {
                                 //Direct to next question
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
                             }
                         } else if (mode == "open") {
                             if (number == levelData.openQuestions.length - 1) {
-                                //User finished open ended, try to finish the level
-                                let didFail = finishSection(id, mode, attemptNumber);
-                                if (didFail != "failed") {
-                                    finishLevel(levelData, () => {
-                                        window.location.replace("/levels");
-                                    });
-                                }
+                                //User finished open ended, redirect back
+                                finishSection(id, mode, attemptNumber, () => {
+                                    window.location.replace("/levels");
+                                });
                             } else {
                                 //Next opne ended
                                 window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
                             }
+                        } else if (mode == "challenge") {
+                            finishSection(id, mode, attemptNumber, () => {
+                                finishLevel(levelData, () => {
+                                    window.location.replace("/levels");
+                                });
+                            });
+
                         }
                     }} />
                 </div>
@@ -144,7 +160,7 @@ async function finishLevel(levelData, callback) {
         callback();
     }
 }
-async function finishSection(id, mode, attemptNumber) {
+async function finishSection(id, mode, attemptNumber, callback) {
     //Set a section as finished
     let finish = await fetch("/api/finishSection", {
         headers: {
@@ -158,6 +174,7 @@ async function finishSection(id, mode, attemptNumber) {
         })
     });
     finish = await finish.text();
+    if (callback) callback();
     return finish;
 }
 function gotWrong(id, mode, attemptNumber) {

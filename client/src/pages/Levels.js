@@ -47,11 +47,13 @@ function Levels() {
                 info: levelInfo[x.id].infoRead,
                 mcQuestions: levelInfo[x.id].mcQuestions.finished,
                 openQuestions: levelInfo[x.id].openQuestions.finished,
+                challenge: levelInfo[x.id].challenge.finished
               };
               let failed = {
                 info: false,
                 mcQuestions: levelInfo[x.id].mcQuestions.failed,
                 openQuestions: levelInfo[x.id].openQuestions.failed,
+                challenge: false
               };
               return (
                 <LevelDisplay
@@ -139,7 +141,10 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
   if (!failed) {
     var failed = {};
   }
-
+  function playMode(number, id, mode) {
+    if (locked) return;
+    window.location.replace(`/play/${number}/${id}/${mode}/0`);
+  }
   return (
     <div
       className={`${locked ? "opacity-60 cursor-not-allowed" : ""
@@ -149,8 +154,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
       <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
         <button
           onClick={() => {
-            if (locked) return;
-            window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
+            playMode(randomNumber(), id, "info");
           }}
           type="button"
           className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""
@@ -160,8 +164,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
         </button>
         <button
           onClick={() => {
-            if (locked) return;
-            window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
+            playMode(randomNumber(), id, "multi");
           }}
           type="button"
           className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""
@@ -171,12 +174,20 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
         </button>
         <button
           onClick={() => {
-            if (locked) return;
-            window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
+            playMode(randomNumber(), id, "open");
           }}
           type="button"
           className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""
             } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+        >
+          <img src="/images/Keyboard.png" />
+        </button>
+        <button
+          onClick={() => {
+            playMode(randomNumber(), id, "challenge");
+          }}
+          type="button"
+          className={`${finished.challenge ? finishClass : ""} w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/Keyboard.png" />
         </button>
