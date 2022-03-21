@@ -117,9 +117,9 @@ dbClient.connect().then(function () {
 			name: level.title,
 			stars: 0,
 			infoRead: 0,
-			mcQuestions: { failed: false, finished: false },
-			openQuestions: { failed: false, finished: false },
-			challenge: { finished: false }
+			mcQuestions: { failed: false, finished: false, unlocked: false },
+			openQuestions: { failed: false, finished: false, unlocked: false },
+			challenge: { finished: false, unlocked: false }
 		}
 		userObject.levels[req.body.id] = newLevelValue;
 		//Unlock level for user
@@ -133,14 +133,15 @@ dbClient.connect().then(function () {
 		//Check that user hasnt failed section
 		if (req.body.mode == "info") {
 			userObject.levels[req.body.id].infoRead = true;
+			userObject.levels[req.body.id].mcQuestions.unlocked = true;
 		} else if (req.body.mode == "multi") {
 			let failedMulti = userObject.levels[req.body.id].mcQuestions.failed;
-			console.log(failedMulti, req.body.attemptNumber, req.body.id, req.body.mode);
 			if (failedMulti && failedMulti == req.body.attemptNumber) {
 				return res.send("failed");
 			};
 			userObject.levels[req.body.id].mcQuestions.finished = true;
 			userObject.levels[req.body.id].mcQuestions.failed = false;
+			userObject.levels[req.body.id].openQuestions.unlocked = true;
 		} else if (req.body.mode == "open") {
 			let failedOpen = userObject.levels[req.body.id].openQuestions.failed;
 			if (failedOpen && failedOpen == req.body.attemptNumber) {
@@ -148,6 +149,7 @@ dbClient.connect().then(function () {
 			};
 			userObject.levels[req.body.id].openQuestions.finished = true;
 			userObject.levels[req.body.id].openQuestions.failed = false;
+			userObject.levels[req.body.id].challenge.unlocked = true;
 		} else if (req.body.mode == "challenge") {
 			userObject.levels[req.body.id].challenge.finished = true;
 		}

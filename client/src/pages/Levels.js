@@ -55,6 +55,12 @@ function Levels() {
                 openQuestions: levelInfo[x.id].openQuestions.failed,
                 challenge: false
               };
+              let unlocked = {
+                info: true,
+                mcQuestions: levelInfo[x.id].mcQuestions.unlocked,
+                openQuestions: levelInfo[x.id].openQuestions.unlocked,
+                challenge: levelInfo[x.id].challenge.unlocked
+              };
               return (
                 <LevelDisplay
                   id={x.id}
@@ -63,6 +69,7 @@ function Levels() {
                   stars={levelInfo[x.id].stars}
                   finished={finished}
                   failed={failed}
+                  unlocked={unlocked}
                 />
               );
             } else {
@@ -101,7 +108,7 @@ function UserDisplay({ name, stars }) {
     var test = stars;
   }
   return (
-    <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
+    <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[350px] content-center h-screen z-50">
       <div className="flex flex-col items-center">
         <img
           src="/images/logo.png"
@@ -131,34 +138,36 @@ function UserDisplay({ name, stars }) {
     </div>
   );
 }
-function LevelDisplay({ name, stars, locked, finished, failed, id }) {
+function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
   let failedClass = "border-4 border-red rounded-[50%]";
   let finishClass = "border-4 border-green rounded-[50%]";
 
-  if (!finished) {
-    var finished = {};
-  }
-  if (!failed) {
-    var failed = {};
-  }
+  if (!failed) var failed = {};
+  if (!finished) var finished = {};
+  if (!unlocked) var unlocked = {};
+
   function playMode(number, id, mode) {
     if (locked) return;
+    if (mode == "info" && !unlocked.info) return
+    if (mode == "multi" && !unlocked.mcQuestions) return
+    if (mode == "open" && !unlocked.openQuestions) return
+    if (mode == "challenge" && !unlocked.challenge) return
     window.location.replace(`/play/${number}/${id}/${mode}/0`);
   }
   return (
     <div
       className={`${locked ? "opacity-60 cursor-not-allowed" : ""
-        } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
+        } flex flex-col justify-center items-center rounded-lg p-2 bg-[#1a1c1f] shadow-lg`}
     >
       <div className="z-10 text-white text-[45px] font-bold">{name}</div>
-      <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
+      <div style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }} className="grid gap-12 my-10 px-[100px]">
         <button
           onClick={() => {
             playMode(randomNumber(), id, "info");
           }}
           type="button"
           className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""
-            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+            } w-30 h-30 ${locked || !unlocked.info ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           <img src="/images/Info.png" />
         </button>
@@ -168,7 +177,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
           }}
           type="button"
           className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""
-            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+            } w-30 h-30 ${locked || !unlocked.mcQuestions ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           <img src="/images/MenuButton.png" />
         </button>
@@ -178,7 +187,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
           }}
           type="button"
           className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""
-            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+            } w-30 h-30 ${locked || !unlocked.openQuestions ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           <img src="/images/Keyboard.png" />
         </button>
@@ -187,7 +196,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             playMode(randomNumber(), id, "challenge");
           }}
           type="button"
-          className={`${finished.challenge ? finishClass : ""} w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.challenge ? finishClass : ""} w-30 h-30 ${locked || !unlocked.challenge ? "opacity-60 cursor-not-allowed" : ""}`}
         >
           <img src="/images/Keyboard.png" />
         </button>
