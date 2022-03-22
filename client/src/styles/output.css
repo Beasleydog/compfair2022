@@ -592,20 +592,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: -0.5rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
-.mt-\[300px\] {
-  margin-top: 300px;
-}
-
 .mt-4 {
   margin-top: 1rem;
 }
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-\[300px\] {
+  margin-top: 300px;
 }
 
 .mt-5 {
@@ -626,6 +626,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .grid {
   display: grid;
+}
+
+.contents {
+  display: contents;
 }
 
 .h-full {

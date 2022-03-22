@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from "../components/button.js";
-import { getPicData } from "../profilePictureData/index.js";
 function Login() {
   if (window.localStorage.getItem("username")) {
     //If user is logged in, redirect to levels
@@ -74,25 +73,6 @@ async function login() {
   if (response.status != 200) {
     window.alert("An error has occured");
   } else {
-    let picFetch = await fetch("/api/profileData", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        id: "",
-      }),
-    });
-    picFetch = await picFetch.json();
-    console.log(getPicData(picFetch.bottom));
-    localStorage.setItem("picture-bottom", getPicData(picFetch.bottom).src);
-    localStorage.setItem("picture-mid", getPicData(picFetch.mid).src);
-    localStorage.setItem("picture-top", getPicData(picFetch.top).src);
-    if (getPicData(picFetch.bottom) == "/images/leFeet.png") {
-      alert("test");
-    }
-    console.log(getPicData(picFetch.bottom));
-    //User logged in, redirect to levels
     localStorage.setItem("username", document.getElementById("user").value);
     window.location.replace("/levels");
   }
@@ -109,20 +89,19 @@ function Section(props) {
       <div className="blur-2xl top-[-100%] relative w-full h-full">
         {props.glows
           ? props.glows.map((glow, i) => (
-              <div
-                key={i}
-                className="w-[500px] h-[500px] absolute"
-                style={{
-                  backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                  transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${
-                    glow.y ? glow.y : "0px"
+            <div
+              key={i}
+              className="w-[500px] h-[500px] absolute"
+              style={{
+                backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.6786064767703957) 0%, rgba(1,11,19,0) 70%)`,
+                transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
                   })`,
-                  backgroundSize: "75% 75%",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              ></div>
-            ))
+                backgroundSize: "75% 75%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            ></div>
+          ))
           : ""}
       </div>
     </div>

@@ -1,12 +1,46 @@
 {
-    "pictures" : [
+    "top" : [
         {
             "id": 0,
+            "src": "/images/leHat.png",
+            "name": "hat",
+            "starReq": 0,
+            "type" : "top",
+            "unlocked" : true
+        },
+        {
+            "id": 1,
+            "src": "/images/logo.png",
+            "name": "hat",
+            "starReq": 1,
+            "type" : "top",
+            "unlocked" : true
+        },
+        {
+            "id": 2,
             "src": "/images/notReady.png",
             "name": "hat",
             "starReq": 3,
             "type" : "top",
             "unlocked" : false
+        },
+        {
+            "id": 3,
+            "src": "/images/pixelGuyHat.png",
+            "name": "hat",
+            "starReq": 1,
+            "type" : "top",
+            "unlocked" : true
+        }
+    ],
+    "mid" : [
+        {
+            "id": 0,
+            "src": "/images/leBody.png",
+            "name": "bod",
+            "starReq": 0,
+            "type" : "mid",
+            "unlocked" : true
         },
         {
             "id": 1,
@@ -18,14 +52,15 @@
         },
         {
             "id": 2,
-            "src": "/images/leBody.png",
+            "src": "/images/pixelGuyBody.png",
             "name": "bod",
-            "starReq": 0,
+            "starReq": 2,
             "type" : "mid",
             "unlocked" : true
-        },
+        }
+    ],"bottom" : [
         {
-            "id": 3,
+            "id": 0,
             "src": "/images/leFeet.png",
             "name": "feet",
             "starReq": 0,
@@ -33,44 +68,15 @@
             "unlocked" : true
         },
         {
-            "id": 4,
-            "src": "/images/logo.png",
-            "name": "hat",
-            "starReq": 0,
-            "type" : "top",
-            "unlocked" : true
-        },
-        {
-            "id": 5,
-            "src": "/images/leHat.png",
-            "name": "hat",
-            "starReq": 0,
-            "type" : "top",
-            "unlocked" : true
-        },
-        {
-            "id": 6,
-            "src": "/images/pixelGuyBody.png",
-            "name": "bod",
-            "starReq": 0,
-            "type" : "mid",
-            "unlocked" : true
-        },
-        {
-            "id": 7,
+            "id": 1,
             "src": "/images/pixelGuyFeet.png",
             "name": "feet",
-            "starReq": 0,
+            "starReq": 1,
             "type" : "bottom",
             "unlocked" : true
-        },
-        {
-            "id": 8,
-            "src": "/images/pixelGuyHat.png",
-            "name": "hat",
-            "starReq": 0,
-            "type" : "top",
-            "unlocked" : true
         }
+    ],
+    "face" : [
+        
     ]
 }
