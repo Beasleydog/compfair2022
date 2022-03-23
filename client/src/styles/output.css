@@ -648,20 +648,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 500px;
 }
 
-.h-\[225px\] {
-  height: 225px;
-}
-
-.h-\[150px\] {
-  height: 150px;
-}
-
 .h-\[75\%\] {
   height: 75%;
 }
 
 .h-\[200px\] {
   height: 200px;
+}
+
+.h-\[225px\] {
+  height: 225px;
+}
+
+.h-\[150px\] {
+  height: 150px;
 }
 
 .h-screen {
@@ -716,14 +716,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 500px;
 }
 
-.w-\[225px\] {
-  width: 225px;
-}
-
-.w-\[150px\] {
-  width: 150px;
-}
-
 .w-max {
   width: -webkit-max-content;
   width: max-content;
@@ -748,6 +740,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[350px\] {
   width: 350px;
+}
+
+.w-\[225px\] {
+  width: 225px;
+}
+
+.w-\[150px\] {
+  width: 150px;
 }
 
 .w-\[49px\] {
@@ -806,13 +806,6 @@ Ensure the default browser behavior of the `hidden` attribute.
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.scale-150 {
-  --tw-scale-x: 1.5;
-  --tw-scale-y: 1.5;
-  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
 .scale-\[6\] {
   --tw-scale-x: 6;
   --tw-scale-y: 6;
@@ -823,6 +816,13 @@ Ensure the default browser behavior of the `hidden` attribute.
 .scale-110 {
   --tw-scale-x: 1.1;
   --tw-scale-y: 1.1;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-150 {
+  --tw-scale-x: 1.5;
+  --tw-scale-y: 1.5;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -913,10 +913,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   word-break: break-all;
 }
 
-.rounded-full {
-  border-radius: 9999px;
-}
-
 .rounded-\[10px\] {
   border-radius: 10px;
 }
@@ -927,6 +923,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-\[50\%\] {
@@ -969,14 +969,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(155 197 61 / var(--tw-border-opacity));
 }
 
-.bg-\[\#0c2439\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(12 36 57 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#1E1E1E\] {
   --tw-bg-opacity: 1;
   background-color: rgb(30 30 30 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#0c2439\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(12 36 57 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#151617\] {
@@ -1209,12 +1209,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   opacity: 0;
 }
 
-.shadow-inner {
-  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1224,6 +1218,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .shadow-lg {
   --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-inner {
+  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 

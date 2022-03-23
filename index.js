@@ -51,7 +51,7 @@ dbClient.connect().then(function () {
 
     if (!user) {
       //If user doesnt exist, error
-      return res.sendStatus(403).json({
+      return res.status(403).json({
         message: "Wrong email or password.",
       });
     }
@@ -59,7 +59,7 @@ dbClient.connect().then(function () {
     //If passwords dont match...
     if (encryptString(password) != user.password) {
       //Error
-      return res.sendStatus(403).json({ message: "Incorrect password" });
+      return res.status(403).json({ message: "Incorrect password" });
     }
 
     //Set session for user to keep logged in
@@ -67,11 +67,11 @@ dbClient.connect().then(function () {
     userInfo.password = undefined;
 
     req.session.user = userInfo;
-    res.sendStatus(200).json({ message: "Signin successful" });
+    res.status(200).json({ message: "Signin successful" });
   });
 
   app.get("/api/authed", requireAuth, () => {
-    res.sendStatus(200);
+    res.status(200);
   });
   app.get("/api/logout", requireAuth, (req, res) => {
     //Logout user
@@ -110,12 +110,12 @@ dbClient.connect().then(function () {
         profilePic: picData,
         unlockedItems: { bottom: [], mid: [], top: [], face: [] }
       });
-      res.sendStatus(200).json({
+      res.status(200).json({
         message: "Account created",
       });
     } else {
       //Account already exists
-      return res.sendStatus(409).json({
+      return res.status(409).json({
         message: "Account with that email already exists",
       });
     }
@@ -136,7 +136,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { profilePic: picture } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/getProfile", requireAuth, async (req, res) => {
@@ -182,7 +182,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { stars: userObject.stars } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/getStars", requireAuth, async (req, res) => {
@@ -205,7 +205,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { unlockData: userObject.unlockData } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/unlockData", requireAuth, async (req, res) => {
@@ -237,7 +237,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { levels: userObject.levels } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/finishSection", requireAuth, async (req, res) => {
@@ -274,7 +274,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { levels: userObject.levels } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/failSection", requireAuth, async (req, res) => {
@@ -285,14 +285,14 @@ dbClient.connect().then(function () {
     if (req.body.mode == "multi") {
       if (userObject.levels[req.body.id].mcQuestions.finished) {
         //Dont let user fail a section they already finished
-        return res.sendStatus(420);
+        return res.status(420);
       }
       userObject.levels[req.body.id].mcQuestions.failed =
         req.body.attemptNumber;
     } else if (req.body.mode == "open") {
       if (userObject.levels[req.body.id].openQuestions.finished) {
         //Dont let user fail a section they already finished
-        return res.sendStatus(420);
+        return res.status(420);
       }
       userObject.levels[req.body.id].openQuestions.failed =
         req.body.attemptNumber;
@@ -303,7 +303,7 @@ dbClient.connect().then(function () {
       { username: req.session.user.username },
       { $set: { levels: userObject.levels } }
     );
-    return res.sendStatus(200);
+    return res.status(200);
   });
 
   app.post("/api/levelData", requireAuth, async (req, res) => {
@@ -319,7 +319,7 @@ dbClient.connect().then(function () {
       username: req.session.user.username,
     });
     //Return user data
-    return res.sendStatus(200).json(data);
+    return res.status(200).json(data);
   });
 
   // Handles any requests that don't match the ones above
@@ -341,7 +341,7 @@ dbClient.connect().then(function () {
 const requireAuth = (req, res, next) => {
   const { user } = req.session;
   if (!user) {
-    return res.sendStatus(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
   next();
 };
