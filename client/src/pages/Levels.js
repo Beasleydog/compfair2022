@@ -46,6 +46,7 @@ function Levels() {
         </div>
         <div id="levelContainer" className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
           {allLevels.map((x, i) => {
+            console.log(x);
             if (levelInfo[x.id]) {
               let finished = {
                 info: levelInfo[x.id].infoRead,
