@@ -8,7 +8,21 @@ import DisplayProfilePic from "../components/profilePicture.js";
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
   const allLevels = getAllLevels();
-  console.log(allLevels);
+
+  const [profilePicture, setProfilePicture] = useState({ top: 0, mid: 0, bottom: 0, face: 0 });
+  useEffect(() => {
+    (async () => {
+      let profile = await fetch("/api/getProfile", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      profile = await profile.json();
+      setProfilePicture(profile);
+    })();
+  }, []);
+
   useEffect(() => {
     async function fetchData() {
       //Get users level data
@@ -31,6 +45,56 @@ function Levels() {
     //If user is not logged in, redirect to /login
     window.location.replace("/login");
   }
+
+
+
+  function UserDisplay({ name, stars }) {
+    if (parseInt(stars) <= 9) {
+      var test = "00" + stars;
+    } else if (parseInt(stars) <= 99) {
+      var test = "0" + stars;
+    } else {
+      var test = stars;
+    }
+    return (
+      <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => {
+              mode: "change";
+              window.location.replace(`/change`);
+            }}
+            className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px] z-10"
+          >
+            test
+          </button>
+          <DisplayProfilePic data={profilePicture} />
+          <div className="font-main text-[30px] z-0">{name}</div>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="font-main text-[30px] top-[260px]">Stars</div>
+          <div className="font-main text-[20px] top-[300px]">{test}</div>
+        </div>
+        <div
+          className="absolute left-0 bottom-0 p-2 text-white"
+          onClick={() => {
+            //logout user
+            fetch("/api/logout", {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            window.localStorage.clear();
+            window.location.replace("/");
+          }}
+        >
+          Logout
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <div>
       <div className="font-main bg-black w-screen h-screen overflow-hidden">
@@ -90,51 +154,6 @@ function Levels() {
   );
 }
 
-function UserDisplay({ name, stars }) {
-  if (parseInt(stars) <= 9) {
-    var test = "00" + stars;
-  } else if (parseInt(stars) <= 99) {
-    var test = "0" + stars;
-  } else {
-    var test = stars;
-  }
-  return (
-    <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
-      <div className="flex flex-col items-center">
-        <button
-          onClick={() => {
-            mode: "change";
-            window.location.replace(`/change`);
-          }}
-          className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px] z-10"
-        >
-          test
-        </button>
-        <DisplayProfilePic />
-        <div className="font-main text-[30px] z-0">{name}</div>
-      </div>
-      <div className="flex flex-col items-center">
-        <div className="font-main text-[30px] top-[260px]">Stars</div>
-        <div className="font-main text-[20px] top-[300px]">{test}</div>
-      </div>
-      <div
-        className="absolute left-0 bottom-0 p-2 text-white"
-        onClick={() => {
-          //logout user
-          fetch("/api/logout", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          window.localStorage.clear();
-          window.location.replace("/");
-        }}
-      >
-        Logout
-      </div>
-    </div>
-  );
-}
 function LevelDisplay({ name, stars, locked, finished, failed, id }) {
   let failedClass = "border-4 border-red rounded-[50%]";
   let finishClass = "border-4 border-green rounded-[50%]";
@@ -148,9 +167,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
 
   return (
     <div
-      className={`${
-        locked ? "opacity-60 cursor-not-allowed" : ""
-      } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
+      className={`${locked ? "opacity-60 cursor-not-allowed" : ""
+        } flex flex-col justify-center items-center border-white border-4 rounded-lg p-2`}
     >
       <div className="z-10 text-white text-[45px] font-bold">{name}</div>
       <div className="grid grid-cols-3 gap-12 my-10 px-[100px]">
@@ -160,9 +178,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/info/0`);
           }}
           type="button"
-          className={`${finished.info ? finishClass : ""}${
-            failed.info ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/Info.png" />
         </button>
@@ -172,9 +189,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/multi/0`);
           }}
           type="button"
-          className={`${finished.mcQuestions ? finishClass : ""}${
-            failed.mcQuestions ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/MenuButton.png" />
         </button>
@@ -184,9 +200,8 @@ function LevelDisplay({ name, stars, locked, finished, failed, id }) {
             window.location.replace(`/play/${randomNumber()}/${id}/open/0`);
           }}
           type="button"
-          className={`${finished.openQuestions ? finishClass : ""}${
-            failed.openQuestions ? failedClass : ""
-          } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
+          className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""
+            } w-20 h-20 ${locked ? " cursor-not-allowed" : ""}`}
         >
           <img src="/images/Keyboard.png" />
         </button>

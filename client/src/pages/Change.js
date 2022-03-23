@@ -113,7 +113,10 @@ function Change() {
           }
         >
           <img src={src} className="h-[150px] w-[150px]" />
-          <div className="text-white text-[50px]">{text}-{req}</div>
+          <div className="text-white text-[50px]">
+            {req}
+            <img className="inline w-[49px] -mt-[9px]" src="/images/star.svg" />
+          </div>
         </button>
       </div>
     );
@@ -135,19 +138,19 @@ function Change() {
   }
 
   return (
-    <div>
-      <div className="flex items-center justify-center font-main bg-black w-screen h-full overflow-hidden z-[100]">
-        <button
-          onClick={() => window.location.replace("/levels")}
-          className="absolute text-white text-[100px] text-center font-bold top-0 left-0"
-        >
-          X
-        </button>
-        <div className="absolute top-0 mt-6">
+    <div className="w-screen h-screen">
+      <button
+        onClick={() => window.location.replace("/levels")}
+        className="text-white absolute top-[24px] left-[24px] z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer"
+      >
+        ×
+      </button>
+      <div className="flex flex-col w-screen h-screen items-center justify-center font-main bg-black z-[100]">
+        <div className="mt-6">
           {stars}
           <DisplayProfilePic data={profilePicture} />
         </div>
-        <div className="grid grid-cols-1 gap-2 items-center justify-center h-[1000px] w-[1025px] border-white border-4 rounded-lg p-2 mt-[300px]">
+        <div className="flex flex-col gap-2 mt-5 items-center overflow-y-scroll w-[80%] px-3">
           <ShopSection contents={allBottomPic.map((x, i) => {
             return (
               <PicPart
@@ -201,7 +204,7 @@ function Change() {
 }
 function ShopSection({ contents }) {
   return (
-    <div className="grid items-center justify-center grid-cols-5 gap-3 h-[250px] w-[1000px] border-white border-4 rounded-lg p-2">
+    <div className="w-full flex justify-center gap-3 h-[250px] border-white border-4 rounded-lg">
       {contents}
     </div>
   )
