@@ -1,9 +1,6 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useReducer, useEffect } from "react";
 import BlurBackground from "../components/blurBackground.js";
-import { useParams } from "react-router-dom";
 import {
-  getPicData,
   getAllBottomPic,
   getAllMidPic,
   getAllTopPic,
@@ -14,6 +11,8 @@ function Change() {
   const allBottomPic = getAllBottomPic();
   const allMidPic = getAllMidPic();
   const allTopPic = getAllTopPic();
+
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   console.log(allBottomPic);
   console.log(allMidPic);
@@ -76,7 +75,6 @@ function Change() {
   async function setProfilePart(type, id) {
     let prof = profilePicture;
     prof[type] = id;
-    console.log("SETTING PROFILE PIC", prof);
     setProfilePicture(prof);
     fetch("/api/setProfile", {
       headers: {
@@ -85,6 +83,8 @@ function Change() {
       method: "POST",
       body: JSON.stringify({ ...prof })
     });
+
+    forceUpdate();
   }
   function PicPart({
     id,
@@ -118,13 +118,13 @@ function Change() {
             : ""
           }
         >
-          <img src={src} className="h-[150px] w-[150px] bg-[#151617] rounded-[50%] drop-shadow" />
+          <img src={src} className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id ? "scale-105 shadow-xl border-[4px] border-[#111213]" : ""}`} />
           <div className="text-white text-[50px]">
             {!unlockData[type].includes(id) ?
               (
                 <div>
                   {req}
-                  < img className="inline w-[49px] -mt-[9px]" src="/images/star.svg" />
+                  < img className="drop-shadow inline w-[49px] -mt-[9px]" src="/images/star.svg" />
                 </div>
               )
               :
@@ -134,7 +134,7 @@ function Change() {
             }
           </div>
         </button>
-      </div>
+      </div >
     );
   }
   async function buyItem(type, id, req) {
