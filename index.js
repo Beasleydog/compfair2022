@@ -15,7 +15,7 @@ console.log("test");
 //Connect to database
 var dbClient = new MongoClient(
   `mongodb+srv://Admin:GFZ4pTNUbF6g3Ut1@cluster0.cf0lh.mongodb.net/cluster0?retryWrites=true&w=majority`,
-  { useNewUrlParser: true, useUnifiedTopology: true }
+  { useNewUrlParser: true, useUnifiedTopology: true, minPoolSize: 20 }
 );
 
 // Serve the static files from the React app
@@ -166,7 +166,7 @@ dbClient.connect().then(function () {
     );
     await collection.updateOne(
       { username: req.session.user.username },
-      { $set: { stars: userObject.stars - req.body.req } }
+      { $set: { stars: userObject.stars } }
     );
     res.send(200);
   })

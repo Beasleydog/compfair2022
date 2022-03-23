@@ -57,18 +57,19 @@ function Change() {
     })();
   }, []);
 
+  async function updateUnlockData() {
+    let unlockData = await fetch("/api/unlockData", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+    unlockData = await unlockData.json();
+    console.log("SETTING UNLOCK DATA");
+    setUnlockData(unlockData);
+  }
   useEffect(() => {
-    (async () => {
-      let unlockData = await fetch("/api/unlockData", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      unlockData = await unlockData.json();
-      console.log("SETTING UNLOCK DATA");
-      setUnlockData(unlockData);
-    })();
+    updateUnlockData();
   }, []);
 
 
@@ -98,24 +99,39 @@ function Change() {
           onClick={async () => {
             if (unlockData[type].includes(id)) {
               //User already unlocked this item, set it to their profile
+              console.log("CLICKED AN UNLOCKED ONE")
               setProfilePart(type, id);
             } else {
               if (req > stars) return
+
+              let newUnlocks = unlockData;
+              newUnlocks[type].push(id);
+              setUnlockData(newUnlocks);
 
               buyItem(type, id, req);
 
               setProfilePart(type, id);
             }
           }}
-          className={stars < req || unlockData[type].includes(id)
+          className={stars < req && !unlockData[type].includes(id)
             ? "cursor-not-allowed opacity-60"
             : ""
           }
         >
-          <img src={src} className="h-[150px] w-[150px]" />
+          <img src={src} className="h-[150px] w-[150px] bg-[#151617] rounded-[50%] drop-shadow" />
           <div className="text-white text-[50px]">
-            {req}
-            <img className="inline w-[49px] -mt-[9px]" src="/images/star.svg" />
+            {!unlockData[type].includes(id) ?
+              (
+                <div>
+                  {req}
+                  < img className="inline w-[49px] -mt-[9px]" src="/images/star.svg" />
+                </div>
+              )
+              :
+              <div className="text-green">
+                ✔
+              </div>
+            }
           </div>
         </button>
       </div>
@@ -135,6 +151,7 @@ function Change() {
         req: req
       })
     });
+    updateUnlockData();
   }
 
   return (
@@ -145,13 +162,16 @@ function Change() {
       >
         ×
       </button>
-      <div className="flex flex-col w-screen h-screen items-center justify-center font-main bg-black z-[100]">
-        <div className="mt-6">
-          {stars}
-          <DisplayProfilePic data={profilePicture} />
+      <div className="flex w-screen h-screen items-center font-main bg-black justify-around">
+        <div className="mt-6 z-10 flex flex-col justify-between items-center h-[60vh]">
+          <DisplayProfilePic big data={profilePicture} background="bg-[#1a1c1f85]" />
+          <div className="text-[80px] text-white">
+            {stars}
+            <img className="inline w-[73.15px] -mt-[15px]" src="/images/star.svg" />
+          </div>
         </div>
-        <div className="flex flex-col gap-2 mt-5 items-center overflow-y-scroll w-[80%] px-3">
-          <ShopSection contents={allBottomPic.map((x, i) => {
+        <div className="flex flex-col gap-10 items-center overflow-y-scroll w-[50%] h-[80%] px-3 z-10">
+          <ShopSection title="Feet" contents={allBottomPic.map((x, i) => {
             return (
               <PicPart
                 key={i}
@@ -164,7 +184,7 @@ function Change() {
             );
           })}
           />
-          <ShopSection contents={allMidPic.map((x, i) => {
+          <ShopSection title="Bodies" contents={allMidPic.map((x, i) => {
             return (
               <PicPart
                 key={i}
@@ -177,7 +197,7 @@ function Change() {
             );
           })}
           />
-          <ShopSection contents={allTopPic.map((x, i) => {
+          <ShopSection title="Hats" contents={allTopPic.map((x, i) => {
             return (
               <PicPart
                 key={i}
@@ -191,7 +211,7 @@ function Change() {
           })} />
         </div>
       </div>
-      <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden">
+      <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden z-0">
         <BlurBackground
           glows={[
             { x: "15%", y: "55%" },
@@ -202,10 +222,15 @@ function Change() {
     </div >
   );
 }
-function ShopSection({ contents }) {
+function ShopSection({ contents, title }) {
   return (
-    <div className="w-full flex justify-center gap-3 h-[250px] border-white border-4 rounded-lg">
-      {contents}
+    <div className="w-full flex flex-col rounded-lg bg-[#1a1c1f] shadow">
+      <div className="text-[40px] text-center text-white w-full">
+        {title}
+      </div>
+      <div className="flex justify-left gap-[20px]">
+        {contents}
+      </div>
     </div>
   )
 }

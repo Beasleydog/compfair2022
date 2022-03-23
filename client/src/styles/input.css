@@ -24,3 +24,22 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #134672;
   }
+
+  #backgroundBlurBlob{
+    animation-name:ambientMove;
+    animation-duration: 6s;
+    animation-iteration-count:infinite;
+    transition-timing-function: linear;
+  }
+
+  @keyframes ambientMove {
+    0% {
+      margin-top:50px;
+    }
+    50% {
+      margin-top:-50px;
+    }
+    100% {
+      margin-top:50px;
+    }
+  }
