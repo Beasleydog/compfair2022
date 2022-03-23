@@ -5,3 +5,44 @@
 .cm-focused{
     outline:none !important;
 }
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #00060a;
+    box-shadow: black 0px 0px 2px;
+    padding:1px;
+    border-radius:3px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #296FAB;
+    border-radius:3px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #134672;
+  }
+
+  #backgroundBlurBlob{
+    animation-name:ambientMove;
+    animation-duration: 6s;
+    animation-iteration-count:infinite;
+    transition-timing-function: linear;
+  }
+
+  @keyframes ambientMove {
+    0% {
+      margin-top:50px;
+    }
+    50% {
+      margin-top:-50px;
+    }
+    100% {
+      margin-top:50px;
+    }
+  }

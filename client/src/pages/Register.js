@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
-import Button from '../components/button.js';
+import Button from "../components/button.js";
 async function login() {
   //login user
   let response = await fetch("/api/auth", {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     method: "POST",
     body: JSON.stringify({
       username: document.getElementById("user").value,
-      password: document.getElementById("pass").value
-    })
+      password: document.getElementById("pass").value,
+    }),
   });
   if (response.status != 200) {
     window.alert("An error has occured");
@@ -25,13 +25,13 @@ async function signup() {
   //signup user
   let response = await fetch("/api/createUser", {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     method: "POST",
     body: JSON.stringify({
       username: document.getElementById("user").value,
-      password: document.getElementById("pass").value
-    })
+      password: document.getElementById("pass").value,
+    }),
   });
   if (response.status != 200) {
     window.alert("An error has occured");
@@ -65,7 +65,8 @@ function Register() {
                 <div className="text-white text-[25px] text-left w-[80%]">
                   Username
                 </div>
-                <input id="user"
+                <input
+                  id="user"
                   className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
                   type="text"
                   placeholder="Username"
@@ -73,7 +74,8 @@ function Register() {
                 <div className="text-white text-[25px] text-left w-[80%]">
                   Password
                 </div>
-                <input id="pass"
+                <input
+                  id="pass"
                   className="shadow rounded w-[80%] text-gray-700 p-2 -mt-4"
                   type="password"
                   placeholder="Password"
