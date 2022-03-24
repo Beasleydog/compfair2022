@@ -68,11 +68,19 @@ function Levels() {
                 info: levelInfo[x.id].infoRead,
                 mcQuestions: levelInfo[x.id].mcQuestions.finished,
                 openQuestions: levelInfo[x.id].openQuestions.finished,
+                challenge: levelInfo[x.id].challenge.finished
               };
               let failed = {
                 info: false,
                 mcQuestions: levelInfo[x.id].mcQuestions.failed,
                 openQuestions: levelInfo[x.id].openQuestions.failed,
+                challenge: false
+              };
+              let unlocked = {
+                info: true,
+                mcQuestions: levelInfo[x.id].mcQuestions.unlocked,
+                openQuestions: levelInfo[x.id].openQuestions.unlocked,
+                challenge: levelInfo[x.id].challenge.unlocked
               };
               return (
                 <LevelDisplay
@@ -82,6 +90,7 @@ function Levels() {
                   stars={levelInfo[x.id].stars}
                   finished={finished}
                   failed={failed}
+                  unlocked={unlocked}
                 />
               );
             } else {
