@@ -850,6 +850,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: calc(100vw - 160px);
 }
 
+.w-\[calc\(50vw-150px\)\] {
+  width: calc(50vw - 150px);
+}
+
+.w-auto {
+  width: auto;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -1132,6 +1140,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }
 
+.p-\[2px\] {
+  padding: 2px;
+}
+
+.p-\[5px\] {
+  padding: 5px;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -1200,6 +1216,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pt-\[150px\] {
   padding-top: 150px;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
+.pl-7 {
+  padding-left: 1.75rem;
 }
 
 .text-left {

@@ -8,6 +8,7 @@ import { getLevelData } from "../levels/index.js";
 import Button from "../components/button.js";
 import FillInBlank from "../components/fillInBlank";
 import ChallengeQuestion from "../components/challengeQuestion.js";
+import TextToCode from "../components/textToCodeGame.js";
 function Play() {
     const { attemptNumber, id, mode, number } = useParams();
     const [popupOpen, setPopup] = useState(false);
@@ -71,6 +72,7 @@ function Play() {
                             setPopup(true);
                         }}
                     />}
+                    {mode == "texttocode" && <TextToCode />}
                 </div>
                 <div onClick={() => window.location.replace("/levels")} className={`text-white absolute ${mode == "challenge" ? "top-[8px] left-[8px]" : "top-[24px] left-[24px]"} z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer`}>
                     ×
