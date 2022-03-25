@@ -1,9 +1,10 @@
+//Import required packages
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from "../components/button.js";
 async function login() {
-  //login user
+  //Login user
   let response = await fetch("/api/auth", {
     headers: {
       "Content-Type": "application/json",
@@ -15,8 +16,10 @@ async function login() {
     }),
   });
   if (response.status != 200) {
+    //Error occured
     window.alert("An error has occured");
   } else {
+    //Successful
     localStorage.setItem("username", document.getElementById("user").value);
     window.location.replace("/levels");
   }
@@ -34,8 +37,10 @@ async function signup() {
     }),
   });
   if (response.status != 200) {
+    //Error occured
     window.alert("An error has occured");
   } else {
+    //Succesfful
     login();
   }
 }
@@ -126,4 +131,5 @@ function Section(props) {
   );
 }
 
+//Export Register
 export default Register;

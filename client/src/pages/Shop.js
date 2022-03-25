@@ -1,3 +1,4 @@
+//Import required modules
 import React, { useState, useReducer, useEffect } from "react";
 import BlurBackground from "../components/blurBackground.js";
 import {
@@ -8,15 +9,14 @@ import {
 import DisplayProfilePic from "../components/profilePicture.js";
 
 function Shop() {
+  // Get all pictures
   const allBottomPic = getAllBottomPic();
   const allMidPic = getAllMidPic();
   const allTopPic = getAllTopPic();
 
+  //Create force update function
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  console.log(allBottomPic);
-  console.log(allMidPic);
-  console.log(allTopPic);
   if (!localStorage.getItem("username")) {
     //If user is not logged in, redirect to /login
     window.location.replace("/login");
@@ -30,6 +30,7 @@ function Shop() {
     face: 0,
   });
   useEffect(() => {
+    //Fetch profile data
     (async () => {
       let profile = await fetch("/api/getProfile", {
         headers: {
@@ -82,6 +83,7 @@ function Shop() {
   }, []);
 
   async function setProfilePart(type, id) {
+    //Update a part of the profile, both on client and on server
     let prof = profilePicture;
     prof[type] = id;
     setProfilePicture(prof);
@@ -102,7 +104,6 @@ function Shop() {
           onClick={async () => {
             if (unlockData[type].includes(id)) {
               //User already unlocked this item, set it to their profile
-              console.log("CLICKED AN UNLOCKED ONE");
               setProfilePart(type, id);
             } else {
               if (req > stars) return;
@@ -146,7 +147,7 @@ function Shop() {
     );
   }
   async function buyItem(type, id, req) {
-    console.log("SETTING STARS");
+    //Buy item, update stars on server and client
     setStars(stars - req);
     await fetch("/api/buyItem", {
       headers: {
@@ -257,4 +258,5 @@ function ShopSection({ contents, title }) {
   );
 }
 
+//Export Shop
 export default Shop;

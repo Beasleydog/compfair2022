@@ -1,7 +1,6 @@
 import React from "react";
 import { getPicData } from "../profilePictureData";
 function DisplayProfilePic({ data, big, background }) {
-  console.log(getPicData("mid", (data ? data.mid : 0).src), data,)
   return (
     <div className={`flex items-center justify-center z-0 ${big ? `scale-150` : ""}`}>
       <div className="relative">
@@ -25,4 +24,5 @@ function DisplayProfilePic({ data, big, background }) {
   );
 }
 
+// Export profile picture
 export default DisplayProfilePic;

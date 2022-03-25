@@ -34,6 +34,8 @@ function Play() {
             <div className="font-main bg-black overflow-hidden w-screen h-screen flex items-center justify-center">
                 <div className={`${mode == "challenge" ? "w-[calc(100vw-100px)] h-[calc(100vh-100px)]" : "w-[calc(100vw-160px)] h-[calc(100vh-160px)]"} rounded-lg backdrop-blur-2xl shadow-lg bg-[#00000075] z-10`}>
 
+
+                    {/* Load question based off of mode */}
                     {mode == "info"}
 
                     {mode == "multi" && (<MultipleChoiceQuestion
@@ -81,9 +83,11 @@ function Play() {
                     z-[100] h-[calc(100vh-190px)]  bg-[#2B3131] rounded-lg
                     flex flex-col items-center`} >
                     <div className="w-full h-[120px] text-[87px] text-center">
+                        {/* Set correct emoji */}
                         {mode == "info" ? "❔" : (correct ? "✅" : "❌")}
                     </div>
                     <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
+                        {/* Set popup text */}
                         {popupText.split("\n").map((x) => { return (<div><div>{x}</div><br /></div>) })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {

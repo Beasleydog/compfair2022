@@ -1,7 +1,9 @@
+//Import required modules
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";
 import Button from "../components/button.js";
+
 function Login() {
   if (window.localStorage.getItem("username")) {
     //If user is logged in, redirect to levels
@@ -71,8 +73,10 @@ async function login() {
     }),
   });
   if (response.status != 200) {
+    //Error
     window.alert("An error has occured");
   } else {
+    // Successful
     localStorage.setItem("username", document.getElementById("user").value);
     window.location.replace("/levels");
   }
@@ -84,6 +88,7 @@ function Section(props) {
   return (
     <div className={classString}>
       <div className="z-10 relative left-0 top-0 h-full w-full">
+        {/* Display section content */}
         {props.content}
       </div>
       <div className="blur-2xl top-[-100%] relative w-full h-full">

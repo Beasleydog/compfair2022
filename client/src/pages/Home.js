@@ -1,3 +1,4 @@
+//Import required modules 
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js";

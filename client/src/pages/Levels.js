@@ -64,18 +64,23 @@ function Levels() {
         <div id="levelContainer" className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
           {allLevels.map((x, i) => {
             if (levelInfo[x.id]) {
+              //Get which sections are finished
               let finished = {
                 info: levelInfo[x.id].infoRead,
                 mcQuestions: levelInfo[x.id].mcQuestions.finished,
                 openQuestions: levelInfo[x.id].openQuestions.finished,
                 challenge: levelInfo[x.id].challenge.finished
               };
+
+              //Get which sections are failed
               let failed = {
                 info: false,
                 mcQuestions: levelInfo[x.id].mcQuestions.failed,
                 openQuestions: levelInfo[x.id].openQuestions.failed,
                 challenge: false
               };
+
+              //Get what sections are unlocked
               let unlocked = {
                 info: true,
                 mcQuestions: levelInfo[x.id].mcQuestions.unlocked,
@@ -169,6 +174,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
     if (mode == "multi" && !unlocked.mcQuestions) return
     if (mode == "open" && !unlocked.openQuestions) return
     if (mode == "challenge" && !unlocked.challenge) return
+    // Redirect user
     window.location.replace(`/play/${number}/${id}/${mode}/0`);
   }
   return (
@@ -218,7 +224,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
           <img className="w-[125px] h-[125px]" src="/images/challenge.svg" />
         </button>
       </div>
-      {stars}/3
+      {stars}/8
     </div>
   );
 }

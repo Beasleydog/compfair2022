@@ -1,3 +1,4 @@
+//Import required modules
 import React from "react";
 
 function BlurBackground(props) {
@@ -10,6 +11,7 @@ function BlurBackground(props) {
             key={i}
             id="backgroundBlurBlob"
             className="w-[500px] h-[500px] absolute"
+            // Place element at specified X and Y
             style={{
               backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.4786064767703957) 0%, rgba(1,11,19,0) 70%)`,
               transform: `scale(3) translate(${glow.x ? glow.x : "0px"},${glow.y ? glow.y : "0px"
@@ -24,4 +26,6 @@ function BlurBackground(props) {
     </div>
   );
 }
+
+// Export BlurBackground
 export default BlurBackground;
