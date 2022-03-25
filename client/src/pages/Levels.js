@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React,  useState, useRef, useEffect  from "react";
+import  Link  from "react-router-dom";
 import BlurBackground from "../components/blurBackground.js";
-import { getAllLevels } from "../levels/index.js";
-import { useParams } from "react-router-dom";
+import  getAllLevels  from "../levels/index.js";
+import  useParams  from "react-router-dom";
 import DisplayProfilePic from "../components/profilePicture.js";
 import Button from "../components/button.js";
 function Levels() {

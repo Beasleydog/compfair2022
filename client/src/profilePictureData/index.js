@@ -1,30 +1,22 @@
 const fs = require("fs");
 const path = require("path");
 
-let picList = require("./pic.json");
-console.log(picList);
-function getPicData(type, id) {
-  const pictures = picList[type];
-  try {
-    for (let i = 0; i < pictures.length; i++) {
-      if (pictures[i].id == id) {
-        return pictures[i];
-      }
-    }
-  } catch (e) {
-    console.log(e);
-    return undefined;
-  }
+Get data from "pic.json"
+
+function getPicData(Parameter type, Parameter id) {
+  Return picture in "pic.json" of same type and id
+  If exception is thrown:
+    Return undefined
 }
 
 function getAllBottomPic() {
-  return picList.bottom;
+  Return all pictures of type bottom
 }
 function getAllMidPic() {
-  return picList.mid;
+  Return all pictures of type mid
 }
 function getAllTopPic() {
-  return picList.top;
+  return all pictures of type top
 }
 
 module.exports = {
