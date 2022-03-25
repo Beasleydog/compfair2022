@@ -1,16 +1,12 @@
-import React, { useState, useReducer, useEffect } from "react";
-import BlurBackground from "../components/blurBackground.js";
-import {
-  getAllBottomPic,
-  getAllMidPic,
-  getAllTopPic,
-} from "../profilePictureData/index.js";
-import DisplayProfilePic from "../components/profilePicture.js";
+import React useState, useReducer, useEffect from "react"
+import BlurBackground from "../components/blurBackground.js"
+import getAllBottomPic, getAllMidPic, getAllTopPic from "../profilePictureData/index.js"
+import DisplayProfilePic from "../components/profilePicture.js"
 
 function Shop() {
-  const allBottomPic = getAllBottomPic();
-  const allMidPic = getAllMidPic();
-  const allTopPic = getAllTopPic();
+  define allBottomPic = getAllBottomPic();
+  define allMidPic = getAllMidPic();
+  define allTopPic = getAllTopPic();
 
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
