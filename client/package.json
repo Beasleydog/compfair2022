@@ -10,17 +10,15 @@
     "react-confetti-explosion": "^1.0.3",
     "react-dom": "^16.4.1",
     "react-router-dom": "6.2.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^4.0.0",
     "react-syntax-highlighter": "^15.4.5",
     "react-tsparticles": "^1.42.3"
   },
-  
   "scripts": {
     "start": "react-scripts start | npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch | node ../index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "bruh": ""
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
