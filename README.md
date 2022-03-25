@@ -1,4 +1,4 @@
-# Debuggers
+# DevBytes
 
 Compclub 2022 project
 
