@@ -217,10 +217,10 @@ dbClient.connect().then(function () {
       userObject.levels[req.body.id].openQuestions.finished = true;
       userObject.levels[req.body.id].openQuestions.failed = false;
       userObject.levels[req.body.id].challenge.unlocked = true;
-      userObject.stars += 3;
+      userObject.stars += 2;
     } else if (req.body.mode == "challenge") {
       userObject.levels[req.body.id].challenge.finished = true;
-      userObject.stars += 4;
+      userObject.stars += 3;
     }
     //Update user object
     await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels, stars: userObject.stars } });
