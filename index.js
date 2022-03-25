@@ -43,6 +43,7 @@ app.use((req, res, next) => {
 });
 
 dbClient.connect().then(function () {
+  console.log("CONNETCED");
   const collection = dbClient.db("Dev").collection("Dev");
 
   app.post("/api/auth", async (req, res) => {
