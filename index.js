@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 require("dotenv").config();
 const session = require("express-session");
+var MongoDBStore = require('connect-mongodb-session')(session);
 const encryptString = require("./helpers/encryptString.js").encryptString;
 const getLevelData = require("./client/src/levels/index.js").getLevelData;
 const firstLevelName = require("./client/src/levels/index.js").firstLevelName;
@@ -10,7 +11,10 @@ const firstLevelId = require("./client/src/levels/index.js").firstLevelId;
 const app = express();
 const { MongoClient } = require("mongodb");
 
-console.log("test");
+var store = new MongoDBStore({
+  uri: 'mongodb+srv://Admin:GFZ4pTNUbF6g3Ut1@cluster0.cf0lh.mongodb.net/cluster0?retryWrites=true&w=majority',
+  collection: 'mySessions'
+});
 
 //Connect to database
 var dbClient = new MongoClient(
@@ -26,6 +30,7 @@ app.use(
     secret: "mUCHDFMShcuoifmhcsdpmcMDPismpicds",
     saveUninitialized: true,
     resave: false,
+    store: store,
     cookie: {
       httpOnly: true,
       maxAge: 60 * 60 * 1000,

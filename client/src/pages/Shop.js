@@ -38,6 +38,7 @@ function Shop() {
         },
         method: "POST",
       });
+      console.log(profile)
       profile = await profile.json();
       setProfilePicture(profile);
     })();
