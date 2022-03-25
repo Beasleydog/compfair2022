@@ -112,7 +112,7 @@ dbClient.connect().then(function () {
         username: username,
         password: encryptString(password),
         levels: levelData,
-        stars: 3,
+        stars: 0,
         profilePic: picData,
         unlockedItems: { bottom: [], mid: [], top: [], face: [] }
       });
@@ -203,30 +203,40 @@ dbClient.connect().then(function () {
 
     //Check that user hasnt failed section
     if (req.body.mode == "info") {
+      if (!userObject.levels[req.body.id].infoRead) {
+        userObject.stars++;
+      }
+
       userObject.levels[req.body.id].infoRead = true;
       userObject.levels[req.body.id].mcQuestions.unlocked = true;
-      userObject.stars++;
     } else if (req.body.mode == "multi") {
       let failedMulti = userObject.levels[req.body.id].mcQuestions.failed;
       if (failedMulti && failedMulti == req.body.attemptNumber) {
         return res.send("failed");
       };
+      if (!userObject.levels[req.body.id].mcQuestions.finished) {
+        userObject.stars += 2;
+      }
+
       userObject.levels[req.body.id].mcQuestions.finished = true;
       userObject.levels[req.body.id].mcQuestions.failed = false;
       userObject.levels[req.body.id].openQuestions.unlocked = true;
-      userObject.stars += 2;
     } else if (req.body.mode == "open") {
       let failedOpen = userObject.levels[req.body.id].openQuestions.failed;
       if (failedOpen && failedOpen == req.body.attemptNumber) {
         return res.send("failed");
       };
+      if (!userObject.levels[req.body.id].openQuestions.finished) {
+        userObject.stars += 2;
+      }
       userObject.levels[req.body.id].openQuestions.finished = true;
       userObject.levels[req.body.id].openQuestions.failed = false;
       userObject.levels[req.body.id].challenge.unlocked = true;
-      userObject.stars += 2;
     } else if (req.body.mode == "challenge") {
+      if (!userObject.levels[req.body.id].challenge.finished) {
+        userObject.stars += 3;
+      }
       userObject.levels[req.body.id].challenge.finished = true;
-      userObject.stars += 3;
     }
     //Update user object
     await collection.updateOne({ username: req.session.user.username }, { $set: { levels: userObject.levels, stars: userObject.stars } });

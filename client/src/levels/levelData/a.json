@@ -2,7 +2,10 @@
   "id": "a",
   "title": "Headings",
   "unlockNext": "b",
-  "info": "Headings elements can be defined by tags <h1> to <h6>, in the order of importance. \nWith each heading, the content will reduce is size. \nTags will start and end like so: <h1>content goes here</h1>\n The tags must start and end with the same type, and end with a slash (/). \nThough each heading has default settings, they can be overwritten using with the style attribute using the CSS properties. \nAn example of this would be <h1 style=\"fontsize:50px;\">content goes here</h1>\n The CSS attribute must be specified (in this case, fontsize), followed by a colon and the desired value for said CSS attribute. \nEnsure that it's also wrapped in quotation marks.",
+  "info": [
+    "Headings elements can be defined by tags <h1> to <h6>, in the order of importance.<CODE><h1>Test</h1></CODE> \nWith each heading, the content will reduce is size.",
+    "Tags will start and end like so: <h1>content goes here</h1>\n The tags must start and end with the same type, and end with a slash (/). \nThough each heading has default settings, they can be overwritten using with the style attribute using the CSS properties. \nAn example of this would be <h1 style=\"fontsize:50px;\">content goes here</h1>\n The CSS attribute must be specified (in this case, fontsize), followed by a colon and the desired value for said CSS attribute. \nEnsure that it's also wrapped in quotation marks."
+  ],
   "openQuestions": [
     {
       "question": "Look at the heading tag below",

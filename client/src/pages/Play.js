@@ -18,6 +18,7 @@ function Play() {
     const [popupOpen, setPopup] = useState(false);
     const [correct, setCorrect] = useState(false);
     const [popupText, setText] = useState('');
+    const [focused, setFocused] = useState(0);
     let levelData = getLevelData(id);
 
     useEffect(() => {
@@ -93,51 +94,66 @@ function Play() {
                     </div>
                     <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
                         {/* Set popup text */}
-                        {popupText.split("\n").map((x) => {
-                            return (
-                                <div>
-                                    <div>{x}</div>
-                                    <br />
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <Button text="Ok" className="mb-[20px]" onClick={() => {
-                        //Set "Ok" button logic
-                        if (mode == "info") {
-                            //User finished info, redirect back
-                            finishSection(id, mode, attemptNumber, () => {
-                                window.location.replace("/levels");
-                            });
-                        } else if (mode == "multi") {
-                            if (number == levelData.mcQuestions.length - 1) {
-                                //User finished multi, redirect back
-                                finishSection(id, mode, attemptNumber, () => {
-                                    window.location.replace("/levels");
-                                });
-                            } else {
-                                //Direct to next question
-                                window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
-                            }
-                        } else if (mode == "open") {
-                            if (number == levelData.openQuestions.length - 1) {
-                                //User finished open ended, redirect back
-                                finishSection(id, mode, attemptNumber, () => {
-                                    window.location.replace("/levels");
-                                });
-                            } else {
-                                //Next opne ended
-                                window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
-                            }
-                        } else if (mode == "challenge") {
-                            finishSection(id, mode, attemptNumber, () => {
-                                finishLevel(levelData, () => {
-                                    window.location.replace("/levels");
-                                });
-                            });
-
+                        {mode == "info" ?
+                            infoTextToHTML(popupText[focused])
+                            :
+                            popupText.split("\n").map((x) => {
+                                return (
+                                    <div>
+                                        <div>{x}</div>
+                                        <div className="h-[15px]"></div>
+                                    </div>
+                                )
+                            })
                         }
-                    }} />
+                    </div>
+                    <div className="flex gap-2">
+                        {(mode == "info" && focused > 0) &&
+                            <Button text="Back" className="mb-[20px]" onClick={() => {
+                                setFocused(focused => focused - 1);
+                            }} />
+                        }
+                        <Button text={focused == popupText.length - 1 ? "Finish" : "Next"} className="mb-[20px]" onClick={() => {
+                            //Set "Ok" button logic
+                            if (mode == "info") {
+                                if (focused != popupText.length - 1) {
+                                    setFocused(focused => focused + 1);
+                                } else {
+                                    //User finished info, redirect back
+                                    finishSection(id, mode, attemptNumber, () => {
+                                        window.location.replace("/levels");
+                                    });
+                                }
+                            } else if (mode == "multi") {
+                                if (number == levelData.mcQuestions.length - 1) {
+                                    //User finished multi, redirect back
+                                    finishSection(id, mode, attemptNumber, () => {
+                                        window.location.replace("/levels");
+                                    });
+                                } else {
+                                    //Direct to next question
+                                    window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
+                                }
+                            } else if (mode == "open") {
+                                if (number == levelData.openQuestions.length - 1) {
+                                    //User finished open ended, redirect back
+                                    finishSection(id, mode, attemptNumber, () => {
+                                        window.location.replace("/levels");
+                                    });
+                                } else {
+                                    //Next opne ended
+                                    window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
+                                }
+                            } else if (mode == "challenge") {
+                                finishSection(id, mode, attemptNumber, () => {
+                                    finishLevel(levelData, () => {
+                                        window.location.replace("/levels");
+                                    });
+                                });
+
+                            }
+                        }} />
+                    </div>
                 </div>
             </div>}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
@@ -201,5 +217,63 @@ function gotWrong(id, mode, attemptNumber) {
             attemptNumber: attemptNumber
         })
     })
+}
+function infoTextToHTML(text) {
+    let splitList = [];
+    text.split("<CODE>").forEach((x) => {
+        if (x.indexOf("</CODE>") != -1) {
+            splitList.push({
+                code: x.split("</CODE>")[0]
+            });
+            splitList.push(x.replace("<CODE>", "").replace("</CODE>", "").replace(x.split("</CODE>")[0], ""));
+        } else {
+            splitList.push(x);
+        }
+    });
+
+    let htmlList = [(<div className="w-[50vw]"></div>)];
+    console.log(splitList);
+    splitList.forEach((x) => {
+        if (typeof (x) == "string") {
+            x.split("\n").forEach((x) => {
+                htmlList.push(
+                    <div>
+                        <div>{x}</div>
+                        <div className="h-[15px]"></div>
+                    </div>
+                )
+            })
+        } else {
+            htmlList.push(
+                <div className="bg-[#1E1E1E] p-1 m-2 rounded">
+                    <SyntaxHighlighter
+                        customStyle={{
+                            lineHeight: "1",
+                            fontSize: "1em",
+                        }}
+                        codeTagProps={{
+                            style: {
+                                lineHeight: "inherit",
+                                fontSize: "inherit",
+                            },
+                        }}
+                        language="html"
+                        style={theme}
+                        lineProps={{
+                            style: {
+                                wordBreak: "break-all",
+                                whiteSpace: "pre-wrap",
+                            },
+                        }}
+                        wrapLines>
+                        {x.code}
+                    </SyntaxHighlighter>
+                </div>
+            )
+        }
+    });
+    console.log(htmlList);
+    return htmlList;
+
 }
 export default Play;

@@ -7,6 +7,7 @@ import DisplayProfilePic from "../components/profilePicture.js";
 import Button from "../components/button.js";
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
+  const [stars, setStars] = useState([]);
   const allLevels = getAllLevels();
 
   const [profilePicture, setProfilePicture] = useState({ top: 0, mid: 0, bottom: 0, face: 0 });
@@ -22,6 +23,21 @@ function Levels() {
       setProfilePicture(profile);
     })();
   }, []);
+
+
+  useEffect(() => {
+    (async () => {
+      let stars = await fetch("/api/getStars", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      stars = await stars.text();
+      setStars(parseInt(stars));
+    })();
+  }, []);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -56,9 +72,9 @@ function Levels() {
   }
   return (<div>
     <div className="font-main bg-black w-screen h-screen overflow-hidden">
-      <UserDisplay name={localStorage.getItem("username")} profilePicture={profilePicture} stars="0" />
+      <UserDisplay name={localStorage.getItem("username")} profilePicture={profilePicture} stars={stars} />
       <div className="absolute left-[200px] items-center w-[calc(100vw-200px)]">
-        <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
+        <div className="absolute text-white text-[100px] text-center font-bold w-[calc(100%-10px)] h-[150px] backdrop-blur-2xl z-30 drop-shadow-lg">
           Levels
         </div>
         <div id="levelContainer" className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
@@ -224,7 +240,13 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
           <img className="w-[125px] h-[125px]" src="/images/challenge.svg" />
         </button>
       </div>
-      {stars}/8
+      <div className="flex text-white text-[23px]">
+        {0 + (finished.info ? 1 : 0) + (finished.mcQuestions ? 2 : 0) + (finished.openQuestions ? 2 : 0) + (finished.challenge ? 3 : 0)}/8
+        <img
+          className="drop-shadow inline w-[35px] -mt-[9px]"
+          src="/images/star.svg"
+        />
+      </div>
     </div>
   );
 }

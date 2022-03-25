@@ -582,6 +582,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 100;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .my-10 {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
@@ -740,6 +744,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 120px;
 }
 
+.h-\[15px\] {
+  height: 15px;
+}
+
 .h-\[60vh\] {
   height: 60vh;
 }
@@ -818,6 +826,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: calc(100vw - 200px);
 }
 
+.w-\[calc\(100\%-10px\)\] {
+  width: calc(100% - 10px);
+}
+
 .w-\[250px\] {
   width: 250px;
 }
@@ -828,6 +840,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[125px\] {
   width: 125px;
+}
+
+.w-\[35px\] {
+  width: 35px;
 }
 
 .w-\[80\%\] {
@@ -942,6 +958,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .gap-12 {
   gap: 3rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-10 {
@@ -1118,6 +1138,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -1136,6 +1160,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .px-\[100px\] {
@@ -1216,6 +1245,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-\[45px\] {
   font-size: 45px;
+}
+
+.text-\[23px\] {
+  font-size: 23px;
 }
 
 .text-\[70px\] {
@@ -1344,14 +1377,14 @@ Ensure the default browser behavior of the `hidden` attribute.
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.backdrop-blur-\[20px\] {
-  --tw-backdrop-blur: blur(20px);
+.backdrop-blur-2xl {
+  --tw-backdrop-blur: blur(40px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.backdrop-blur-2xl {
-  --tw-backdrop-blur: blur(40px);
+.backdrop-blur-\[20px\] {
+  --tw-backdrop-blur: blur(20px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }

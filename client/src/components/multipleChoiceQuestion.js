@@ -10,7 +10,7 @@ function MultipleChoiceQuestion(props) {
 
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <div className="text-[50px] text-white text-center pt-4">
+      <div className="text-[50px] text-white text-center pt-4 px-10">
         {/* display question */}
         {props.question}
       </div>
