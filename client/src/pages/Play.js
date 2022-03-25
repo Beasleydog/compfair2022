@@ -8,6 +8,11 @@ import { getLevelData } from "../levels/index.js";
 import Button from "../components/button.js";
 import FillInBlank from "../components/fillInBlank";
 import ChallengeQuestion from "../components/challengeQuestion.js";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { vs2015 } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+const theme = vs2015;
+
 function Play() {
     const { attemptNumber, id, mode, number } = useParams();
     const [popupOpen, setPopup] = useState(false);
@@ -88,7 +93,14 @@ function Play() {
                     </div>
                     <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
                         {/* Set popup text */}
-                        {popupText.split("\n").map((x) => { return (<div><div>{x}</div><br /></div>) })}
+                        {popupText.split("\n").map((x) => {
+                            return (
+                                <div>
+                                    <div>{x}</div>
+                                    <br />
+                                </div>
+                            )
+                        })}
                     </div>
                     <Button text="Ok" className="mb-[20px]" onClick={() => {
                         //Set "Ok" button logic
