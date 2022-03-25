@@ -4,27 +4,18 @@ import getAllBottomPic, getAllMidPic, getAllTopPic from "../profilePictureData/i
 import DisplayProfilePic from "../components/profilePicture.js"
 
 function Shop() {
-  define allBottomPic = getAllBottomPic();
-  define allMidPic = getAllMidPic();
-  define allTopPic = getAllTopPic();
+  Define allBottomPic to getAllBottomPic();
+  Define allMidPic to getAllMidPic();
+  Define allTopPic to getAllTopPic();
 
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  Define forceUpdate to rerender element
 
-  console.log(allBottomPic);
-  console.log(allMidPic);
-  console.log(allTopPic);
-  if (!localStorage.getItem("username")) {
-    //If user is not logged in, redirect to /login
-    window.location.replace("/login");
-  }
+  If user is not logged in, redirect to "/login"
 
   //Just start off with default character
-  const [profilePicture, setProfilePicture] = useState({
-    top: 0,
-    mid: 0,
-    bottom: 0,
-    face: 0,
-  });
+  Define profilePicture to {top: 0, mid: 0, bottom: 0, face: 0}
+  Define setProfilePicture to set profilePicture
+
   useEffect(() => {
     (async () => {
       let profile = await fetch("/api/getProfile", {
@@ -38,14 +29,11 @@ function Shop() {
     })();
   }, []);
 
-  const [stars, setStars] = useState(0);
+  Define stars to 0;
+  Define setStars(Parameter x) as set stars to x;
   //Default to nothing unlocked
-  const [unlockData, setUnlockData] = useState({
-    top: [],
-    mid: [],
-    bottom: [],
-    face: [],
-  });
+  Define unlockData to {top: [], mid: [], bottom: [], face: []}
+  Define setUnlockData(Parameter x) as set unlockData to x;
 
   //Get user stars and unlocked items, do it in two functions so requests can be made at same time
   useEffect(() => {
@@ -78,19 +66,13 @@ function Shop() {
   }, []);
 
   async function setProfilePart(type, id) {
-    let prof = profilePicture;
-    prof[type] = id;
-    setProfilePicture(prof);
-    fetch("/api/setProfile", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ ...prof }),
-    });
+  setProfilePicture():
+    Set profilePicture part that matches type to id
+    Set Profile Picture in server to profilePicture 
 
-    forceUpdate();
+  forceUpdate();
   }
+
   function PicPart({ id, src, req, text, type }) {
     return (
       <div className="mt-4 ml-4 w-[150px]">
@@ -143,23 +125,15 @@ function Shop() {
     );
   }
   async function buyItem(type, id, req) {
-    console.log("SETTING STARS");
-    setStars(stars - req);
-    await fetch("/api/buyItem", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        type: type,
-        id: id,
-        req: req,
-      }),
-    });
+    setStars():
+      Set stars to stars - req
+    Add shop item id to server unlock data
+    Subtract req from server stars
     updateUnlockData();
   }
 
   return (
+    [Header]
     <div className="w-screen h-screen">
       <button
         onClick={() => window.location.replace("/levels")}
