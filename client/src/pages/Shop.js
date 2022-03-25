@@ -94,7 +94,7 @@ function Shop() {
     type,
   }) {
     return (
-      <div className="mt-4 ml-4">
+      <div className="mt-4 ml-4 w-[150px]">
         <button
           onClick={async () => {
             if (unlockData[type].includes(id)) {
@@ -114,8 +114,8 @@ function Shop() {
             }
           }}
           className={stars < req && !unlockData[type].includes(id)
-            ? "cursor-not-allowed opacity-60"
-            : ""
+            ? "cursor-not-allowed opacity-60 w-[150px]"
+            : "w-[150px]"
           }
         >
           <img src={src} className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id ? "scale-105 shadow-xl border-[4px] border-[#111213]" : ""}`} />
@@ -228,7 +228,7 @@ function ShopSection({ contents, title }) {
       <div className="text-[40px] text-center text-white w-full">
         {title}
       </div>
-      <div className="flex justify-left gap-[20px]">
+      <div className="flex justify-left gap-[20px] w-full overflow-x-auto">
         {contents}
       </div>
     </div>
