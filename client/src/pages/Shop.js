@@ -7,7 +7,7 @@ import {
 } from "../profilePictureData/index.js";
 import DisplayProfilePic from "../components/profilePicture.js";
 
-function Change() {
+function Shop() {
   const allBottomPic = getAllBottomPic();
   const allMidPic = getAllMidPic();
   const allTopPic = getAllTopPic();
@@ -235,4 +235,4 @@ function ShopSection({ contents, title }) {
   )
 }
 
-export default Change;
+export default Shop;

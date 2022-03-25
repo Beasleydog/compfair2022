@@ -538,16 +538,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 10px;
 }
 
-.top-\[260px\] {
-  top: 260px;
-}
-
 .top-\[300px\] {
   top: 300px;
 }
 
 .bottom-0 {
   bottom: 0px;
+}
+
+.top-\[260px\] {
+  top: 260px;
 }
 
 .top-\[8px\] {
@@ -564,6 +564,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .left-\[50\%\] {
   left: 50%;
+}
+
+.right-0 {
+  right: 0px;
+}
+
+.right-2 {
+  right: 0.5rem;
 }
 
 .z-0 {
@@ -832,6 +840,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-\[250px\] {
   width: 250px;
+}
+
+.w-\[69px\] {
+  width: 69px;
 }
 
 .w-\[180px\] {

@@ -4,7 +4,7 @@ import BlurBackground from "../components/blurBackground.js";
 import { getAllLevels } from "../levels/index.js";
 import { useParams } from "react-router-dom";
 import DisplayProfilePic from "../components/profilePicture.js";
-
+import Button from "../components/button.js";
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
   const allLevels = getAllLevels();
@@ -107,6 +107,21 @@ function Levels() {
           })}
         </div>
       </div>
+      <div
+        className="absolute right-2 bottom-0 p-2 text-white z-10 cursor-pointer"
+        onClick={() => {
+          //logout user
+          fetch("/api/logout", {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          window.localStorage.clear();
+          window.location.replace("/");
+        }}
+      >
+        Logout
+      </div>
       <div className="z-0">
         <BlurBackground
           glows={[
@@ -122,47 +137,19 @@ function Levels() {
 
 
 function UserDisplay({ name, stars, profilePicture }) {
-  if (parseInt(stars) <= 9) {
-    var test = "00" + stars;
-  } else if (parseInt(stars) <= 99) {
-    var test = "0" + stars;
-  } else {
-    var test = stars;
-  }
   return (
     <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
       <div className="flex flex-col items-center">
-        <button
-          onClick={() => {
-            mode: "change";
-            window.location.replace(`/change`);
-          }}
-          className="absolute opacity-0 hover:opacity-100 font-main bg-black text-[30px] px-[30px] py-[30px] right-[10px] z-10"
-        >
-          test
-        </button>
         <DisplayProfilePic data={profilePicture} />
         <div className="font-main text-[30px] z-0">{name}</div>
       </div>
       <div className="flex flex-col items-center">
-        <div className="font-main text-[30px] top-[260px]">Stars</div>
-        <div className="font-main text-[20px] top-[300px]">{test}</div>
+        <img className="drop-shadow w-[69px] -mt-[9px]" src="/images/star.svg" />
+        <div className="font-main text-[40px] top-[300px]">{stars}</div>
       </div>
-      <div
-        className="absolute left-0 bottom-0 p-2 text-white"
-        onClick={() => {
-          //logout user
-          fetch("/api/logout", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          window.localStorage.clear();
-          window.location.replace("/");
-        }}
-      >
-        Logout
-      </div>
+      <Button text="Shop" onClick={() => {
+        window.location.replace(`/shop`);
+      }} />
     </div>
   );
 }
