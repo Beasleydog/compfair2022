@@ -121,6 +121,7 @@ function Shop() {
             : "w-[150px]"
           }
         >
+
           <img
             src={src}
             className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id
