@@ -12,7 +12,7 @@ function Shop() {
   const allMidPic = getAllMidPic();
   const allTopPic = getAllTopPic();
 
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   console.log(allBottomPic);
   console.log(allMidPic);
@@ -23,7 +23,12 @@ function Shop() {
   }
 
   //Just start off with default character
-  const [profilePicture, setProfilePicture] = useState({ top: 0, mid: 0, bottom: 0, face: 0 });
+  const [profilePicture, setProfilePicture] = useState({
+    top: 0,
+    mid: 0,
+    bottom: 0,
+    face: 0,
+  });
   useEffect(() => {
     (async () => {
       let profile = await fetch("/api/getProfile", {
@@ -39,7 +44,12 @@ function Shop() {
 
   const [stars, setStars] = useState(0);
   //Default to nothing unlocked
-  const [unlockData, setUnlockData] = useState({ top: [], mid: [], bottom: [], face: [] });
+  const [unlockData, setUnlockData] = useState({
+    top: [],
+    mid: [],
+    bottom: [],
+    face: [],
+  });
 
   //Get user stars and unlocked items, do it in two functions so requests can be made at same time
   useEffect(() => {
@@ -51,7 +61,7 @@ function Shop() {
         method: "POST",
       });
       stars = await stars.text();
-      console.log("SETTING STARS")
+      console.log("SETTING STARS");
       setStars(parseInt(stars));
     })();
   }, []);
@@ -71,7 +81,6 @@ function Shop() {
     updateUnlockData();
   }, []);
 
-
   async function setProfilePart(type, id) {
     let prof = profilePicture;
     prof[type] = id;
@@ -81,28 +90,22 @@ function Shop() {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ ...prof })
+      body: JSON.stringify({ ...prof }),
     });
 
     forceUpdate();
   }
-  function PicPart({
-    id,
-    src,
-    req,
-    text,
-    type,
-  }) {
+  function PicPart({ id, src, req, text, type }) {
     return (
       <div className="mt-4 ml-4 w-[150px]">
         <button
           onClick={async () => {
             if (unlockData[type].includes(id)) {
               //User already unlocked this item, set it to their profile
-              console.log("CLICKED AN UNLOCKED ONE")
+              console.log("CLICKED AN UNLOCKED ONE");
               setProfilePart(type, id);
             } else {
-              if (req > stars) return
+              if (req > stars) return;
 
               let newUnlocks = unlockData;
               newUnlocks[type].push(id);
@@ -118,23 +121,28 @@ function Shop() {
             : "w-[150px]"
           }
         >
-          <img src={src} className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id ? "scale-105 shadow-xl border-[4px] border-[#111213]" : ""}`} />
+          <img
+            src={src}
+            className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id
+              ? "scale-105 shadow-xl border-[4px] border-[#111213]"
+              : ""
+              }`}
+          />
           <div className="text-white text-[50px]">
-            {!unlockData[type].includes(id) ?
-              (
-                <div>
-                  {req}
-                  < img className="drop-shadow inline w-[49px] -mt-[9px]" src="/images/star.svg" />
-                </div>
-              )
-              :
-              <div className="text-green">
-                ✔
+            {!unlockData[type].includes(id) ? (
+              <div>
+                {req}
+                <img
+                  className="drop-shadow inline w-[49px] -mt-[9px]"
+                  src="/images/star.svg"
+                />
               </div>
-            }
+            ) : (
+              <div className="text-green">✔</div>
+            )}
           </div>
         </button>
-      </div >
+      </div>
     );
   }
   async function buyItem(type, id, req) {
@@ -148,8 +156,8 @@ function Shop() {
       body: JSON.stringify({
         type: type,
         id: id,
-        req: req
-      })
+        req: req,
+      }),
     });
     updateUnlockData();
   }
@@ -164,51 +172,65 @@ function Shop() {
       </button>
       <div className="flex w-screen h-screen items-center font-main bg-black justify-around">
         <div className="mt-6 z-10 flex flex-col justify-between items-center h-[60vh]">
-          <DisplayProfilePic big data={profilePicture} background="bg-[#1a1c1f85]" />
+          <DisplayProfilePic
+            big
+            data={profilePicture}
+            background="bg-[#1a1c1f85]"
+          />
           <div className="text-[80px] text-white">
             {stars}
-            <img className="inline w-[73.15px] -mt-[15px]" src="/images/star.svg" />
+            <img
+              className="inline w-[73.15px] -mt-[15px]"
+              src="/images/star.svg"
+            />
           </div>
         </div>
         <div className="flex flex-col gap-10 items-center overflow-y-scroll w-[50%] h-[80%] px-3 z-10">
-          <ShopSection title="Feet" contents={allBottomPic.map((x, i) => {
-            return (
-              <PicPart
-                key={i}
-                id={x.id}
-                src={x.src}
-                req={x.starReq}
-                text={x.name}
-                type={x.type}
-              />
-            );
-          })}
+          <ShopSection
+            title="Feet"
+            contents={allBottomPic.map((x, i) => {
+              return (
+                <PicPart
+                  key={i}
+                  id={x.id}
+                  src={x.src}
+                  req={x.starReq}
+                  text={x.name}
+                  type={x.type}
+                />
+              );
+            })}
           />
-          <ShopSection title="Bodies" contents={allMidPic.map((x, i) => {
-            return (
-              <PicPart
-                key={i}
-                id={x.id}
-                src={x.src}
-                req={x.starReq}
-                text={x.name}
-                type={x.type}
-              />
-            );
-          })}
+          <ShopSection
+            title="Bodies"
+            contents={allMidPic.map((x, i) => {
+              return (
+                <PicPart
+                  key={i}
+                  id={x.id}
+                  src={x.src}
+                  req={x.starReq}
+                  text={x.name}
+                  type={x.type}
+                />
+              );
+            })}
           />
-          <ShopSection title="Hats" contents={allTopPic.map((x, i) => {
-            return (
-              <PicPart
-                key={i}
-                id={x.id}
-                src={x.src}
-                req={x.starReq}
-                text={x.name}
-                type={x.type}
-              />
-            );
-          })} />
+          <ShopSection
+            title="Hats"
+            contents={allTopPic.map((x, i) => {
+              return (
+                <PicPart
+                  key={i}
+                  id={x.id}
+                  src={x.src}
+                  req={x.starReq}
+                  text={x.name}
+                  type={x.type}
+                />
+              );
+            })}
+          />
         </div>
       </div>
       <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden z-0">
@@ -219,7 +241,7 @@ function Shop() {
           ]}
         />
       </div>
-    </div >
+    </div>
   );
 }
 function ShopSection({ contents, title }) {
@@ -232,7 +254,7 @@ function ShopSection({ contents, title }) {
         {contents}
       </div>
     </div>
-  )
+  );
 }
 
 export default Shop;
