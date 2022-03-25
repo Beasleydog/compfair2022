@@ -18,9 +18,9 @@
         },
         {
             "id": 2,
-            "src": "/images/notReady.png",
+            "src": "/images/topHat.png",
             "name": "hat",
-            "starReq": 3,
+            "starReq": 0,
             "type" : "top",
             "unlocked" : false
         },
@@ -29,6 +29,22 @@
             "src": "/images/pixelGuyHat.png",
             "name": "hat",
             "starReq": 1,
+            "type" : "top",
+            "unlocked" : true
+        },
+        {
+            "id": 4,
+            "src": "/images/moneyHat.png",
+            "name": "hat",
+            "starReq": 0,
+            "type" : "top",
+            "unlocked" : true
+        },
+        {
+            "id": 4,
+            "src": "/images/rainbowHat.png",
+            "name": "hat",
+            "starReq": 0,
             "type" : "top",
             "unlocked" : true
         }
@@ -57,6 +73,22 @@
             "starReq": 2,
             "type" : "mid",
             "unlocked" : true
+        },
+        {
+            "id": 3,
+            "src": "/images/dapperMan.png",
+            "name": "bod",
+            "starReq": 0,
+            "type" : "mid",
+            "unlocked" : true
+        },
+        {
+            "id": 4,
+            "src": "/images/eyebrowGuy.png",
+            "name": "bod",
+            "starReq": 0,
+            "type" : "mid",
+            "unlocked" : true
         }
     ],"bottom" : [
         {
@@ -72,6 +104,14 @@
             "src": "/images/pixelGuyFeet.png",
             "name": "feet",
             "starReq": 1,
+            "type" : "bottom",
+            "unlocked" : true
+        },
+        {
+            "id": 2,
+            "src": "/images/moneyBoots.png",
+            "name": "feet",
+            "starReq": 0,
             "type" : "bottom",
             "unlocked" : true
         }
