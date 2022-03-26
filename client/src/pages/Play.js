@@ -20,7 +20,8 @@ function Play() {
     const [popupText, setText] = useState('');
     const [focused, setFocused] = useState(0);
     let levelData = getLevelData(id);
-
+    console.log(popupText);
+    console.log(typeof popupText)
     useEffect(() => {
         //set popup text based off of mode
         if (mode == "info") {
@@ -95,7 +96,7 @@ function Play() {
                     <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
                         {/* Set popup text */}
                         {/* {mode == "info" ? */}
-                        {infoTextToHTML(typeof popupText == "Object" ? popupText[focused] : popupText)}
+                        {infoTextToHTML(typeof popupText == "object" ? popupText[focused] : popupText)}
 
                     </div>
                     <div className="flex gap-2">
