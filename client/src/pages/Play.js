@@ -1,189 +1,86 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, useState, useRef, useEffect from "react";
+import useParams from "react-router-dom";
 import MouseBlurEffect from "../components/mouseBlurEffect.js"
 import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.js";
 import fillInBlank from "../components/fillInBlank";
 import BlurBackground from "../components/blurBackground.js";
-import { getLevelData } from "../levels/index.js";
+import getLevelData from "../levels/index.js";
 import Button from "../components/button.js";
 import FillInBlank from "../components/fillInBlank";
 import ChallengeQuestion from "../components/challengeQuestion.js";
 function Play() {
-    const { attemptNumber, id, mode, number } = useParams();
-    const [popupOpen, setPopup] = useState(false);
-    const [correct, setCorrect] = useState(false);
-    const [popupText, setText] = useState('');
-    let levelData = getLevelData(id);
+    Define attemptNumber, id, mode, number from URL
+    Define popupOpen
+    Define setPopup to set popupOpen
+    Define correct
+    Define setCorrect to set correct
+    Define popupText
+    Define setText to set popupText
 
-    useEffect(() => {
-        //set popup text based off of mode
-        if (mode == "info") {
-            setText(levelData.info);
-            setPopup(true);
-        } else if (mode == "multi") {
-            setText(levelData.mcQuestions[number].explanation);
-        } else if (mode == "open") {
-            setText(levelData.openQuestions[number].explanation);
-        } else if (mode == "challenge") {
-            setText(levelData.challenge.explanation);
-        }
-    }, []);
-    console.log(levelData);
-    return (
-        <div>
-            <div className="font-main bg-black overflow-hidden w-screen h-screen flex items-center justify-center">
-                <div className={`${mode == "challenge" ? "w-[calc(100vw-100px)] h-[calc(100vh-100px)]" : "w-[calc(100vw-160px)] h-[calc(100vh-160px)]"} rounded-lg backdrop-blur-2xl shadow-lg bg-[#00000075] z-10`}>
+    Define levelData as AllLevels;
 
-                    {mode == "info"}
-
-                    {mode == "multi" && (<MultipleChoiceQuestion
-                        onAnswer={(answer) => {
-                            let gotRight = levelData.mcQuestions[number].answers.filter((x) => { return x.id == answer })[0].correct;
-                            setCorrect(gotRight);
-                            setPopup(true);
-                            if (!gotRight) {
-                                gotWrong(id, mode, attemptNumber);
-                            }
-                        }}
-                        question={levelData.mcQuestions[number].question}
-                        answers={levelData.mcQuestions[number].answers} />)}
-
-                    {mode == "open" && <FillInBlank
-                        onAnswer={(answer) => {
-                            let gotRight = levelData.openQuestions[number].answer == answer;
-                            setCorrect(gotRight);
-                            setPopup(true);
-                            if (!gotRight) {
-                                gotWrong(id, mode, attemptNumber);
-                            }
-                        }}
-                        instructions={levelData.openQuestions[number].instructions}
-                        codeText={levelData.openQuestions[number].codeText}
-                        question={levelData.openQuestions[number].question}
-                    />}
-                    {mode == "challenge" && <ChallengeQuestion
-                        correctCode={levelData.challenge.correctCode}
-                        defaultBackground={
-                            levelData.challenge.defaultBackground
-                        }
-                        onComplete={() => {
-                            setCorrect(true);
-                            setPopup(true);
-                        }}
-                    />}
-                </div>
-                <div onClick={() => window.location.replace("/levels")} className={`text-white absolute ${mode == "challenge" ? "top-[8px] left-[8px]" : "top-[24px] left-[24px]"} z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer`}>
-                    ×
-                </div>
-            </div >
-            {popupOpen && <div className="absolute top-0 left-0 w-screen h-screen backdrop-blur-[10px] z-[100]">
-                <div className={`absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-                    z-[100] h-[calc(100vh-190px)]  bg-[#2B3131] rounded-lg
-                    flex flex-col items-center`} >
-                    <div className="w-full h-[120px] text-[87px] text-center">
-                        {mode == "info" ? "❔" : (correct ? "✅" : "❌")}
-                    </div>
-                    <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
-                        {popupText.split("\n").map((x) => { return (<div><div>{x}</div><br /></div>) })}
-                    </div>
-                    <Button text="Ok" className="mb-[20px]" onClick={() => {
-                        //Set "Ok" button logic
-                        if (mode == "info") {
-                            //User finished info, redirect back
-                            finishSection(id, mode, attemptNumber, () => {
-                                window.location.replace("/levels");
-                            });
-                        } else if (mode == "multi") {
-                            if (number == levelData.mcQuestions.length - 1) {
-                                //User finished multi, redirect back
-                                finishSection(id, mode, attemptNumber, () => {
-                                    window.location.replace("/levels");
-                                });
-                            } else {
-                                //Direct to next question
-                                window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
-                            }
-                        } else if (mode == "open") {
-                            if (number == levelData.openQuestions.length - 1) {
-                                //User finished open ended, redirect back
-                                finishSection(id, mode, attemptNumber, () => {
-                                    window.location.replace("/levels");
-                                });
-                            } else {
-                                //Next opne ended
-                                window.location.replace(`/play/${attemptNumber}/${id}/${mode}/${parseInt(number) + 1}`);
-                            }
-                        } else if (mode == "challenge") {
-                            finishSection(id, mode, attemptNumber, () => {
-                                finishLevel(levelData, () => {
-                                    window.location.replace("/levels");
-                                });
-                            });
-
-                        }
-                    }} />
-                </div>
-            </div>}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
-                <BlurBackground glows={
-                    [
-                        { x: '75%', y: '75%' },
-                        { x: '35%', y: '25%' },
-                        { x: '-5%', y: '100%' }
-                    ]
-                } />
-            </div>
-
-        </div>
-    );
-}
-async function finishLevel(levelData, callback) {
-    //Finish a level
-    console.log(levelData);
-    fetch("/api/unlockLevel", {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-            id: levelData.unlockNext,
-        })
-    })
-    console.log('af');
-    if (callback) {
-        callback();
+    Run once:
+    if mode is "info"
+        Set text to LevelInfo;
+        Show popup
+    if mode is "multi"
+        Set text to current question explanation
+    if mode is "open"
+    Set text to current question explanation
+    if mode is "challenge"
+        Set text to current question explanation
     }
-}
-async function finishSection(id, mode, attemptNumber, callback) {
-    //Set a section as finished
-    let finish = await fetch("/api/finishSection", {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-            id: id,
-            mode: mode,
-            attemptNumber: attemptNumber
-        })
-    });
-    finish = await finish.text();
-    if (callback) callback();
-    return finish;
-}
-function gotWrong(id, mode, attemptNumber) {
-    //Fail the level for the user
-    console.log(id, mode, attemptNumber);
-    fetch("/api/failSection", {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-            id: id,
-            mode: mode,
-            attemptNumber: attemptNumber
-        })
-    })
+    [Main Content]:
+        if mode is "multi"
+            Display multiple choice question
+            Set question to current multiple choice question question
+            Set answer to current multiple choice question answers
+            On answer click
+                Check answer accuracy
+                Open popup
+                If failed question  
+                    Fail level
+        if mode is "open"
+            Display fill in the blank question
+            Set question to current fill in the blank question
+            Set answer to current fill in the blank answer
+            On answer click
+                Check answer accuracy
+                Open popup
+                If failed question  
+                    Fail level
+         if mode is "challenge"
+            Display challenge question
+            Set correctCode to current challenge question correct code
+            Set defaultBackground to current challenge question default background
+            On 100% accuracy
+                Open popup
+        [Close button]:
+            Display X
+            On click redirect to /levels
+        [Popup]:
+            If answer correct
+                Display checkmark
+            If answer incorrect
+                Display X
+            Display popup text in center
+            Display OK button
+                On click
+                    if mode is info
+                        Finish info section
+                    if mode is multi
+                        if on final question
+                            Finish multiple choice section
+                        Otherwise
+                            Advance to next question
+                    if mode is open
+                        if on fill in the blank question
+                            Finish fill in the blank section
+                        Otherwise
+                            Advance to next question
+                    if mode is challenge
+                        Finish challenge section
+        [Blur background]:
+            Display blurs
 }
 export default Play;
