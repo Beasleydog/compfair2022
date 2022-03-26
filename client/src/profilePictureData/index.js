@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+Define fs to require("fs");
+Define path to require("path");
 
 Get data from "pic.json"
 

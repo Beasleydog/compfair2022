@@ -8,26 +8,18 @@ function Shop() {
   Define allMidPic to getAllMidPic();
   Define allTopPic to getAllTopPic();
 
-  Define forceUpdate to rerender element
+  Define forceUpdate() to rerender element
 
-  If user is not logged in, redirect to "/login"
+  If user is not logged in, redirect to login page
 
   //Just start off with default character
   Define profilePicture to {top: 0, mid: 0, bottom: 0, face: 0}
-  Define setProfilePicture to set profilePicture
+  Define setProfilePicture(Parameter x) to set profilePicture to x
 
-  useEffect(() => {
-    (async () => {
-      let profile = await fetch("/api/getProfile", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      profile = await profile.json();
-      setProfilePicture(profile);
-    })();
-  }, []);
+  Run Once Ever:
+    Fetch profile picture data from server as json
+    setProfilePicture():
+      Set profilePicture to retrieved profile picture data from server
 
   Define stars to 0;
   Define setStars(Parameter x) as set stars to x;
@@ -36,95 +28,46 @@ function Shop() {
   Define setUnlockData(Parameter x) as set unlockData to x;
 
   //Get user stars and unlocked items, do it in two functions so requests can be made at same time
-  useEffect(() => {
-    (async () => {
-      let stars = await fetch("/api/getStars", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      stars = await stars.text();
-      console.log("SETTING STARS");
-      setStars(parseInt(stars));
-    })();
-  }, []);
+  Run Once Ever:
+    Fetch stars from server as text
+    setStars():
+      Set stars to retrieved stars from server as int
 
   async function updateUnlockData() {
-    let unlockData = await fetch("/api/unlockData", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    unlockData = await unlockData.json();
-    console.log("SETTING UNLOCK DATA");
-    setUnlockData(unlockData);
+    Fetch unlockData from server as json
+    setUnlockData():
+      Set unlockData to retrieved unlockData from server
   }
-  useEffect(() => {
-    updateUnlockData();
-  }, []);
+  Run Once Ever:
+    updateUnlockData()
 
-  async function setProfilePart(type, id) {
-  setProfilePicture():
-    Set profilePicture part that matches type to id
-    Set Profile Picture in server to profilePicture 
-
-  forceUpdate();
+  async function setProfilePart(Parameter type, Parameter id) {
+    setProfilePicture():
+      Set profilePicture type to id
+      Set Profile Picture in server to profilePicture 
+    forceUpdate();
   }
 
-  function PicPart({ id, src, req, text, type }) {
-    return (
-      <div className="mt-4 ml-4 w-[150px]">
-        <button
-          onClick={async () => {
-            if (unlockData[type].includes(id)) {
-              //User already unlocked this item, set it to their profile
-              console.log("CLICKED AN UNLOCKED ONE");
-              setProfilePart(type, id);
-            } else {
-              if (req > stars) return;
-
-              let newUnlocks = unlockData;
-              newUnlocks[type].push(id);
-              setUnlockData(newUnlocks);
-
-              buyItem(type, id, req);
-
-              setProfilePart(type, id);
-            }
-          }}
-          className={stars < req && !unlockData[type].includes(id)
-            ? "cursor-not-allowed opacity-60 w-[150px]"
-            : "w-[150px]"
-          }
-        >
-
-          <img
-            src={src}
-            className={`h-[150px] w-[150px] bg-[#151617] rounded-[50%] shadow ${profilePicture[type] == id
-              ? "scale-105 shadow-xl border-[4px] border-[#111213]"
-              : ""
-              }`}
-          />
-          <div className="text-white text-[50px]">
-            {!unlockData[type].includes(id) ? (
-              <div>
-                {req}
-                <img
-                  className="drop-shadow inline w-[49px] -mt-[9px]"
-                  src="/images/star.svg"
-                />
-              </div>
-            ) : (
-              <div className="text-green">✔</div>
-            )}
-          </div>
-        </button>
-      </div>
-    );
+  function PicPart(Parameter id, Parameter src, Parameter req, Parameter text, Parameter type ) {
+    Display Image:
+      Image = src
+      if Image is clicked:
+        if unlockData contains id in type:
+          setProfilePart():
+            a
+        if stars is greater than or equal to req:
+          setUnlockData():
+            Add id to unlockData
+          buyItem(type, id, req)
+          setProfilePart(type, id)
+        if stars are less than req and unlockData does not contain id in type:
+          Make unclickable
+    Display req below image
+    if unlockData contains id in type:
+      Replace req with "✔"
   }
-  async function buyItem(type, id, req) {
+
+  async function buyItem(Parameter type, Parameter id, Parameter req) {
     setStars():
       Set stars to stars - req
     Add shop item id to server unlock data
@@ -132,100 +75,52 @@ function Shop() {
     updateUnlockData();
   }
 
-  return (
     [Header]
-    <div className="w-screen h-screen">
-      <button
-        onClick={() => window.location.replace("/levels")}
-        className="text-white absolute top-[24px] left-[24px] z-10 text-[70px] leading-[38px] h-[38px] cursor-pointer"
-      >
-        ×
-      </button>
-      <div className="flex w-screen h-screen items-center font-main bg-black justify-around">
-        <div className="mt-6 z-10 flex flex-col justify-between items-center h-[60vh]">
-          <DisplayProfilePic
-            big
-            data={profilePicture}
-            background="bg-[#1a1c1f85]"
-          />
-          <div className="text-[80px] text-white">
-            {stars}
-            <img
-              className="inline w-[73.15px] -mt-[15px]"
-              src="/images/star.svg"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-10 items-center overflow-y-scroll w-[50%] h-[80%] px-3 z-10">
-          <ShopSection
-            title="Feet"
-            contents={allBottomPic.map((x, i) => {
-              return (
-                <PicPart
-                  key={i}
-                  id={x.id}
-                  src={x.src}
-                  req={x.starReq}
-                  text={x.name}
-                  type={x.type}
-                />
-              );
-            })}
-          />
-          <ShopSection
-            title="Bodies"
-            contents={allMidPic.map((x, i) => {
-              return (
-                <PicPart
-                  key={i}
-                  id={x.id}
-                  src={x.src}
-                  req={x.starReq}
-                  text={x.name}
-                  type={x.type}
-                />
-              );
-            })}
-          />
-          <ShopSection
-            title="Hats"
-            contents={allTopPic.map((x, i) => {
-              return (
-                <PicPart
-                  key={i}
-                  id={x.id}
-                  src={x.src}
-                  req={x.starReq}
-                  text={x.name}
-                  type={x.type}
-                />
-              );
-            })}
-          />
-        </div>
-      </div>
-      <div className="absolute w-screen h-full top-0 left-0 pointer-events-none overflow-hidden z-0">
-        <BlurBackground
-          glows={[
-            { x: "15%", y: "55%" },
-            { x: "75%", y: "105%" },
-          ]}
-        />
-      </div>
-    </div>
-  );
+      Display "X" on top left of screen:
+        When "X" is clicked, redirect user to the levels page
+    [Header End]
+
+    [Main Content]
+      DisplayProfilePic():
+        Display profilePicture as Image on left of screen:
+          Image = top of profilePicture + mid of profilePicture + bottom of profilePicture
+      Display user star count below profile Picture
+
+      ShopSection():
+        Display "Feet" on right of screen
+        for each item in allBottomPic:
+          PicPart():  
+            Display item below "Feet"
+            if item req is less than stars, make unclickable
+            if item is clicked and isn't unclickable:
+              if item req is greater than stars, unlock item and adjust user star count
+
+      ShopSection():
+        Display "Bodies" on right of screen
+        for each item in allMidPic:
+          PicPart():  
+            Display item below "Bodies"
+            if item req is less than stars, make unclickable
+            if item is clicked and isn't unclickable:
+              if item req is greater than stars, unlock item and adjust user star count
+
+      ShopSection():
+        Display "Hats" on right of screen
+        for each item in allTopPic:
+          PicPart():  
+            Display item below "Hats"
+            if item req is less than stars, make unclickable
+            if item is clicked and isn't unclickable:
+              if item req is greater than stars, unlock item and adjust user star count
+      
+      BlurBackground():
+        Display glow at x and y
+    [Main Content End]
 }
-function ShopSection({ contents, title }) {
-  return (
-    <div className="w-full flex flex-col rounded-lg bg-[#1a1c1f] shadow">
-      <div className="text-[40px] text-center text-white w-full">
-        {title}
-      </div>
-      <div className="flex justify-left gap-[20px] w-full overflow-x-auto">
-        {contents}
-      </div>
-    </div>
-  );
+
+function ShopSection(Parameter contents, Parameter title) {
+  Display title
+  Display contents below title
 }
 
 export default Shop;

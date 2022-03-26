@@ -3,13 +3,13 @@ import Link from "react-router-dom"
 import MouseBlurEffect from "../components/mouseBlurEffect.js"
 
 function Home() {
-  [Header]:
-    Display site title top left of screen
+  [Header]
+    Display site title ("DevBytes") top left of screen
     Display "Sign In" and "About" on top right of screen:
       When "Sign In" is clicked, redirect user to the login page
   [Header End]
 
-  [Main Content]:
+  [Main Content]
     Display "The Free, Fun, And Effective Way To Learn Web Design" center screen
     Display GetStarted() center screen:
       When GetStarted() is clicked, redirect user to the register page

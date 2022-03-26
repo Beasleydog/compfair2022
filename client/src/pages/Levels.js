@@ -6,223 +6,96 @@ import  useParams  from "react-router-dom";
 import DisplayProfilePic from "../components/profilePicture.js";
 import Button from "../components/button.js";
 function Levels() {
-  const [levelInfo, setLevelInfo] = useState([]);
-  const allLevels = getAllLevels();
+  Define levelInfo to []
+  Define setLevelInfo(Parameter x) to set levelInfo to x
+  Define allLevels to getAllLevels();
 
-  const [profilePicture, setProfilePicture] = useState({ top: 0, mid: 0, bottom: 0, face: 0 });
-  useEffect(() => {
-    (async () => {
-      let profile = await fetch("/api/getProfile", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      profile = await profile.json();
-      setProfilePicture(profile);
-    })();
-  }, []);
+  Define profilePicture to { top: 0, mid: 0, bottom: 0, face: 0 }
+  Define setProfilePicture(Parameter x) to set profilePicture to x
 
-  useEffect(() => {
+  Run Once Ever:
+    Fetch profile picture from server as json
+    setProfilePicture(json from server)
+
+  Run Once Ever:
     async function fetchData() {
-      //Get users level data
-      let levelFetch = await fetch("/api/levelData", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          id: "tefst",
-        }),
-      });
-      levelFetch = await levelFetch.json();
-      console.log(levelFetch)
-      if (levelFetch.message == "Unauthorized") {
-        localStorage.setItem("username", "");
-        window.location.replace("/login");
-      }
-      setLevelInfo(levelFetch);
-      setTimeout(() => {
-        //Focus on users current level
-        document.getElementById("levelContainer").children[Object.values(levelFetch).length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 10);
-    }
-    fetchData();
-  }, []);
+      Fetch level data from server as json
+      setLevelInfo(Fetched level data)
+    fetchData()
 
-  if (!localStorage.getItem("username")) {
-    //If user is not logged in, redirect to /login
-    window.location.replace("/login");
-  }
-  return (<div>
-    <div className="font-main bg-black w-screen h-screen overflow-hidden">
-      <UserDisplay name={localStorage.getItem("username")} profilePicture={profilePicture} stars="0" />
-      <div className="absolute left-[200px] items-center w-[calc(100vw-200px)]">
-        <div className="absolute text-white text-[100px] text-center font-bold w-full h-[150px] backdrop-blur z-30">
-          Levels
-        </div>
-        <div id="levelContainer" className="z-10 top-0 left-0 absolute pt-[150px] h-screen overflow-y-scroll flex flex-col gap-6 items-center w-full">
-          {allLevels.map((x, i) => {
-            if (levelInfo[x.id]) {
-              let finished = {
-                info: levelInfo[x.id].infoRead,
-                mcQuestions: levelInfo[x.id].mcQuestions.finished,
-                openQuestions: levelInfo[x.id].openQuestions.finished,
-                challenge: levelInfo[x.id].challenge.finished
-              };
-              let failed = {
-                info: false,
-                mcQuestions: levelInfo[x.id].mcQuestions.failed,
-                openQuestions: levelInfo[x.id].openQuestions.failed,
-                challenge: false
-              };
-              let unlocked = {
-                info: true,
-                mcQuestions: levelInfo[x.id].mcQuestions.unlocked,
-                openQuestions: levelInfo[x.id].openQuestions.unlocked,
-                challenge: levelInfo[x.id].challenge.unlocked
-              };
-              return (
-                <LevelDisplay
-                  id={x.id}
-                  key={i}
-                  name={x.title}
-                  stars={levelInfo[x.id].stars}
-                  finished={finished}
-                  failed={failed}
-                  unlocked={unlocked}
-                />
-              );
-            } else {
-              return (
-                <LevelDisplay
-                  id={x.id}
-                  locked
-                  key={i}
-                  name={x.title}
-                  stars="0"
-                />
-              );
-            }
-          })}
-        </div>
-      </div>
-      <div
-        className="absolute right-2 bottom-0 p-2 text-white z-10 cursor-pointer"
-        onClick={() => {
-          //logout user
-          fetch("/api/logout", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          window.localStorage.clear();
-          window.location.replace("/");
-        }}
-      >
-        Logout
-      </div>
-      <div className="z-0">
-        <BlurBackground
-          glows={[
-            { x: "5%", y: "5%" },
-            { x: "35%", y: "25%" },
-            { x: "95%", y: "50%" },
-          ]}
-        />
-      </div>
-    </div>
-  </div>)
+  If user is not logged in, redirect to login page
+
+  [Main Content]
+      Display profilePicture on left side of screen
+      Display username below profilePicture
+      Display star count below username
+      Display button below star count with text "shop":
+        When clicked:
+          Redirect user to shop page
+
+      For each level in level data:
+        Display level box with level title
+        Display star count indicating number of stars unlocked form level
+        if level is locked:
+          Set as unclickable
+      
+      Display text "Logout" in bottom right screen
+      When "Logout" is clicked:
+        Set logged in to none
+        Redirect user to home page
+
+
+      BlurBackground();
+        Display glow at x and y
 }
 
 
-function UserDisplay({ name, stars, profilePicture }) {
-  return (
-    <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
-      <div className="flex flex-col items-center">
-        <DisplayProfilePic data={profilePicture} />
-        <div className="font-main text-[30px] z-0">{name}</div>
-      </div>
-      <div className="flex flex-col items-center">
-        <img className="drop-shadow w-[69px] -mt-[9px]" src="/images/star.svg" />
-        <div className="font-main text-[40px] top-[300px]">{stars}</div>
-      </div>
-      <Button text="Shop" onClick={() => {
-        window.location.replace(`/shop`);
-      }} />
-    </div>
-  );
+function UserDisplay(Parameter name, Parameter stars, Parameter profilePicture }) {
+  Display profilePicture
+  Display name below profilePicture
+  Display stars below name
+  Display button with text "shop" under stars
+  When "shop" is clicked:
+    Redirect user to shop page
 }
 
 
-function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
-  let failedClass = "shadow-[0px_0px_7px_6px_#c21616] rounded-[50%]";
-  let finishClass = "shadow-[0px_0px_3px_4px_#169016] rounded-[50%]";
+function LevelDisplay(Parameter name, Parameter stars, Parameter locked, Parameter finished, Parameter failed, Parameter unlocked, Parameter id }) {
+  Define failedClass to "shadow-[0px_0px_7px_6px_#c21616] rounded-[50%]";
+  Define finishClass to "shadow-[0px_0px_3px_4px_#169016] rounded-[50%]";
 
-  if (!failed) var failed = {};
-  if (!finished) var finished = {};
-  if (!unlocked) var unlocked = {};
+  if (failed is false) Define failed to {};
+  if (finished is false) Define finished to {};
+  if (unlocked is false) Define unlocked to {};
 
-  function playMode(number, id, mode) {
-    if (locked) return;
-    if (mode == "info" && !unlocked.info) return
-    if (mode == "multi" && !unlocked.mcQuestions) return
-    if (mode == "open" && !unlocked.openQuestions) return
-    if (mode == "challenge" && !unlocked.challenge) return
+  function playMode(Parameter number, Parameter id, Parameter mode) {
+    if (locked is true) return;
+    if (mode equals "info" && !unlocked.info) return
+    if (mode equals "multi" && !unlocked.mcQuestions) return
+    if (mode equals "open" && !unlocked.openQuestions) return
+    if (mode equals "challenge" && !unlocked.challenge) return
     window.location.replace(`/play/${number}/${id}/${mode}/0`);
   }
-  return (
-    <div
-      className={`${locked ? "opacity-60 cursor-not-allowed" : ""
-        } flex flex-col justify-center items-center rounded-lg p-2 bg-[#1a1c1f] shadow-lg`}
-    >
-      <div className="z-10 text-white text-[45px] font-bold">{name}</div>
-      <div style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }} className="grid gap-12 my-10 px-[100px]">
-        <button
-          onClick={() => {
-            playMode(randomNumber(), id, "info");
-          }}
-          type="button"
-          className={`${finished.info ? finishClass : ""}${failed.info ? failedClass : ""
-            } w-[125px] h-[125px] ${locked || !unlocked.info ? "opacity-60 cursor-not-allowed" : ""}`}
-        >
-          <img className="w-[125px] h-[125px]" src="/images/info.svg" />
-        </button>
-        <button
-          onClick={() => {
-            playMode(randomNumber(), id, "multi");
-          }}
-          type="button"
-          className={`${finished.mcQuestions ? finishClass : ""}${failed.mcQuestions ? failedClass : ""
-            } w-[125px] h-[125px] ${locked || !unlocked.mcQuestions ? "opacity-60 cursor-not-allowed" : ""}`}
-        >
-          <img className="w-[125px] h-[125px]" src="/images/menu.svg" />
-        </button>
-        <button
-          onClick={() => {
-            playMode(randomNumber(), id, "open");
-          }}
-          type="button"
-          className={`${finished.openQuestions ? finishClass : ""}${failed.openQuestions ? failedClass : ""
-            } w-[125px] h-[125px] ${locked || !unlocked.openQuestions ? "opacity-60 cursor-not-allowed" : ""}`}
-        >
-          <img className="w-[125px] h-[125px]" src="/images/keyboard.svg" />
-        </button>
-        <button
-          onClick={() => {
-            playMode(randomNumber(), id, "challenge");
-          }}
-          type="button"
-          className={`${finished.challenge ? finishClass : ""} w-[125px] h-[125px] ${locked || !unlocked.challenge ? "opacity-60 cursor-not-allowed" : ""}`}
-        >
-          <img className="w-[125px] h-[125px]" src="/images/challenge.svg" />
-        </button>
-      </div>
-      {stars}/3
-    </div>
-  );
+  Display level title
+  Repeat 4 times:
+    Display icon
+    if icon is locked:
+      Make icon unclickable
+    if icon is clicked and is clickable:
+      redirect to var page
+      if icon is 1:
+        var is info
+      if icon is 2:
+        var is multiple choice
+      if icon is 3:
+        var is open ended
+      if icon is 4:
+        var is challenge
+  Display stars unlocked from level
 }
+
 function randomNumber() {
-  return Math.round(Math.random() * 100000);
+  return random number;
 }
-export default Levels;
+
+export Levels;

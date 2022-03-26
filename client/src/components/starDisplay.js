@@ -1,15 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React useState, useRef, useEffect from "react";
 
 const StarDisplay = (props) => {
-    return (
-        <svg
-            style={{
-                filter: "drop-shadow(0px 2px 2px #191B1F)"
-            }} className={`inline ${props.className}`} width={props.width || 77} height={props.width ? props.width / 77 * 34 : 34} viewBox="0 0 77 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M51.8808 16.7817C51.8808 16.7817 46.1313 9.03331 47.0028 7.87825C47.9545 6.4045 57.0246 9.41377 57.0246 9.41377C57.0246 9.41377 62.393 1.63353 63.9735 2.01348C65.5166 2.51978 65.6107 12.0382 65.6107 12.0382C65.6107 12.0382 74.9927 14.6396 74.7831 16.3681C74.7339 18.0027 65.7725 21.0272 65.7725 21.0272C65.7725 21.0272 65.7053 30.4303 64.4955 31.104C63.3715 31.4631 57.2874 23.9588 57.2874 23.9588C57.2874 23.9588 48.2175 27.2385 47.3281 25.8569C46.5261 24.6333 51.8808 16.7817 51.8808 16.7817Z" fill={(props.amount > 2 ? "#F2F03F" : props.fill || "")} stroke={props.stroke || "black"} stroke-width="2.5" stroke-miterlimit="10" />
-            <path d="M29.4585 26.7889C28.5691 28.1704 19.4992 24.8908 19.4992 24.8908C19.4992 24.8908 13.4151 32.395 12.2911 32.0359C11.0813 31.3622 11.0141 21.9591 11.0141 21.9591C11.0141 21.9591 2.05273 18.9346 2.00346 17.3C1.79391 15.5715 11.1759 12.9702 11.1759 12.9702C11.1759 12.9702 11.27 3.4517 12.8131 2.94541C14.3936 2.56547 19.762 10.3457 19.762 10.3457C19.762 10.3457 28.8321 7.33644 29.7838 8.81019C30.6553 9.96525 24.9058 17.7136 24.9058 17.7136C24.9058 17.7136 30.2605 25.5653 29.4585 26.7889Z" fill={(props.amount > 0 ? "#F2F03F" : props.fill || "")} stroke={props.stroke || "black"} stroke-width="2.5" stroke-miterlimit="10" />
-            <path d="M47.7037 30.0416C46.4877 31.1457 38.5737 25.6272 38.5737 25.6272C38.5737 25.6272 30.7585 31.2994 29.7656 30.6612C28.7709 29.6969 31.1347 20.5966 31.1347 20.5966C31.1347 20.5966 23.2597 15.3527 23.6343 13.7611C23.8783 12.0371 33.6128 11.9556 33.6128 11.9556C33.6128 11.9556 36.1622 2.78558 37.7835 2.6964C39.4084 2.73899 42.5844 11.6455 42.5844 11.6455C42.5844 11.6455 52.123 11.0892 52.6617 12.7594C53.2052 14.101 45.6501 20.0956 45.6501 20.0956C45.6501 20.0956 48.7944 29.0675 47.7037 30.0416H47.7037Z" fill={(props.amount > 1 ? "#F2F03F" : props.fill || "")} stroke={props.stroke || "black"} stroke-width="2.5" stroke-miterlimit="10" />
-        </svg>
-    )
+    Display Image:
+        Image = Star image
+        Set dimensions to width and height from props
+        if props is undefined, set to default width and height
 }
-export default StarDisplay;
+export StarDisplay;

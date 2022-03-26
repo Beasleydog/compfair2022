@@ -1,35 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, useState, useRef, useEffect from "react";
 
-const MouseBlurEffect = () => {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    //Story mouse pos
-    useEffect(() => {
-        //init event listeners
-        addEventListeners();
-        return () => removeEventListeners();
-    }, []);
+Define MouseBlurEffect(){
+    Define position to { x: 0, y: 0 }
+    Define setPosition(Parameter x) to set position to x;
 
-    const addEventListeners = () => {
-        document.addEventListener("mousemove", onMouseMove);
-    };
+    Run Once Ever:
+        addEventListeners()
+        return removeEventListeners()
 
-    const removeEventListeners = () => {
-        document.removeEventListener("mousemove", onMouseMove);
-    };
+    Define addEventListeners:
+        Listen for mouse movement
 
-    const onMouseMove = (e) => {
-        //update mouse pos
-        setPosition({ x: e.clientX, y: e.clientY });
-    };
+    Define removeEventListeners:
+        Stop listening for mouse movement
 
-    return <div className="w-[200px] h-[200px] fixed blur scale-[6] bg-center bg-no-repeat bg-[length:75%_75%]"
-        style={
-            {
-                backgroundImage: `radial-gradient(circle, rgba(64,164,244,0.2786064767703957) 0%, rgba(1,11,19,0) 70%)`,
-                left: `${position.x - 95}px`,
-                top: `${position.y - 95}px`,
-                transition: "left .2s, top .2s"
-            }
-        } />
+    Define onMouseMove:
+        setPosition(Mouse x, Mouse y)
+
+    Display blur at mouse position
 }
-export default MouseBlurEffect;
+export MouseBlurEffect

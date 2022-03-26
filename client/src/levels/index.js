@@ -1,30 +1,29 @@
-const fs = require('fs');
-const path = require('path');
+Define fs to require('fs');
+Define path to require('path');
 
-let levelList = ["a", "b", "c", "d"];
-levelList = levelList.map((x) => {
+Define levelList to ["a", "b", "c", "d"];
+Set levelList to levelList.map((x) => {
     return require(`./levelData/${x}.json`);
 });
-console.log(levelList)
+
 function getLevelData(id) {
-    try {
-        return levelList.filter((x) => x.id == id)[0];
-    }
-    catch (e) {
-        console.log(e);
-        return undefined
-    }
+    Return levelList.filter((x) => x.id == id)[0];
+    If exception is thrown:
+        Return undefined
 }
+
 function getAllLevels() {
-    return levelList
+    Return levelList
 }
 function firstLevelName() {
-    let data = getLevelData(firstLevelId());
-    return data.title;
+    Define data to getLevelData(firstLevelId());
+    Return title from data;
 }
+
 function firstLevelId() {
-    return levelList[0].id
+    Return id from first element of levelList
 }
+
 module.exports = {
     getLevelData,
     firstLevelName,
