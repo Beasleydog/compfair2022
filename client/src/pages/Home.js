@@ -11,8 +11,8 @@ function Home() {
           <button onClick={() => { window.location.replace("/login") }} className="absolute right-12 text-white text-[20px] hover:underline">
             Sign In
           </button>
-          <button className="absolute right-40 no-underline font-main text-white text-[20px] hover:underline">
-            About
+          <button onClick={() => { window.location.replace("/tutorial#home") }} className="absolute right-40 no-underline font-main text-white text-[20px] hover:underline">
+            Tutorial
           </button>
         </div>
       </div>
@@ -28,11 +28,13 @@ function Home() {
           content={
             <div className="flex items-center justify-center w-full h-full">
               <div className="flex flex-col gap-6 items-center justify-center">
-                <div className="break-normal text-white text-[40px] text-center font-bold">
+                <div className="break-normal text-white text-[40px] text-center font-bold px-10">
                   The Free, Fun, And Effective Way To Learn Web Design
                 </div>
                 <GetStartedButton />
               </div>
+              <img src="/images/gamePreview.jpg" className="h-[60vh] -mr-[15%] rounded-lg shadow-2xl hover:scale-110 hover:rotate-1 transition-all" />
+
             </div>
           }
         />
@@ -45,8 +47,8 @@ function Home() {
                 Learn simple HTML and CSS concepts.
               </div>
               <img
-                src="/images/learnDisplay.png"
-                className="bg-white rounded w-[50%] h-auto mt-5"
+                src="/images/learnDisplay.jpg"
+                className="bg-white rounded w-[50%] h-auto mt-5 hover:scale-110 hover:-rotate-1 transition-all shadow-2xl"
               />
             </div>
           }
@@ -60,8 +62,8 @@ function Home() {
                 Review concepts with multiple choice and open ended questions.
               </div>
               <img
-                src="/images/reviewDisplay.png"
-                className="bg-white rounded w-[50%] h-auto mt-5"
+                src="/images/reviewDisplay.jpg"
+                className="bg-white rounded w-[50%] h-auto mt-5 hover:scale-110 hover:rotate-1 transition-all shadow-2xl"
               />
             </div>
           }
@@ -78,8 +80,8 @@ function Home() {
                 Complete design challenges to check for understanding.
               </div>
               <img
-                src="/images/notReady.png"
-                className="bg-white rounded w-[50%] h-auto mt-5"
+                src="/images/applyDisplay.jpg"
+                className="bg-white rounded w-[50%] h-auto mt-5 hover:scale-110 hover:-rotate-1 transition-all shadow-2xl"
               />
             </div>
           }
@@ -96,8 +98,8 @@ function Home() {
                 Earn stars and unlock cosmetics.
               </div>
               <img
-                src="/images/notReady.png"
-                className="bg-white rounded w-[50%] h-auto mt-5"
+                src="/images/shopDisplay.jpg"
+                className="bg-white rounded w-[50%] h-auto mt-5 hover:scale-110 hover:-rotate-1 transition-all shadow-2xl"
               />
             </div>
           }

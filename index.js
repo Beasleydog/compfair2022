@@ -43,7 +43,6 @@ app.use((req, res, next) => {
 });
 
 dbClient.connect().then(function () {
-  console.log("CONNETCED");
   const collection = dbClient.db("Dev").collection("Dev");
 
   app.post("/api/auth", async (req, res) => {
@@ -114,7 +113,7 @@ dbClient.connect().then(function () {
         levels: levelData,
         stars: 0,
         profilePic: picData,
-        unlockedItems: { bottom: [], mid: [], top: [], face: [] }
+        unlockedItems: { bottom: [0], mid: [0], top: [0], face: [0] }
       });
       res.status(200).json({
         message: "Account created"
@@ -302,7 +301,6 @@ dbClient.connect().then(function () {
   });
 
   app.post("/api/addUnlock", requireAuth, async (req, res) => {
-    console.log(1);
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -320,7 +318,6 @@ dbClient.connect().then(function () {
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
-    console.log(userObject.unlockedItems);
     //Return level data
     res.json(userObject.unlockedItems);
   });
@@ -358,12 +355,6 @@ dbClient.connect().then(function () {
       userObject.levels[req.body.id].infoRead = true;
     } else if (req.body.mode == "multi") {
       let failedMulti = userObject.levels[req.body.id].mcQuestions.failed;
-      console.log(
-        failedMulti,
-        req.body.attemptNumber,
-        req.body.id,
-        req.body.mode
-      );
       if (failedMulti && failedMulti == req.body.attemptNumber) {
         return res.send("failed");
       }
@@ -432,11 +423,6 @@ dbClient.connect().then(function () {
 
   // Handles any requests that don't match the ones above
   app.get("*", (req, res) => {
-    if (req.url == "/") {
-      console.log("home");
-    } else {
-      console.log(req.url);
-    }
     res.sendFile(path.join(__dirname + "/client/build/index.html"));
   });
 

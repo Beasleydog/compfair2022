@@ -129,7 +129,15 @@ function Levels() {
         </div>
       </div>
       <div
-        className="absolute right-2 bottom-0 p-2 text-white z-10 cursor-pointer"
+        className="absolute right-2 bottom-7 p-2 text-white z-10 cursor-pointer hover:text-[#40a4f4]"
+        onClick={() => {
+          window.location.replace("/");
+        }}
+      >
+        Home
+      </div>
+      <div
+        className="absolute right-2 bottom-0 p-2 text-white z-10 cursor-pointer hover:text-[#40a4f4]"
         onClick={() => {
           //logout user
           fetch("/api/logout", {

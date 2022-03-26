@@ -7,6 +7,7 @@ import Play from "./pages/Play";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Shop from "./pages/Shop";
+import Tutorial from "./pages/Tutorial";
 import "./styles/output.css";
 
 render(
@@ -17,6 +18,7 @@ render(
       <Route path="Shop" element={<Shop />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="tutorial" element={<Tutorial />} />
       <Route path="play/:attemptNumber/:id/:mode/:number" element={<Play />} />
     </Routes>
   </BrowserRouter>,

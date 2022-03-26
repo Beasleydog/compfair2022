@@ -8,7 +8,6 @@ levelList = levelList.map((x) => {
     return require(`./levelData/${x}.json`);
 });
 
-console.log(levelList)
 function getLevelData(id) {
     //Fetch data from id, return
     try {
