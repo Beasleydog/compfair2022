@@ -756,6 +756,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 80%;
 }
 
+.h-\[calc\(100vh-80px\)\] {
+  height: calc(100vh - 80px);
+}
+
 .w-full {
   width: 100%;
 }

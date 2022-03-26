@@ -93,7 +93,7 @@ function ChallengeQuestion(props) {
         }
         let correctPercent = correct / totalChecked * 100;
         correctPercent = correctPercent.toFixed(2);
-
+        console.log(correct, totalChecked, correctPercent)
         //Accuracy improved, spawn confetti
         if (Math.floor(accuracy / 33.33) < Math.floor(correctPercent / 33.33)) {
             if (Math.floor(correctPercent / 33.33) == 3) {
@@ -155,8 +155,8 @@ function ChallengeQuestion(props) {
                 </div>
                 <div className={"absolute left-[100vw] w-[calc(50vw-165px)] h-[calc(100vh-310px)]"}>
                     {/* Hidden elements for accuracy calculating */}
-                    <iframe srcdoc={`<div style="width:calc(50vw - 165px);height:calc(100vh - 310px);">${props.defaultBackground}</div>`} id="correctBackground" className="absolute w-full h-full" />
-                    <iframe srcdoc={`<div style="width:calc(50vw - 165px);height:calc(100vh - 310px);">${props.correctCode}</div>`} id="hiddenCorrect" className="absolute w-full h-full" />
+                    <iframe srcdoc={`<div style="width:100%;height:calc(100vh - 310px);">${props.defaultBackground}</div>`} id="correctBackground" className="absolute w-full h-full" />
+                    <iframe srcdoc={`<div style="width:100%;height:calc(100vh - 310px);">${props.correctCode}</div>`} id="hiddenCorrect" className="absolute w-full h-full" />
                 </div>
             </div>
 

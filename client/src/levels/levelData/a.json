@@ -1,54 +1,38 @@
 {
   "id": "a",
-  "title": "Headings",
+  "title": "HTML Basics",
   "unlockNext": "b",
   "info": [
-    "Headings elements can be defined by tags <h1> to <h6>, in the order of importance.<CODE><h1>Test</h1></CODE> \nWith each heading, the content will reduce is size.",
-    "Tags will start and end like so: <h1>content goes here</h1>\n The tags must start and end with the same type, and end with a slash (/). \nThough each heading has default settings, they can be overwritten using with the style attribute using the CSS properties. \nAn example of this would be <h1 style=\"fontsize:50px;\">content goes here</h1>\n The CSS attribute must be specified (in this case, fontsize), followed by a colon and the desired value for said CSS attribute. \nEnsure that it's also wrapped in quotation marks."
-  ],
+    "What is HTML? It’s a tool to design and create web pages. HTML is the “standard markup language” for the Internet’s millions and millions of Web pages. If you know how to use HTML, you are equipped with everything you need to design your own website!",
+  "HTML is an acronym that stands for Hyper Text Markup Language.\n\n  HTML is made up of a series of what are called elements. Every single HTML element is a command or label that tells a web browser the specific way to display or present content on a webpage.",
+"All HTML elements are created by a start tag, webpage content, and then an end tag. \n\n\n Look for the < and > keys on your keyboard, you are going to need them often!\n An HTML element includes all text from the first (start) tag to the final (end) tag. Start tags look like <h1>. End tags are similar, but include a closing backslash. For example, </p>. A complete HTML element looks like this: <CODE><TagName>Content here!</TagName></CODE>"  ],
   "openQuestions": [
     {
-      "question": "Look at the heading tag below",
-      "instructions":"What is the correct way to end the heading tag?",
-      "answer":"</h3>",
-      "explanation":"The tag must end with the heading tag that started it and must include a slash (/)",
-      "codeText": ["<h3>Hello World!", "❌", ""]
-    },
-    {
-      "id": 1,
-      "question": "Look at the code below",
-      "instructions":"What is the correct way to style the code?",
-      "answer":"style=",
-      "explanation":"The CSS attributes must have \"style=\" before it",
-      "codeText": ["<h2 ", "❌", "\"font-size:20px;\"></h2>"]
-    },
-    {
-      "id": 2,
-      "question": "Look at the code below",
-      "instructions":"What should the next line be? (make the content \"c\")",
-      "answer":"<h3>c</h3>",
-      "explanation":"The heading tags should follow a numbered order, from greatest to least",
-      "codeText": ["<h1>a</h1>\n<h2>b</h2>\n", "❌", ""]
+      "question": "Look at the tag below",
+      "instructions":"What is the correct way to end the tag?",
+      "answer":"</Tag>",
+      "explanation":"The tag must end with the same tagname that started it and must include a slash (/)<CODE><h3>Hello World!</h3></CODE>",
+      "codeText": ["<Tag>Hello World!", "❌", ""]
     }
   ],
   "mcQuestions": [
     {
       "id": 0,
-      "question": "What is the correct way to start and end a heading tag?",
-      "explanation": "The heading tag must start and end with the same heading type (h1) and must end with a slash (/)",
+      "question": "What does HTML stand for?",
+      "explanation": "HTML stands for Hyper Text Markup Language!",
       "answers": [
         {
-          "text": "<h1>\n The first usable prototype of the internet came in the late 1960s\n</h2>",
+          "text": "Hyped Up Markup Language",
           "correct": false,
           "id": 0
         },
         {
-          "text": "<h1>\n HTML stands for HyperText Markup Language\n<h1>",
+          "text": "Hyper Stoked Markdown Language",
           "correct": false,
           "id": 1
         },
         {
-          "text": "<h1>\n HTML was first written in 1993\n</h1>",
+          "text": "Hyper Text Markup Language",
           "correct": true,
           "id": 2
         }
@@ -56,21 +40,21 @@
     },
     {
       "id": 1,
-      "question": "What is the correct order for headings?",
-      "explanation": "The heading order must go from 1-6. They must go in order from least to greatest.",
+      "question": "Which of the following is a start tag?",
+      "explanation": "Remember, starting tags appear like this:<CODE><TagName></CODE>Starting tags don't have /'s, only ending tags do.",
       "answers": [
         {
-          "text": "<h3>a</h3>\n<h2>b</h2>\n<h1>c</h1>",
-          "correct": false,
+          "text": "<h>",
+          "correct": true,
           "id": 0
         },
         {
-          "text": "<h1>a</h1>\n<h3>b</h3>\n<h4>c</h4>",
-          "correct": true,
+          "text": "</b>",
+          "correct": false,
           "id": 1
         },
         {
-          "text": "<h1>a</h1>\n<h3>a</h3>\n<h2>a</h2>",
+          "text": "<//i>",
           "correct": false,
           "id": 2
         }
@@ -78,21 +62,21 @@
     },
     {
       "id": 2,
-      "question": "What is the correct way to style a heading tag?",
-      "explanation": "The CSS atribute must be wrapped in quotation marks. The attribute and desired value must be seperated by a colon.",
+      "question": "Which of the following is an end tag?",
+      "explanation": "Ending tags should look like this:<CODE></TagName></CODE> (Don't forget the slash!)",
       "answers": [
         {
-          "text": "<h1 style=fontsize:25px>\nHello World!\n</h1>",
+          "text": "<h>",
           "correct": false,
           "id": 0
         },
         {
-          "text": "<h2 style=\"font-family verdana;\">\nHello World!\n</h2>",
+          "text": "<p/>",
           "correct": false,
           "id": 1
         },
         {
-          "text": "<h3 style=\"color:blue;\">\nHello World!\n</h3>",
+          "text": "</b>",
           "correct": true,
           "id": 2
         }

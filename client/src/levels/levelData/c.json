@@ -1,7 +1,10 @@
 {
     "id":"c",
-    "title":"Images",
-"info":"Example",
+    "title":"Lists & Tables",
+"info":["Lists and tables can be used in HTML to display content in an easy to read and informative format.\n\nHTML lists come in two types, unordered and ordered.  Unordered lists default to circle bullet points. Unordered lists use  <ul> and </ul> tags (Stands for unordered list!) with <i> </i> list elements inside. <CODE><ul>\n<i>Item</i>\n<i>Another item</i>\n</ui></CODE>",
+  "Ordered lists are similar to unordered lists, but have numbers instead of circle bullet points. Ordered lists use <ol> and </ol> tags (Stands for ordered list!) with <i> </i> list elements inside. <CODE><ol>\n<i>Item One</i>\n<i>Item Two</i>\n</ol></CODE>",
+"Html tables are created using the <table> </table> element. <CODE><table></table></CODE>  Each table is split up into rows filled with content. Each row can be created with <tr> and </tr> tags. <CODE><table>\n<tr>   </tr>\n<tr>   </tr>\n</table></CODE>\n\nData can be populated in these rows using <hr> and <hd> components. The <hr> component creates a header, the <hd> component creates text."
+],
 "unlockNext":"d",
     "openQuestions": [
       {
@@ -31,21 +34,21 @@
     "mcQuestions": [
       {
         "id": 0,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"How do you create an ordered list?",
+        "explanation":"Ordered lists can be created using the <ol> component!",
         "answers": [
           {
-            "text":"Example",
-            "correct": false,
+            "text":"<ol>",
+            "correct": true,
             "id": 0
           },
           {
-            "text":"Example",
+            "text":"<lo>",
             "correct": false,
             "id": 1
           },
           {
-            "text":"Example",
+            "text":"<ul>",
             "correct": true,
             "id": 2
           }

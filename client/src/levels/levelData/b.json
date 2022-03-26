@@ -1,51 +1,55 @@
 {
     "id":"b",
-    "title":"Images",
+    "title":"HTML Text Elements",
     "unlockNext":"c",
-"info":"Example",
+"info":[
+  "In HTML, headings are the titles or subtitles that a programmer wants to have displayed on a webpage. HTML headings are defined with tags. These tags can range from <h1> to <h6>. The <h1> heading is the largest, top level, or most important heading. The <h6> heading is the smallest, lowest level, or least important heading.<CODE><h1>I'm big!</h1></CODE><CODE><h6>I'm small!</h6></CODE>",
+  "Headings are important for a variety of reasons. For example, search engines parse headings to identify a web page’s structure. Search engines also use headings to catalog the content of a web page. A web page’s reader also uses headings, often as a way to identify organization, structure, and content of a webpage.",
+  "You can also create bold and italic texts in HTML. Use the <strong> element to create bold text that stands out. <CODE><bold>I'm bold!</bold></CODE> Use the <i> element to create italicized text. <CODE><i>I'm italicized!</i></CODE>"
+],
     "openQuestions": [
       {
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Look at the code below",
+        "instructions":"What is the correct way to end the tag?",
+        "answer":"</strong>",
+        "explanation":"The closing tag for a bold element would be <CODE></strong></CODE>",
+        "codeText": ["<strong> Hello World!", "❌", ""]
       },
       {
         "id": 1,
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Modify the code below",
+        "instructions":"Modify the code to create the lowest level header.",
+        "answer":"h6",
+        "explanation":"Header 6 (<h6>) is the lowest level header!",
+        "codeText": ["<", "❌", ">"]
       },
       {
         "id": 2,
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Modify the code below",
+        "instructions":"Modify the code to create an italicized element.",
+        "answer":"i",
+        "explanation":"The tag for an italicied element is <CODE><i>Hello World!</i></CODE>",
+        "codeText": ["<", "❌", ">"]
       }
     ],
     "mcQuestions": [
       {
         "id": 0,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"Which of the following is not a possible HTML tag?",
+        "explanation":"Remember, header elements range from h1 to h6!",
         "answers": [
           {
-            "text":"Example",
+            "text":"<h1>",
             "correct": false,
             "id": 0
           },
           {
-            "text":"Example",
+            "text":"<h4>",
             "correct": false,
             "id": 1
           },
           {
-            "text":"Example",
+            "text":"<h7>",
             "correct": true,
             "id": 2
           }
@@ -53,53 +57,53 @@
       },
       {
         "id": 1,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"Which of the following is a top level header tag?",
+        "explanation":"Header elements decrease in importance as their number increases. H1 is a top level header, H6 is a bottom level header.",
         "answers": [
           {
-            "text":"Example",
+            "text":"<h6>",
             "correct": false,
             "id": 0
           },
           {
-            "text":"Example",
-            "correct": true,
+            "text":"<h3>",
+            "correct": false,
             "id": 1
           },
           {
-            "text":"Example",
-            "correct": false,
+            "text":"<h1>",
+            "correct": true,
             "id": 2
           }
         ]
       },
       {
         "id": 2,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"How do you create a bold element?",
+        "explanation":"Bold elements are created using the <strong> tag <CODE><strong>I'm bold!</strong></CODE>",
         "answers": [
           {
-            "text":"Example",
+            "text":"<bold>",
             "correct": false,
             "id": 0
           },
           {
-            "text":"Example",
-            "correct": false,
+            "text":"<strong>",
+            "correct": true,
             "id": 1
           },
           {
-            "text":"Example",
-            "correct": true,
+            "text":"<weighted>",
+            "correct": false,
             "id": 2
           }
         ]
       }
     ],
     "challenge":{
-      "correctCode":"<div style='width:100%;height:100%;'><h1>Test</h1><h2>Ok</h2><h3>Yay!</h3></div>",
+      "correctCode":"<div style='width:100%;height:100%;'><h1>I'm a header one!</h1><h2>I'm number two!</h2><h6>I'm the least important header!</h6><strong>I'm bold!</strong><i>I'm italicized!</i></div>",
       "defaultBackground":"<div style='width:100%;height:100%;'></div>",
-      "explanation":"Gj lol"
+      "explanation":"Amazing work! You have clearly mastered your header elements, bold elements, and italicized elements!"
     }
   }
   

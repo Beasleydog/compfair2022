@@ -86,7 +86,7 @@ function Play() {
             </div >
             {popupOpen && <div className="absolute top-0 left-0 w-screen h-screen backdrop-blur-[10px] z-[100]">
                 <div className={`absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-                    z-[100] h-[calc(100vh-190px)]  bg-[#2B3131] rounded-lg
+                    z-[100] h-[calc(100vh-80px)]  bg-[#2B3131] rounded-lg
                     flex flex-col items-center`} >
                     <div className="w-full h-[120px] text-[87px] text-center">
                         {/* Set correct emoji */}
