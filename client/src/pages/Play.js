@@ -94,18 +94,9 @@ function Play() {
                     </div>
                     <div className="overflow-y-scroll flex-grow py-10 text-[22px] text-white font-bold mx-[150px]">
                         {/* Set popup text */}
-                        {mode == "info" ?
-                            infoTextToHTML(popupText[focused])
-                            :
-                            popupText.split("\n").map((x) => {
-                                return (
-                                    <div>
-                                        <div>{x}</div>
-                                        <div className="h-[15px]"></div>
-                                    </div>
-                                )
-                            })
-                        }
+                        {/* {mode == "info" ? */}
+                        {infoTextToHTML(typeof popupText == "Object" ? popupText[focused] : popupText)}
+
                     </div>
                     <div className="flex gap-2">
                         {(mode == "info" && focused > 0) &&
