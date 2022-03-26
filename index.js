@@ -1,118 +1,46 @@
-const express = require("express");
-const path = require("path");
-require("dotenv").config();
-const session = require("express-session");
-const encryptString = require("./helpers/encryptString.js").encryptString;
-const getLevelData = require("./client/src/levels/index.js").getLevelData;
-const firstLevelName = require("./client/src/levels/index.js").firstLevelName;
-const firstLevelId = require("./client/src/levels/index.js").firstLevelId;
+import express from "express"
+import path from "path"
+import session from express-session");
+import encryptString from "./helpers/encryptString.js"
+import getLevelData from "./client/src/levels/index.js"
+import firstLevelName from "./client/src/levels/index.js"
+import firstLevelId from "./client/src/levels/index.js"
 
-const app = express();
-const { MongoClient } = require("mongodb");
+Create server user express
+Initialize mongodb connection
+Initialize sessions 
 
-console.log("test");
+Serve static files from build folder
 
-//Connect to database
-var dbClient = new MongoClient(
-  `mongodb+srv://Admin:GFZ4pTNUbF6g3Ut1@cluster0.cf0lh.mongodb.net/cluster0?retryWrites=true&w=majority`,
-  { useNewUrlParser: true, useUnifiedTopology: true, minPoolSize: 20 }
-);
+Connect to database
+  Set collection to database collection
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, "client/build")));
-app.use(express.json());
-app.use(
-  session({
-    secret: "mUCHDFMShcuoifmhcsdpmcMDPismpicds",
-    saveUninitialized: true,
-    resave: false,
-    cookie: {
-      httpOnly: true,
-      maxAge: 60 * 60 * 1000,
-    },
-  })
-);
-app.use((req, res, next) => {
-  console.log(req.session);
-  next();
-});
+  On request to "/api/auth"
+    Store username and password from body
 
-dbClient.connect().then(function () {
-  const collection = dbClient.db("Dev").collection("Dev");
+    Find user from database
 
-  app.post("/api/auth", async (req, res) => {
-    const { username, password } = req.body;
-    //Get credentials from request
+    Confirm passwords match
+      Send error if no match
+    
+    Create session to keep user logged in
 
-    const user = await collection.findOne({
-      username: username
-    });
-    //Find user from database
+    Return 200
 
-    if (!user) {
-      //If user doesnt exist, error
-      return res.status(403).json({
-        message: 'Wrong email or password.'
-      }
-      )
-    }
+  On request to "/api/logout"
+    Destory user session
 
-    //If passwords dont match...
-    if (encryptString(password) != user.password) {
-      //Error
-      return res.status(403).json({ message: "Incorrect password" });
-    }
+  On request to "/api/createUser"
+    Store username and password from body
 
-    //Set session for user to keep logged in
-    let userInfo = Object.assign({}, { ...user });
-    userInfo.password = undefined;
+    Find user from database
 
-    req.session.user = userInfo;
-    res.status(200).json({ message: "Signin successful" })
-  });
+    If no user
+      Create new user
 
-  app.get("/api/authed", requireAuth, () => { res.status(200); });
-  app.get("/api/logout", requireAuth, (req, res) => {
-    //Logout user
-    req.session.destroy();
-  })
+      Insert user into database
 
-  app.post("/api/createUser", async (req, res) => {
-    const { username, password } = req.body;
-    const user = await collection.findOne({
-      username: username
-    });
-
-    if (!user) {
-      //Create an insert a new user into the database
-      let levelData = {};
-      levelData[firstLevelId()] = {
-        name: firstLevelName(),
-        stars: 0,
-        infoRead: 0,
-        mcQuestions: { failed: false, finished: false },
-        openQuestions: { failed: false, finished: false },
-        challenge: { finished: false },
-      }
-
-      let picData = {
-        bottom: 0,
-        mid: 0,
-        top: 0,
-        face: 0
-      };
-
-      await collection.insertOne({
-        username: username,
-        password: encryptString(password),
-        levels: levelData,
-        stars: 3,
-        profilePic: picData,
-        unlockedItems: { bottom: [], mid: [], top: [], face: [] }
-      });
-      res.status(200).json({
-        message: "Account created"
-      })
+      Return 200
     } else {
       //Account already exists
       return res.status(409).json({
@@ -121,7 +49,7 @@ dbClient.connect().then(function () {
       )
     }
   });
-  app.post("/api/setProfile", requireAuth, async (req, res) => {
+  On request to "/api/setProfile", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -138,7 +66,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/getProfile", requireAuth, async (req, res) => {
+  On request to "/api/getProfile", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -146,7 +74,7 @@ dbClient.connect().then(function () {
     res.json(userObject.profilePic);
   });
 
-  app.post("/api/buyItem", requireAuth, async (req, res) => {
+  On request to "/api/buyItem", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -172,7 +100,7 @@ dbClient.connect().then(function () {
 
 
 
-  app.post("/api/unlockLevel", requireAuth, async (req, res) => {
+  On request to "/api/unlockLevel", requireAuth
 
     //Get user from db
     let userObject = await collection.findOne({ username: req.session.user.username });
@@ -192,7 +120,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/finishSection", requireAuth, async (req, res) => {
+  On request to "/api/finishSection", requireAuth
     let userObject = await collection.findOne({ username: req.session.user.username });
 
     //Check that user hasnt failed section
@@ -227,7 +155,7 @@ dbClient.connect().then(function () {
     return res.send("ok");
   });
 
-  app.post("/api/failSection", requireAuth, async (req, res) => {
+  On request to "/api/failSection", requireAuth
 
     //Fail user section
     let userObject = await collection.findOne({ username: req.session.user.username });
@@ -250,20 +178,20 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/levelData", requireAuth, async (req, res) => {
+  On request to "/api/levelData", requireAuth
     let userObject = await collection.findOne({ username: req.session.user.username });
     //Return level data
     res.json(userObject.levels)
   });
 
 
-  app.get("/api/userData", requireAuth, async (req, res) => {
+  app.get("/api/userData", requireAuth
     let { data } = await collection.findOne({ username: req.session.user.username });
     //Return user data
     return res.status(200).json(data);
   });
 
-  app.post("/api/addStars", requireAuth, async (req, res) => {
+  On request to "/api/addStars", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -277,7 +205,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/getStars", requireAuth, async (req, res) => {
+  On request to "/api/getStars", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -285,7 +213,7 @@ dbClient.connect().then(function () {
     res.send(`${userObject.stars}`);
   });
 
-  app.post("/api/addUnlock", requireAuth, async (req, res) => {
+  On request to "/api/addUnlock", requireAuth
     console.log(1);
     let userObject = await collection.findOne({
       username: req.session.user.username,
@@ -300,7 +228,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/unlockData", requireAuth, async (req, res) => {
+  On request to "/api/unlockData", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -309,7 +237,7 @@ dbClient.connect().then(function () {
     res.json(userObject.unlockedItems);
   });
 
-  app.post("/api/unlockLevel", requireAuth, async (req, res) => {
+  On request to "/api/unlockLevel", requireAuth
     //Get user from db
     let userObject = await collection.findOne({
       username: req.session.user.username,
@@ -332,7 +260,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/finishSection", requireAuth, async (req, res) => {
+  On request to "/api/finishSection", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -369,7 +297,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/failSection", requireAuth, async (req, res) => {
+  On request to "/api/failSection", requireAuth
     //Fail user section
     let userObject = await collection.findOne({
       username: req.session.user.username,
@@ -398,7 +326,7 @@ dbClient.connect().then(function () {
     return res.status(200);
   });
 
-  app.post("/api/levelData", requireAuth, async (req, res) => {
+  On request to "/api/levelData", requireAuth
     let userObject = await collection.findOne({
       username: req.session.user.username,
     });
@@ -406,7 +334,7 @@ dbClient.connect().then(function () {
     res.json(userObject.levels);
   });
 
-  app.get("/api/userData", requireAuth, async (req, res) => {
+  app.get("/api/userData", requireAuth
     let { data } = await collection.findOne({
       username: req.session.user.username,
     });
