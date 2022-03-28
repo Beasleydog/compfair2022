@@ -1,0 +1,94 @@
+{
+    "id":"e",
+    "title":"Basics of CSS",
+    "info":["CSS can be used to more efficiently design multiple web pages at the same time. CSS stands for Cascading Style Sheets. With CSS, you can code the way multiple web pages look (layout, design, format, and more) at the same time.",
+   "By using CSS, you can control a number of design features on your web page. For example, you can code for color, text size, font, the position of elements, the space between elements, how web pages display on different screen sizes and devices, and a whole lot more. ",
+"Include styles in your HTML using the <style> tag. <CODE><style>\n\n</style></CODE> Using CSS you can apply styles to specific elements using ids. Here is an example of adding styles to an element by id. <CODE><h1 id='MyHeader'>Header!</h1>\n\n<style>\n#MyHeader{\nStyles go here\n}\n</style></CODE> Notice the use of the # to specifiy which id and the brackets to contain the styles."],
+"unlockNext":"e",  
+  "openQuestions": [
+      {
+        "question":"Look at the code below",
+        "instructions":"Apply the styles to an element with the id 'MyElement'",
+        "answer":"#MyElement",
+        "explanation":"Use # to specifiy an id in CSS!. <CODE><style>\n#MyHeader{\nStyles go here\n}\n</style></CODE>",
+        "codeText": ["", "❌", "{ Styles go here!}"]
+      },
+      {
+        "id": 1,
+        "question":"Look at the code below",
+        "instructions":"Create a style element",
+        "answer":"style",
+        "explanation":"Use the <style> element to insert CSS in your HTML!",
+        "codeText": ["<", "❌", ">"]
+      }
+    ],
+    "mcQuestions": [
+      {
+        "id": 0,
+        "question":"How do you insert styles into your HTML?",
+        "explanation":"The <style> tag can be used to include styles in your HTML!",
+        "answers": [
+          {
+            "text":"<s>",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"<style>",
+            "correct": true,
+            "id": 1
+          },
+          {
+            "text":"<ids>",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "question":"Which symbol do you use to specifiy an id",
+        "explanation":"Use the # to target a certain element with an id.",
+        "answers": [
+          {
+            "text":"#",
+            "correct": true,
+            "id": 0
+          },
+          {
+            "text":".",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"@",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "question":"What does CSS stand for?",
+        "explanation":"CSS stands for Cascading Style Sheets!",
+        "answers": [
+          {
+            "text":"Cascading Style Sheets",
+            "correct": true,
+            "id": 0
+          },
+          {
+            "text":"Cascading Color Stripes",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"Consecutive Styling Servers",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      }
+    ]
+  }
+  
