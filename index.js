@@ -322,29 +322,6 @@ dbClient.connect().then(function () {
     res.json(userObject.unlockedItems);
   });
 
-  app.post("/api/unlockLevel", requireAuth, async (req, res) => {
-    //Get user from db
-    let userObject = await collection.findOne({
-      username: req.session.user.username,
-    });
-    let level = getLevelData(req.body.id);
-
-    let newLevelValue = {
-      name: level.title,
-      stars: 0,
-      infoRead: 0,
-      mcQuestions: { failed: false, finished: false },
-      openQuestions: { failed: false, finished: false },
-    };
-    userObject.levels[req.body.id] = newLevelValue;
-    //Unlock level for user
-    await collection.updateOne(
-      { username: req.session.user.username },
-      { $set: { levels: userObject.levels } }
-    );
-    return res.status(200);
-  });
-
   app.post("/api/finishSection", requireAuth, async (req, res) => {
     let userObject = await collection.findOne({
       username: req.session.user.username,

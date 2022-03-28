@@ -5,6 +5,8 @@ import { getAllLevels } from "../levels/index.js";
 import { useParams } from "react-router-dom";
 import DisplayProfilePic from "../components/profilePicture.js";
 import Button from "../components/button.js";
+import { getLevelData } from "../levels/index.js";
+
 function Levels() {
   const [levelInfo, setLevelInfo] = useState([]);
   const [stars, setStars] = useState([]);
@@ -163,8 +165,6 @@ function Levels() {
     </div>
   </div>)
 }
-
-
 function UserDisplay({ name, stars, profilePicture }) {
   return (
     <div className="text-white bg-[#E5E7E920] flex flex-col items-center justify-around fixed left-0 backdrop-blur shadow-lg font-bold w-[250px] content-center h-screen z-50">
@@ -207,7 +207,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
         } flex flex-col justify-center items-center rounded-lg p-2 bg-[#1a1c1f] shadow-lg`}
     >
       <div className="z-10 text-white text-[45px] font-bold">{name}</div>
-      <div style={{ gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }} className="grid gap-12 my-10 px-[100px]">
+      <div style={{ gridTemplateColumns: `repeat(${(getLevelData(id).challenge ? 4 : 3)}, minmax(0, 1fr))` }} className="grid gap-12 my-10 px-[100px]">
         <button
           onClick={() => {
             playMode(randomNumber(), id, "info");
@@ -238,7 +238,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
         >
           <img className="w-[125px] h-[125px]" src="/images/keyboard.svg" />
         </button>
-        <button
+        {getLevelData(id).challenge && <button
           onClick={() => {
             playMode(randomNumber(), id, "challenge");
           }}
@@ -247,6 +247,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
         >
           <img className="w-[125px] h-[125px]" src="/images/challenge.svg" />
         </button>
+        }
       </div>
       <div className="flex text-white text-[23px]">
         {0 + (finished.info ? 1 : 0) + (finished.mcQuestions ? 2 : 0) + (finished.openQuestions ? 2 : 0) + (finished.challenge ? 3 : 0)}/8

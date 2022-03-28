@@ -1,72 +1,76 @@
 {
     "id":"d",
-    "title":"Images",
-"info":"Example",
-    "openQuestions": [
+    "title":"Images & Links",
+    "info":["Hyperlinks are important components of almost all webpages. Hyperlinks allow web-developers to easily direct readers to relevant content, elsewhere on the web. By clicking on a link, web page readers can navigate from one web page to another.",
+    "HTML links are clickable hyperlinks. When a user clicks on one HTML link they are auto-directed to the linked content (either on the same web page or on a different web page).",
+    "To define a hyperlink, use the HTML <a> tag. This line of text demonstrates the proper syntax. <CODE><a href=”url”>link text</a></CODE> Focus, for a moment, on the href attribute. This indicates a link’s destination. The link text portion is what is visible to a web page reader. When the reader clicks on the link text, they will be redirected to the associated URL address. ",
+  "Images can be used in HTML to display pictures and spice up your site. Create an image using the <img> tag. <CODE><img src='https://example.com/image.png'></img></CODE> Notice the 'src' portion. This src value gives the image its source url."],
+"unlockNext":"e",  
+  "openQuestions": [
       {
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Look at the code below",
+        "instructions":"Set the source of this image",
+        "answer":"src",
+        "explanation":"Use the 'src' attribute to set the source of an image. <CODE><img src='https://example.com/image.png'></img></CODE>",
+        "codeText": ["<img ", "❌", "='https://example.com/image.png'></img>"]
       },
       {
         "id": 1,
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Look at the code below",
+        "instructions":"Create a link element",
+        "answer":"a",
+        "explanation":"Use the <a> element to create a link element.",
+        "codeText": ["<", "❌", ">"]
       },
       {
         "id": 2,
-        "question":"Example",
-        "instructions":"Example",
-        "answer":"Example",
-        "explanation":"Example",
-        "codeText": ["<div>", "❌", "</div>"]
+        "question":"Look at the code below",
+        "instructions":"Set the link for this link element",
+        "answer":"href=",
+        "explanation":"Use the href attribute to set the link for a link element.<CODE><a href=”url”>link text</a></CODE>",
+        "codeText": ["<a ", "❌", "'https://example.com'>Visit example.com!</a>"]
       }
     ],
     "mcQuestions": [
       {
         "id": 0,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"Which of the following creates a link to example.com?",
+        "explanation":"The 'href' property specifies the link for a link element!",
         "answers": [
           {
-            "text":"Example",
+            "text":"<a tref=”https://example.com/”> Visit Example.com! </a>",
             "correct": false,
             "id": 0
           },
           {
-            "text":"Example",
-            "correct": false,
+            "text":"<a href=”https://example.com/”> Visit Example.com! </a>",
+            "correct": true,
             "id": 1
           },
           {
-            "text":"Example",
-            "correct": true,
+            "text":"<a gref=”https://example.com/”> Visit Example.com! </a>",
+            "correct": false,
             "id": 2
           }
         ]
       },
       {
         "id": 1,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"Which of the following tags defines a hyperlink?",
+        "explanation":"Use the <a> tag to create a link! <CODE><a href='https://example.com'>Go to example.com!</a></CODE>",
         "answers": [
           {
-            "text":"Example",
-            "correct": false,
+            "text":"<a>",
+            "correct": true,
             "id": 0
           },
           {
-            "text":"Example",
-            "correct": true,
+            "text":"<l>",
+            "correct": false,
             "id": 1
           },
           {
-            "text":"Example",
+            "text":"<li>",
             "correct": false,
             "id": 2
           }
@@ -74,21 +78,21 @@
       },
       {
         "id": 2,
-        "question":"Example",
-        "explanation":"Example",
+        "question":"How do you set the source of an image?",
+        "explanation":"Use the 'src' element to set the source of an image!",
         "answers": [
           {
-            "text":"Example",
+            "text":"href",
             "correct": false,
             "id": 0
           },
           {
-            "text":"Example",
+            "text":"link",
             "correct": false,
             "id": 1
           },
           {
-            "text":"Example",
+            "text":"src",
             "correct": true,
             "id": 2
           }
@@ -96,9 +100,9 @@
       }
     ],
     "challenge":{
-      "correctCode":"<div style='width:100%;height:100%;'><h1>Test</h1><h2>Ok</h2><h3>Yay!</h3></div>",
+      "correctCode":"<div style='width:100%;height:100%;'><a href='https://example.com'>Go to https://example.com</a></div>",
       "defaultBackground":"<div style='width:100%;height:100%;'></div>",
-      "explanation":"Gj lol"
+      "explanation":"Great work! Nice job learning about links and images!"
     }
   }
   

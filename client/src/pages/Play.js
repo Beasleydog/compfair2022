@@ -130,7 +130,13 @@ function Play() {
                                 if (number == levelData.openQuestions.length - 1) {
                                     //User finished open ended, redirect back
                                     finishSection(id, mode, attemptNumber, () => {
-                                        window.location.replace("/levels");
+                                        if (!levelData.challenge) {
+                                            finishLevel(levelData, () => {
+                                                window.location.replace("/levels");
+                                            });
+                                        } else {
+                                            window.location.replace("/levels");
+                                        }
                                     });
                                 } else {
                                     //Next opne ended
