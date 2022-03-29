@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 //Get list of all levels
-let levelList = ["a", "b", "c", "d", "e"];
+let levelList = ["a", "b", "c", "d", "e", "f"];
 levelList = levelList.map((x) => {
     return require(`./levelData/${x}.json`);
 });
