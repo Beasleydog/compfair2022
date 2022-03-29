@@ -1,0 +1,100 @@
+{
+    "id":"g",
+    "title":"CSS Borders",
+"info":[
+  "Usning CSS, it's possible to set borders around HTML elements. With CSS border properties you can modify the style, the width, and even the color of a border.",
+  "To add a border to an element, use the border-style CSS attribute. This attribute can be set to many values, such as solid, dotted, and dashed. <CODE><style>\n#MyHeader{\nborder-style:solid;\n}\n</style></CODE>",
+  "To set a color for your border, use the border-color CSS attribute. For now, focus on setting this value to a built in CSS color. <CODE><style>\n#MyHeader{\nborder-style:solid;\nborder-width:5px;\nborder-color:green;\n}\n</style></CODE>"
+],
+    "openQuestions": [
+      {
+        "question":"Look at the code below",
+        "instructions":"What is the correct way to set the width of the border?",
+        "answer":"border-width",
+        "explanation":"You can use the border-width CSS attribute to specify the width for a border. <CODE><style>\n#MyHeader{\nborder-width:2px;\n}\n</style></CODE>",
+        "codeText": ["<style>\n#MyHeader{\n","❌",":2px;\n}\n</style>"]
+      },
+      {
+        "id": 1,
+        "question":"Modify the code below",
+        "instructions":"Set the border to dashed.",
+        "answer":"border-style",
+        "explanation":"You can use the border-style CSS attribute to specify the style for a border. <CODE><style>\n#MyHeader{\nborder-style:dashed;\n}\n</style></CODE>",
+        "codeText": ["<style>\n#MyHeader{\n","❌",":dashed;\n}\n</style>"]
+      }
+    ],
+    "mcQuestions": [
+      {
+        "id": 0,
+        "question":"Which CSS attribute can be used to set border color?",
+        "explanation":"Remember, use the border-color CSS attribute to set border color!",
+        "answers": [
+          {
+            "text":"background-color",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"border-color",
+            "correct": true,
+            "id": 1
+          },
+          {
+            "text":"outer-color",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "question":"Which CSS attribute is used to set the border style?",
+        "explanation":"Remember, use the border-style CSS attribute to set the border style!",
+        "answers": [
+          {
+            "text":"border-display",
+            "correct": false,
+            "id": 0
+          },
+          {
+            "text":"border-look",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"border-style",
+            "correct": true,
+            "id": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "question":"Which of the following is NOT a valid border style?",
+        "explanation":"Valid border styles include dotted, dashed, solid, double, groove, ride, inset, none, and hidden. Not linear!",
+        "answers": [
+          {
+            "text":"linear",
+            "correct": true,
+            "id": 0
+          },
+          {
+            "text":"none",
+            "correct": false,
+            "id": 1
+          },
+          {
+            "text":"solid",
+            "correct": false,
+            "id": 2
+          }
+        ]
+      }      
+    ],
+    "challenge":{
+      "correctCode":"<div style='width:100%;height:100%;'><h1 style='border-style:solid;border-color:blue;background-color:green;'>I'm a the lowest header with a blue solid border and a green background!</h1></div>",
+      "defaultBackground":"<div style='width:100%;height:100%;'></div>",
+      "explanation":"Great work learning all about borders! \n\nThanks for playing DevBytes, we hope you learned a lot about HTML and CSS and will continue your development career!"
+    }
+  }
+  
