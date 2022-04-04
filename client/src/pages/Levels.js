@@ -250,7 +250,7 @@ function LevelDisplay({ name, stars, locked, finished, failed, unlocked, id }) {
         }
       </div>
       <div className="flex text-white text-[23px]">
-        {0 + (finished.info ? 1 : 0) + (finished.mcQuestions ? 2 : 0) + (finished.openQuestions ? 2 : 0) + (finished.challenge ? 3 : 0)}/8
+        {0 + (finished.info ? 1 : 0) + (finished.mcQuestions ? 2 : 0) + (finished.openQuestions ? 2 : 0) + (finished.challenge ? 3 : 0)}/{getLevelData(id).challenge ? 8 : 5}
         <img
           className="drop-shadow inline w-[35px] -mt-[9px]"
           src="/images/star.svg"
